@@ -26,7 +26,8 @@ namespace osu.Game.Rulesets.Space.Beatmaps
             {
                 Samples = original.Samples,
                 StartTime = original.StartTime,
-                Position = (original as IHasPosition)?.Position ?? Vector2.Zero,
+                X = ((IHasXPosition)original).X,
+                Y = ((IHasYPosition)original).Y,
             };
         }
     }
