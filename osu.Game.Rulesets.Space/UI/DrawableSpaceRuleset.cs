@@ -1,6 +1,4 @@
-﻿// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the MIT Licence.
-// See the LICENCE file in the repository root for full licence text.
-
+﻿
 using System.Collections.Generic;
 using osu.Framework.Allocation;
 using osu.Framework.Input;
@@ -13,6 +11,8 @@ using osu.Game.Rulesets.Space.Replays;
 using osu.Game.Rulesets.Mods;
 using osu.Game.Rulesets.Objects.Drawables;
 using osu.Game.Rulesets.UI;
+using osu.Framework.Graphics;
+using osuTK;
 
 namespace osu.Game.Rulesets.Space.UI
 {
@@ -24,7 +24,15 @@ namespace osu.Game.Rulesets.Space.UI
         {
         }
 
-        protected override Playfield CreatePlayfield() => new SpacePlayfield();
+        protected override Playfield CreatePlayfield() => new SpacePlayfield
+        {
+            Anchor = Anchor.Centre,
+            Origin = Anchor.Centre,
+            RelativeSizeAxes = Axes.Both,
+            Size = new Vector2(0.5f),
+            FillMode = FillMode.Fit,
+            FillAspectRatio = 1,
+        };
 
         protected override ReplayInputHandler CreateReplayInputHandler(Replay replay) => new SpaceFramedReplayInputHandler(replay);
 

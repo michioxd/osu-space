@@ -1,6 +1,6 @@
-﻿// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the MIT Licence.
-// See the LICENCE file in the repository root for full licence text.
-
+﻿
+using osu.Game.Beatmaps;
+using osu.Game.Beatmaps.ControlPoints;
 using osu.Game.Rulesets.Judgements;
 using osu.Game.Rulesets.Objects;
 using osu.Game.Rulesets.Objects.Types;
@@ -8,22 +8,21 @@ using osuTK;
 
 namespace osu.Game.Rulesets.Space.Objects
 {
-    public class SpaceHitObject : HitObject, IHasPosition
+    public class SpaceHitObject : HitObject
     {
+        public float X { get; set; }
+        public float Y { get; set; }
         public override Judgement CreateJudgement() => new Judgement();
 
         public Vector2 Position { get; set; }
 
-        public float X
-        {
-            get => Position.X;
-            set => Position = new Vector2(value, Y);
-        }
+        public double TimePreempt = 600;
 
-        public float Y
+        protected override void ApplyDefaultsToSelf(ControlPointInfo controlPointInfo, IBeatmapDifficultyInfo difficulty)
         {
-            get => Position.Y;
-            set => Position = new Vector2(X, value);
+            base.ApplyDefaultsToSelf(controlPointInfo, difficulty);
+
+            TimePreempt = (float)IBeatmapDifficultyInfo.DifficultyRange(difficulty.ApproachRate, 3500, 2500, 1500);
         }
     }
 }
