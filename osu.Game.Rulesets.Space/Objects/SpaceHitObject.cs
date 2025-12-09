@@ -9,7 +9,6 @@ namespace osu.Game.Rulesets.Space.Objects
 {
     public class SpaceHitObject : HitObject
     {
-        public int Index { get; set; }
         public float X { get; set; }
         public float Y { get; set; }
         public override Judgement CreateJudgement() => new Judgement();
@@ -23,6 +22,8 @@ namespace osu.Game.Rulesets.Space.Objects
                 Y = value.Y;
             }
         }
+
+        public int Index { get; set; }
 
         public double TimePreempt = 600;
 

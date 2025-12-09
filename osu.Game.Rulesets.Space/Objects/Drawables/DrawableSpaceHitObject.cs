@@ -7,6 +7,7 @@ using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
+using osu.Framework.Logging;
 using osu.Game.Audio;
 using osu.Game.Rulesets.Objects.Drawables;
 using osu.Game.Rulesets.Scoring;
@@ -32,6 +33,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
         private readonly Bindable<bool> halfGhost = new Bindable<bool>();
         private readonly Bindable<float> noteThickness = new Bindable<float>();
         private readonly Bindable<float> noteCornerRadius = new Bindable<float>();
+        private readonly Bindable<SpacePalette> palette = new Bindable<SpacePalette>();
 
         public DrawableSpaceHitObject(SpaceHitObject hitObject)
             : base(hitObject)
@@ -57,6 +59,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             config?.BindWith(SpaceRulesetSetting.halfGhost, halfGhost);
             config?.BindWith(SpaceRulesetSetting.NoteThickness, noteThickness);
             config?.BindWith(SpaceRulesetSetting.NoteCornerRadius, noteCornerRadius);
+            config?.BindWith(SpaceRulesetSetting.Palette, palette);
 
             AddInternal(content = new Container
             {
@@ -72,6 +75,8 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
                     AlwaysPresent = true,
                 }
             });
+
+            palette.BindValueChanged(_ => updateColor(), true);
         }
 
         public override IEnumerable<HitSampleInfo> GetSamples() => new[]
@@ -79,13 +84,17 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             new HitSampleInfo(HitSampleInfo.HIT_NORMAL)
         };
 
+        private void updateColor()
+        {
+            var colors = SpacePaletteHelper.GetColors(palette.Value);
+            content.Colour = colors[HitObject.Index % colors.Length];
+        }
+
         protected override void Update()
         {
             base.Update();
 
             if (Judged && Result?.Type != HitResult.Miss) return;
-
-            // int noteIndex = HitObject.Index;
 
             content.BorderThickness = SpacePlayfield.BASE_SIZE.X / 3f / (11f - noteThickness.Value);
             content.CornerRadius = SpacePlayfield.BASE_SIZE.X / 3f / (11f - noteCornerRadius.Value);

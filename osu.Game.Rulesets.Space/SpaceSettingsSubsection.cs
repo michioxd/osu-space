@@ -52,6 +52,11 @@ namespace osu.Game.Rulesets.Space
                     LabelText = RulesetSettingsStrings.PlayfieldBorderStyle,
                     Current = config.GetBindable<PlayfieldBorderStyle>(SpaceRulesetSetting.PlayfieldBorderStyle),
                 },
+                new SettingsEnumDropdown<SpacePalette>
+                {
+                    LabelText = "Color Palette",
+                    Current = config.GetBindable<SpacePalette>(SpaceRulesetSetting.Palette),
+                },
                 new SettingsSlider<float>
                 {
                     LabelText = "Note Thickness",

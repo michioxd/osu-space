@@ -34,6 +34,7 @@ namespace osu.Game.Rulesets.Space.Configuration
             SetDefault(SpaceRulesetSetting.halfGhost, false);
             SetDefault(SpaceRulesetSetting.NoteThickness, 5f, 0.5f, 10f, 0.5f);
             SetDefault(SpaceRulesetSetting.NoteCornerRadius, 7f, 0.5f, 9f, 0.5f);
+            SetDefault(SpaceRulesetSetting.Palette, SpacePalette.White);
         }
 
     }
@@ -53,5 +54,6 @@ namespace osu.Game.Rulesets.Space.Configuration
         halfGhost,
         NoteThickness,
         NoteCornerRadius,
+        Palette
     }
 }
