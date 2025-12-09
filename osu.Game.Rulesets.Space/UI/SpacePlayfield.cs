@@ -5,12 +5,15 @@ using osu.Framework.Graphics.Containers;
 using osu.Game.Rulesets.UI;
 using osuTK.Graphics;
 using osu.Game.Rulesets.Space.UI.Cursor;
+using osuTK;
 
 namespace osu.Game.Rulesets.Space.UI
 {
     [Cached]
     public partial class SpacePlayfield : Playfield
     {
+        public static readonly Vector2 BASE_SIZE = new(512, 512);
+
         protected override GameplayCursorContainer CreateCursor() => new SpaceCursorContainer
         {
             RelativeSizeAxes = Axes.Both

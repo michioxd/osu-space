@@ -31,7 +31,7 @@ namespace osu.Game.Rulesets.Space.UI
             RelativeSizeAxes = Axes.Both,
             Size = new Vector2(0.6f),
             FillMode = FillMode.Fit,
-            FillAspectRatio = 1,
+            FillAspectRatio = SpacePlayfield.BASE_SIZE.X / SpacePlayfield.BASE_SIZE.Y,
         };
 
         protected override ReplayInputHandler CreateReplayInputHandler(Replay replay) => new SpaceFramedReplayInputHandler(replay);

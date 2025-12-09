@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using osu.Framework.Allocation;
@@ -72,40 +73,35 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
 
             double preempt = HitObject.TimePreempt;
 
-            const float start_z = 50f;
-            const float hit_z = 1f;
+            const float camera_z = 3.75f;
 
-            float timeProgress = (float)(timeRemaining / preempt);
-            float z = hit_z + (start_z - hit_z) * timeProgress;
+            float ar = Math.Max(1f, ruleset.Beatmap.Difficulty.ApproachRate);
+            float speed = ar * 10f;
 
-            if (z <= 0f)
-            {
-                Alpha = 0;
-                return;
-            }
+            float current_dist = speed * (float)(timeRemaining / 1000);
+            float z = camera_z + current_dist;
 
-            float scale = hit_z / z;
-
+            float scale = camera_z / z;
             Scale = new Vector2(scale);
 
-            Vector2 targetRelative = new Vector2(HitObject.X / 512f, HitObject.Y / 384f);
+            Vector2 targetRelative = new Vector2(HitObject.X / SpacePlayfield.BASE_SIZE.X, HitObject.Y / SpacePlayfield.BASE_SIZE.Y);
             Vector2 center = new Vector2(0.5f, 0.5f);
             Vector2 offset = targetRelative - center;
 
             Position = center + offset * scale;
             RelativePositionAxes = Axes.Both;
 
-            float fadeInStart = start_z;
-            float fadeInEnd = start_z * 0.6f;
+            float spawn_distance = speed * (float)(preempt / 1000);
+            float fade_in_end = speed * 0.1f;
 
             float alpha = 1f;
-
-            if (z > fadeInEnd)
+            if (current_dist > fade_in_end)
             {
-                alpha = (fadeInStart - z) / (fadeInStart - fadeInEnd);
+                float fadeProgress = (spawn_distance - current_dist) / (spawn_distance - fade_in_end);
+                alpha = MathF.Pow(Math.Clamp(fadeProgress, 0, 1), 1.3f);
             }
 
-            Alpha = System.Math.Clamp(alpha, 0, 1);
+            Alpha = alpha;
         }
 
         protected override void CheckForResult(bool userTriggered, double timeOffset)
