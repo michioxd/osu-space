@@ -35,7 +35,7 @@ namespace osu.Game.Rulesets.Space
             switch (type)
             {
                 case ModType.Automation:
-                    return new[] { new SpaceModAutoplay() };
+                    return [new SpaceModAutoplay()];
 
                 default:
                     return Array.Empty<Mod>();
