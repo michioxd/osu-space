@@ -55,6 +55,9 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
         {
             base.LoadComplete();
 
+            if (ActiveCursor != null)
+                ActiveCursor.Position = DrawSize / 2;
+
             showTrail.BindValueChanged(v => cursorTrail.FadeTo(v.NewValue ? 1 : 0, 200), true);
 
             ActiveCursor.CursorScale.BindValueChanged(e =>

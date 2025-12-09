@@ -30,6 +30,8 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
         private readonly Bindable<float> fadeLength = new Bindable<float>();
         private readonly Bindable<bool> doNotPushBack = new Bindable<bool>();
         private readonly Bindable<bool> halfGhost = new Bindable<bool>();
+        private readonly Bindable<float> noteThickness = new Bindable<float>();
+        private readonly Bindable<float> noteCornerRadius = new Bindable<float>();
 
         public DrawableSpaceHitObject(SpaceHitObject hitObject)
             : base(hitObject)
@@ -53,6 +55,8 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             config?.BindWith(SpaceRulesetSetting.fadeLength, fadeLength);
             config?.BindWith(SpaceRulesetSetting.doNotPushBack, doNotPushBack);
             config?.BindWith(SpaceRulesetSetting.halfGhost, halfGhost);
+            config?.BindWith(SpaceRulesetSetting.NoteThickness, noteThickness);
+            config?.BindWith(SpaceRulesetSetting.NoteCornerRadius, noteCornerRadius);
 
             AddInternal(content = new Container
             {
@@ -82,6 +86,9 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             if (Judged && Result?.Type != HitResult.Miss) return;
 
             // int noteIndex = HitObject.Index;
+
+            content.BorderThickness = SpacePlayfield.BASE_SIZE.X / 3f / (11f - noteThickness.Value);
+            content.CornerRadius = SpacePlayfield.BASE_SIZE.X / 3f / (11f - noteCornerRadius.Value);
 
             float userNoteOpacity = noteOpacity.Value;
             float userNoteScale = noteScale.Value;

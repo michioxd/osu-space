@@ -54,6 +54,20 @@ namespace osu.Game.Rulesets.Space
                 },
                 new SettingsSlider<float>
                 {
+                    LabelText = "Note Thickness",
+                    TooltipText = "Thickness of the notes' borders",
+                    Current = config.GetBindable<float>(SpaceRulesetSetting.NoteThickness),
+                    KeyboardStep = 0.5f,
+                },
+                new SettingsSlider<float>
+                {
+                    LabelText = "Note Corner Radius",
+                    TooltipText = "Roundness of the notes' corners",
+                    Current = config.GetBindable<float>(SpaceRulesetSetting.NoteCornerRadius),
+                    KeyboardStep = 0.5f,
+                },
+                new SettingsSlider<float>
+                {
                     LabelText = "Note Opacity",
                     TooltipText = "How opaque/transparent/visible the note appears",
                     Current = config.GetBindable<float>(SpaceRulesetSetting.noteOpacity),
