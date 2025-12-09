@@ -29,7 +29,7 @@ namespace osu.Game.Rulesets.Space.UI
             Anchor = Anchor.Centre,
             Origin = Anchor.Centre,
             RelativeSizeAxes = Axes.Both,
-            Size = new Vector2(0.5f),
+            Size = new Vector2(0.6f),
             FillMode = FillMode.Fit,
             FillAspectRatio = 1,
         };

@@ -26,7 +26,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
         public DrawableSpaceHitObject(SpaceHitObject hitObject)
             : base(hitObject)
         {
-            Size = new Vector2(80);
+            Size = new Vector2(100);
             Origin = Anchor.Centre;
             Scale = Vector2.Zero;
             Alpha = 0;
@@ -42,8 +42,8 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             {
                 RelativeSizeAxes = Axes.Both,
                 Masking = true,
-                CornerRadius = 10,
-                BorderThickness = 10,
+                CornerRadius = 15,
+                BorderThickness = 15,
                 BorderColour = Color4.White,
                 Child = box = new Box
                 {
@@ -118,6 +118,13 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
 
         protected override void CheckForResult(bool userTriggered, double timeOffset)
         {
+            if (timeOffset >= 0)
+            {
+                // testing only
+                ApplyMaxResult();
+                return;
+
+            }
             if (Judged) return;
 
             bool isHit = false;
