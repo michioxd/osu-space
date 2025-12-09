@@ -15,6 +15,7 @@ using osu.Game.Rulesets.Scoring;
 using osu.Game.Rulesets.Space.UI;
 using osuTK;
 using osuTK.Graphics;
+using osu.Framework.Graphics.Colour;
 
 namespace osu.Game.Rulesets.Space.Objects.Drawables
 {
@@ -52,11 +53,13 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
                     AlwaysPresent = true,
                 }
             });
-
-            // if (HitObject.X > 256)
-            //     content.BorderColour = Color4.Cyan;
-            // else
-            //     content.BorderColour = Color4.HotPink;
+            double index = HitObject.StartTime;
+            if (index % 3 == 1)
+                content.BorderColour = Colour4.FromHex("#BADFDB");
+            else if (index % 3 == 2)
+                content.BorderColour = Colour4.FromHex("#FFBDBD");
+            else
+                content.BorderColour = Color4.White;
         }
 
         public override IEnumerable<HitSampleInfo> GetSamples() => new[]
