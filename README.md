@@ -10,6 +10,7 @@ Custom game mode for [osu!(lazer)](https://github.com/ppy/osu) based on [Sound S
 
 - Unique hit objects and gameplay mechanics inspired by Sound Space.
 - Customizable playfield.
+- Online check update.
 - Autoplay
 - enjoy
 
