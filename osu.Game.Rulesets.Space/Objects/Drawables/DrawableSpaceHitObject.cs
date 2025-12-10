@@ -1,18 +1,14 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
-using osu.Framework.Logging;
 using osu.Game.Audio;
 using osu.Game.Rulesets.Objects.Drawables;
 using osu.Game.Rulesets.Scoring;
 using osu.Game.Rulesets.Space.Configuration;
-using osu.Game.Rulesets.Space.Mods;
 using osu.Game.Rulesets.Space.UI;
 using osuTK;
 using osuTK.Graphics;
@@ -24,21 +20,22 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
         private Container content;
         private Box box;
 
-        private readonly Bindable<float> noteOpacity = new Bindable<float>();
-        private readonly Bindable<float> noteScale = new Bindable<float>();
-        private readonly Bindable<float> approachRate = new Bindable<float>();
-        private readonly Bindable<float> spawnDistance = new Bindable<float>();
-        private readonly Bindable<float> fadeLength = new Bindable<float>();
-        private readonly Bindable<bool> doNotPushBack = new Bindable<bool>();
-        private readonly Bindable<bool> halfGhost = new Bindable<bool>();
-        private readonly Bindable<float> noteThickness = new Bindable<float>();
-        private readonly Bindable<float> noteCornerRadius = new Bindable<float>();
-        private readonly Bindable<SpacePalette> palette = new Bindable<SpacePalette>();
+        private readonly Bindable<float> noteOpacity = new();
+        private readonly Bindable<float> noteScale = new();
+        private readonly Bindable<float> approachRate = new();
+        private readonly Bindable<float> spawnDistance = new();
+        private readonly Bindable<float> fadeLength = new();
+        private readonly Bindable<bool> doNotPushBack = new();
+        private readonly Bindable<bool> halfGhost = new();
+        private readonly Bindable<float> noteThickness = new();
+        private readonly Bindable<float> noteCornerRadius = new();
+        private readonly Bindable<SpacePalette> palette = new();
+        private readonly Bindable<float> scalePlayfield = new();
 
         public DrawableSpaceHitObject(SpaceHitObject hitObject)
             : base(hitObject)
         {
-            Size = new Vector2(SpacePlayfield.BASE_SIZE.X / 3f);
+            Size = new Vector2(SpacePlayfield.BASE_SIZE / 3f);
             Origin = Anchor.Centre;
             Scale = Vector2.Zero;
             Alpha = 0;
@@ -60,13 +57,14 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             config?.BindWith(SpaceRulesetSetting.NoteThickness, noteThickness);
             config?.BindWith(SpaceRulesetSetting.NoteCornerRadius, noteCornerRadius);
             config?.BindWith(SpaceRulesetSetting.Palette, palette);
+            config?.BindWith(SpaceRulesetSetting.ScalePlayfield, scalePlayfield);
 
             AddInternal(content = new Container
             {
                 RelativeSizeAxes = Axes.Both,
                 Masking = true,
-                CornerRadius = SpacePlayfield.BASE_SIZE.X / 3f / 3f,
-                BorderThickness = SpacePlayfield.BASE_SIZE.X / 3f / 5.5f,
+                CornerRadius = SpacePlayfield.BASE_SIZE / 3f / 3f,
+                BorderThickness = SpacePlayfield.BASE_SIZE / 3f / 5.5f,
                 BorderColour = Color4.White,
                 Child = box = new Box
                 {
@@ -96,8 +94,8 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
 
             if (Judged && Result?.Type != HitResult.Miss) return;
 
-            content.BorderThickness = SpacePlayfield.BASE_SIZE.X / 3f / (11f - noteThickness.Value);
-            content.CornerRadius = SpacePlayfield.BASE_SIZE.X / 3f / (11f - noteCornerRadius.Value);
+            content.BorderThickness = SpacePlayfield.BASE_SIZE / 3f / (11f - noteThickness.Value);
+            content.CornerRadius = SpacePlayfield.BASE_SIZE / 3f / (11f - noteCornerRadius.Value);
 
             float userNoteOpacity = noteOpacity.Value;
             float userNoteScale = noteScale.Value;
@@ -131,7 +129,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             float scale = camera_z / z;
             Scale = new Vector2(scale * userNoteScale);
 
-            Vector2 targetRelative = new Vector2(HitObject.X / SpacePlayfield.BASE_SIZE.X, HitObject.Y / SpacePlayfield.BASE_SIZE.Y);
+            Vector2 targetRelative = new Vector2(HitObject.X / SpacePlayfield.BASE_SIZE, HitObject.Y / SpacePlayfield.BASE_SIZE);
             Vector2 center = new Vector2(0.5f, 0.5f);
             Vector2 offset = targetRelative - center;
 
@@ -188,13 +186,13 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
 
             if (isHit && timeOffset >= -HitObject.HitWindows.WindowFor(HitResult.Great) && timeOffset <= HitObject.HitWindows.WindowFor(HitResult.Great))
             {
-                ApplyResult(HitResult.Great);
+                ApplyMaxResult();
                 return;
             }
 
             if (!HitObject.HitWindows.CanBeHit(timeOffset))
             {
-                ApplyResult(HitResult.Miss);
+                ApplyMinResult();
             }
         }
 

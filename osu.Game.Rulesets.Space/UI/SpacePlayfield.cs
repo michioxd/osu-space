@@ -8,6 +8,7 @@ using osuTK.Graphics;
 using osu.Game.Rulesets.Space.UI.Cursor;
 using osuTK;
 using osu.Game.Rulesets.Space.Configuration;
+using osu.Framework.Bindables;
 
 namespace osu.Game.Rulesets.Space.UI
 {
@@ -15,7 +16,11 @@ namespace osu.Game.Rulesets.Space.UI
     public partial class SpacePlayfield : Playfield
     {
         private readonly PlayfieldBorder playfieldBorder;
-        public static readonly Vector2 BASE_SIZE = new(512, 512);
+        private readonly Container contentContainer;
+        private readonly Bindable<float> parallaxStrength = new();
+        public static readonly float BASE_SIZE = 512;
+
+        public static readonly float PLAYFIELD_SIZE = 0.6f;
 
         protected override GameplayCursorContainer CreateCursor() => new SpaceCursorContainer
         {
@@ -27,15 +32,17 @@ namespace osu.Game.Rulesets.Space.UI
             Origin = Anchor.Centre;
             InternalChildren =
             [
-                new Container
+                contentContainer = new Container
                 {
                     RelativeSizeAxes = Axes.Both,
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
                     Masking = false,
-                    Size = new Vector2(0.6f),
+                    Size = new Vector2(
+                        0.6f
+                    ),
                     FillMode = FillMode.Fit,
-                    FillAspectRatio = BASE_SIZE.X / BASE_SIZE.Y,
+                    FillAspectRatio = 1,
                     Children =
                     [
                         playfieldBorder = new PlayfieldBorder
@@ -48,10 +55,25 @@ namespace osu.Game.Rulesets.Space.UI
             ];
         }
 
+        protected override void Update()
+        {
+            base.Update();
+
+            if (Cursor?.ActiveCursor != null)
+            {
+                Vector2 cursorPosition = ToLocalSpace(Cursor.ActiveCursor.ScreenSpaceDrawQuad.Centre);
+                Vector2 center = DrawSize / 2;
+                Vector2 offset = (cursorPosition - center) * (0.025f * parallaxStrength.Value);
+
+                contentContainer.Position = -offset;
+            }
+        }
+
         [BackgroundDependencyLoader]
         private void load(SpaceRulesetConfigManager? config)
         {
             config?.BindWith(SpaceRulesetSetting.PlayfieldBorderStyle, playfieldBorder.PlayfieldBorderStyle);
+            config?.BindWith(SpaceRulesetSetting.Parallax, parallaxStrength);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
 
         private readonly Container<Drawable> fadeContainer;
 
-        private readonly Bindable<bool> showTrail = new Bindable<bool>(true);
+        private readonly Bindable<bool> showTrail = new(true);
 
         private readonly SkinnableDrawable cursorTrail;
 
@@ -83,7 +83,7 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
             base.OnMouseMove(e);
             if (ActiveCursor != null)
             {
-                Vector2 availableSize = DrawSize * 0.6f;
+                Vector2 availableSize = DrawSize * SpacePlayfield.PLAYFIELD_SIZE;
                 float side = Math.Min(availableSize.X, availableSize.Y);
                 Vector2 actualSize = new Vector2(side);
 

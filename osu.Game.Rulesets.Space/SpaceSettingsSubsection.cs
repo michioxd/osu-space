@@ -129,7 +129,14 @@ namespace osu.Game.Rulesets.Space
                     TooltipText = "Useful for patterns that fill the whole screen",
                     Keywords = new[] { "ghost", "transparency", "alpha" },
                     Current = config.GetBindable<bool>(SpaceRulesetSetting.halfGhost)
-                }
+                },
+                new SettingsSlider<float>
+                {
+                    LabelText = "Parallax Strength",
+                    TooltipText = "Strength of the parallax effect on the playfield (higher values = stronger effect, 0 = disable)",
+                    Current = config.GetBindable<float>(SpaceRulesetSetting.Parallax),
+                    KeyboardStep = 0.1f,
+                },
             };
 
             paletteSelector.SetNoticeText("Some colors extracted from Sound Space Plus (Rhythia)");

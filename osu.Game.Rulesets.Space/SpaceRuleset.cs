@@ -44,7 +44,8 @@ namespace osu.Game.Rulesets.Space
         {
             return
             [
-                HitResult.Great,
+                HitResult.Perfect,
+                HitResult.Miss
             ];
         }
 

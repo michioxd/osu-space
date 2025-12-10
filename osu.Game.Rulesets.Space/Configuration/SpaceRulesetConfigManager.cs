@@ -35,8 +35,9 @@ namespace osu.Game.Rulesets.Space.Configuration
             SetDefault(SpaceRulesetSetting.NoteThickness, 5f, 0.5f, 10f, 0.5f);
             SetDefault(SpaceRulesetSetting.NoteCornerRadius, 7f, 0.5f, 9f, 0.5f);
             SetDefault(SpaceRulesetSetting.Palette, SpacePalette.White);
+            SetDefault(SpaceRulesetSetting.Parallax, 5f, 0.0f, 25f, 0.1f);
+            SetDefault(SpaceRulesetSetting.ScalePlayfield, 1f, 0.2f, 2f, 0.1f);
         }
-
     }
 
     public enum SpaceRulesetSetting
@@ -54,6 +55,8 @@ namespace osu.Game.Rulesets.Space.Configuration
         halfGhost,
         NoteThickness,
         NoteCornerRadius,
-        Palette
+        Palette,
+        Parallax,
+        ScalePlayfield
     }
 }

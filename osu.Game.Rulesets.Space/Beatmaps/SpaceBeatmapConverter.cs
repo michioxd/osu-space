@@ -93,8 +93,8 @@ namespace osu.Game.Rulesets.Space.Beatmaps
                 Index = index,
                 Samples = original.Samples,
                 StartTime = original.StartTime,
-                X = (col + 0.5f) * (SpacePlayfield.BASE_SIZE.X / 3f),
-                Y = (row + 0.5f) * (SpacePlayfield.BASE_SIZE.Y / 3f),
+                X = (col + 0.5f) * (SpacePlayfield.BASE_SIZE / 3f),
+                Y = (row + 0.5f) * (SpacePlayfield.BASE_SIZE / 3f),
             };
         }
 
@@ -102,8 +102,8 @@ namespace osu.Game.Rulesets.Space.Beatmaps
         {
             float x = ((IHasXPosition)hitObject).X;
             float y = ((IHasYPosition)hitObject).Y;
-            int col = Math.Clamp((int)(x / (SpacePlayfield.BASE_SIZE.X / 3f)), 0, 2);
-            int row = Math.Clamp((int)(y / (SpacePlayfield.BASE_SIZE.Y / 3f)), 0, 2);
+            int col = Math.Clamp((int)(x / (SpacePlayfield.BASE_SIZE / 3f)), 0, 2);
+            int row = Math.Clamp((int)(y / (SpacePlayfield.BASE_SIZE / 3f)), 0, 2);
             return (col, row);
         }
     }
