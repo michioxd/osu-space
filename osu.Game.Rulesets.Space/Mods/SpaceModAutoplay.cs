@@ -9,6 +9,6 @@ namespace osu.Game.Rulesets.Space.Mods
     public class SpaceModAutoplay : ModAutoplay
     {
         public override ModReplayData CreateReplayData(IBeatmap beatmap, IReadOnlyList<Mod> mods)
-            => new ModReplayData(new SpaceAutoGenerator(beatmap).Generate(), new ModCreatedUser { Username = "sample" });
+            => new ModReplayData(new SpaceAutoGenerator(beatmap).Generate(), new ModCreatedUser { Username = "osu!space bot" });
     }
 }
