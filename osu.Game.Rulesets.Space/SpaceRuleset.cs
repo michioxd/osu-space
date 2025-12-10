@@ -27,6 +27,7 @@ namespace osu.Game.Rulesets.Space
     {
         public override string Description => "osu!space";
         public override string ShortName => "osuspaceruleset";
+        public const string VERSION_STRING = "0.0.3";
 
         public override DrawableRuleset CreateDrawableRulesetWith(IBeatmap beatmap, IReadOnlyList<Mod>? mods = null) =>
             new DrawableSpaceRuleset(this, beatmap, mods);
@@ -107,14 +108,14 @@ namespace osu.Game.Rulesets.Space
         {
             public Icon(char c)
             {
-                Size = new Vector2(20);
+                Size = new Vector2(50);
                 InternalChildren =
                 [
                     new CircularContainer
                     {
                         RelativeSizeAxes = Axes.Both,
                         Masking = true,
-                        BorderThickness = 2.5f,
+                        BorderThickness = 6f,
                         BorderColour = Color4.White,
                         Child = new Box
                         {
@@ -127,11 +128,11 @@ namespace osu.Game.Rulesets.Space
                     {
                         Anchor = Anchor.Centre,
                         Origin = Anchor.Centre,
-                        Size = new Vector2(11),
+                        Size = new Vector2(28),
                         Rotation = -25,
                         Masking = true,
-                        CornerRadius = 3,
-                        BorderThickness = 2.5f,
+                        CornerRadius = 8,
+                        BorderThickness = 6f,
                         BorderColour = Color4.White,
                         Child = new Box
                         {

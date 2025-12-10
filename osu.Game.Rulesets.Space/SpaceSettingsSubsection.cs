@@ -13,6 +13,14 @@ using osu.Game.Rulesets.Space.Configuration;
 using osu.Game.Rulesets.UI;
 using osu.Game.Localisation;
 using osu.Framework.Graphics;
+using osu.Framework.Graphics.Sprites;
+using osu.Game.Graphics;
+using osu.Framework.IO.Network;
+using Newtonsoft.Json.Linq;
+using osu.Framework.Logging;
+using osu.Game.Overlays;
+using osu.Game.Overlays.Dialog;
+using osu.Game.Overlays.Notifications;
 
 namespace osu.Game.Rulesets.Space
 {
@@ -27,31 +35,39 @@ namespace osu.Game.Rulesets.Space
 
         private SettingsEnumDropdown<SpacePalette> paletteSelector;
 
+        private SettingsButton checkForUpdatesButton;
+
+        [Resolved]
+        private IDialogOverlay? dialogOverlay { get; set; }
+
+        [Resolved]
+        private INotificationOverlay? notifications { get; set; }
+
+        [Resolved]
+        private GameHost host { get; set; }
+
         [BackgroundDependencyLoader]
-        private void load(GameHost host)
+        private void load()
         {
             var config = (SpaceRulesetConfigManager)Config;
 
             Children = new Drawable[]
             {
-                new SettingsCheckbox
+                new SpriteText
                 {
-                    LabelText = "osu!space by michioxd ฅ^>//<^ฅ. Based on Sound Space (Roblox) Gameplay",
+                    Text = "osu!space by michioxd ฅ^>//<^ฅ v" + SpaceRuleset.VERSION_STRING,
+                    Font = OsuFont.GetFont(size: 14),
+                    Padding = new MarginPadding { Horizontal = 20, Vertical = 0 }
                 },
                 new SettingsButton
                 {
                     Text = "GitHub Repository",
                     Action = () => host.OpenUrlExternally("https://github.com/michioxd/osu-space")
                 },
-                new SettingsButton
+                checkForUpdatesButton = new SettingsButton
                 {
-                    Text = "Original Sound Space",
-                    Action = () => host.OpenUrlExternally("https://www.roblox.com/games/2677609345/Sound-Space-Rhythm-Game")
-                },
-                new SettingsButton
-                {
-                    Text = "Sound Space Plus (Rhythia)",
-                    Action = () => host.OpenUrlExternally("https://github.com/David20122/sound-space-plus"),
+                    Text = "Check for Updates",
+                    Action = checkRulesetUpdate
                 },
                 new SettingsEnumDropdown<PlayfieldBorderStyle>
                 {
@@ -64,7 +80,6 @@ namespace osu.Game.Rulesets.Space
                     Current = config.GetBindable<SpacePalette>(SpaceRulesetSetting.Palette),
                 },
                 new PalettePreview(config),
-
                 new SettingsSlider<float>
                 {
                     LabelText = "Note Thickness",
@@ -146,7 +161,104 @@ namespace osu.Game.Rulesets.Space
                 },
             };
 
+
             paletteSelector.SetNoticeText("Some colors extracted from Sound Space Plus (Rhythia)");
+        }
+
+        private void checkRulesetUpdate()
+        {
+            checkForUpdatesButton.Enabled.Value = false;
+            checkForUpdatesButton.Text = "Checking...";
+            try
+            {
+                var req = new JsonWebRequest<JObject>("https://michioxd.ch/osu-space/update.json");
+                req.Finished += () =>
+                {
+                    Schedule(() =>
+                    {
+                        try
+                        {
+                            var response = req.ResponseObject;
+                            string version = response["version"].ToString();
+                            string downloadUrl = response["download"].ToString();
+                            string releaseUrl = response["release"].ToString();
+
+                            if (System.Version.TryParse(version, out var latestVersion)
+                                && System.Version.TryParse(SpaceRuleset.VERSION_STRING, out var currentVersion))
+                            {
+                                if (latestVersion > currentVersion)
+                                {
+                                    dialogOverlay?.Push(new UpdateDialog(version, releaseUrl, downloadUrl, host));
+                                }
+                                else
+                                {
+                                    notifications?.Post(new SimpleNotification
+                                    {
+                                        Text = "You are running the latest version of osu!space!",
+                                        Icon = FontAwesome.Solid.CheckCircle,
+                                    });
+                                }
+                            }
+                        }
+                        catch (System.Exception e)
+                        {
+                            notifications?.Post(new SimpleNotification
+                            {
+                                Text = "Failed to check for updates. Please check your internet connection.",
+                                Icon = FontAwesome.Solid.TimesCircle,
+                            });
+
+                            Logger.Error(e, "Failed to check for updates", "osu!space");
+                        }
+                        finally
+                        {
+                            checkForUpdatesButton.Enabled.Value = true;
+                            checkForUpdatesButton.Text = "Check for Updates";
+                        }
+                    });
+                };
+                req.PerformAsync();
+            }
+            catch (System.Exception e)
+            {
+                notifications?.Post(new SimpleNotification
+                {
+                    Text = "Failed to check for updates.",
+                    Icon = FontAwesome.Solid.TimesCircle,
+                });
+                Logger.Error(e, "Failed to check for updates", "osu!space");
+                checkForUpdatesButton.Enabled.Value = true;
+                checkForUpdatesButton.Text = "Check for Updates";
+            }
+        }
+
+        private partial class UpdateDialog : PopupDialog
+        {
+            public UpdateDialog(string version, string releaseUrl, string downloadUrl, GameHost host)
+            {
+                HeaderText = $"New version of osu!space are available!";
+                BodyText = $"Your current version is {SpaceRuleset.VERSION_STRING} and the latest version is {version}. Do you want to download it or visit the release page of this version?";
+
+                Icon = FontAwesome.Solid.Download;
+
+                Buttons =
+                [
+                    new PopupDialogOkButton
+                    {
+                        Text = "View Release",
+                        Action = () => host.OpenUrlExternally(releaseUrl)
+                    },
+                    new PopupDialogOkButton
+                    {
+                        Text = "Download",
+                        Action = () => host.OpenUrlExternally(downloadUrl)
+                    },
+                    new PopupDialogCancelButton
+                    {
+                        Text = "Cancel"
+                    },
+                ];
+            }
         }
 
         private partial class PalettePreview : CompositeDrawable
