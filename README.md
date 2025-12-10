@@ -4,7 +4,7 @@ Custom game mode for [osu!(lazer)](https://github.com/ppy/osu) based on [Sound S
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/4e826caa-af53-4c3e-b8fa-2593cfddccdc" />
 
-<img width="1920" height="1080" alt="osu!_cBEzovrBRs" src="https://github.com/user-attachments/assets/3711eaa9-ad4d-4f09-87b4-9bc9fdd99756" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/36c8033d-a33a-4f6d-b2a4-b804371b30bf" />
 
 ## Features
 
@@ -37,3 +37,4 @@ You can also contribute new color palettes for the game by opening an issue if y
 Interested? Support meeee!!
 
 [![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg)](https://www.buymeacoffee.com/michioxd)
+
