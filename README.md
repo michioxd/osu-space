@@ -22,8 +22,12 @@ Visit the [Releases](https://github.com/michioxd/osu-space/releases) page to dow
 
 ## Installation
 
-1. Download the `osu.Game.Rulesets.Space.dll` from the [Releases pages](https://github.com/michioxd/osu-space/releases).
-2. Copy the downloaded DLL file to your osu! data directory, maybe it is located at `C:\Users\<YourUsername>\AppData\Roaming\osu\rulesets` or `%APPDATA%\osu\rulesets` (Windows).
+1. Download the [`osu.Game.Rulesets.Space.dll`](https://github.com/michioxd/osu-space/releases/latest/download/osu.Game.Rulesets.Space.dll) from the [Releases pages](https://github.com/michioxd/osu-space/releases).
+2. Copy the downloaded DLL file to your osu! data directory, maybe it is located at:
+    - Windows: `C:\Users\<YourUsername>\AppData\Roaming\osu\rulesets` or `%APPDATA%\osu\rulesets`.
+    - Android: `/storage/emulated/0/Android/data/sh.ppy.osulazer/files/rulesets`.
+    - iOS: `who knows lol`.
+    - macOS: `who knows too lol`.
 3. Restart osu!(lazer) if it was running.
 
 ## Contributing
