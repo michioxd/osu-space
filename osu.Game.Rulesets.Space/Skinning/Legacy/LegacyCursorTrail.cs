@@ -8,6 +8,7 @@ using osu.Framework.Graphics;
 using osu.Framework.Input.Events;
 using osu.Game.Configuration;
 using osu.Game.Rulesets.Osu.Skinning;
+using osu.Game.Rulesets.Space.Configuration;
 using osu.Game.Rulesets.Space.UI.Cursor;
 using osu.Game.Skinning;
 using osuTK;
@@ -32,9 +33,9 @@ namespace osu.Game.Rulesets.Space.Skinning.Legacy
         }
 
         [BackgroundDependencyLoader]
-        private void load(OsuConfigManager config, ISkinSource skinSource)
+        private void load(SpaceRulesetConfigManager config, ISkinSource skinSource)
         {
-            cursorSize = config.GetBindable<float>(OsuSetting.GameplayCursorSize).GetBoundCopy();
+            cursorSize = config.GetBindable<float>(SpaceRulesetSetting.GameplayCursorSize).GetBoundCopy();
             AllowPartRotation = skin.GetConfig<SpaceSkinConfiguration, bool>(SpaceSkinConfiguration.CursorTrailRotate)?.Value ?? true;
 
             Texture = skin.GetTexture("cursortrail");

@@ -11,9 +11,9 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Effects;
 using osu.Framework.Graphics.Shapes;
 using osu.Game.Beatmaps;
-using osu.Game.Configuration;
 using osu.Game.Rulesets.Osu.Skinning;
 using osu.Game.Rulesets.Space;
+using osu.Game.Rulesets.Space.Configuration;
 using osu.Game.Rulesets.Space.UI.Cursor;
 using osu.Game.Screens.Play;
 using osu.Game.Skinning;
@@ -48,7 +48,7 @@ namespace osu.Game.Rulesets.Osu.UI.Cursor
         /// <summary>
         /// Mods which want to adjust cursor size should do so via this bindable.
         /// </summary>
-        public readonly Bindable<float> ModScaleAdjust = new Bindable<float>(1);
+        public readonly Bindable<float> ModScaleAdjust = new(1);
 
         private readonly Bindable<float> cursorScale = new BindableFloat(1);
 
@@ -58,7 +58,7 @@ namespace osu.Game.Rulesets.Osu.UI.Cursor
         private GameplayState state { get; set; }
 
         [Resolved]
-        private OsuConfigManager config { get; set; }
+        private SpaceRulesetConfigManager config { get; set; }
 
         public SpaceCursor()
         {
@@ -72,7 +72,7 @@ namespace osu.Game.Rulesets.Osu.UI.Cursor
         {
             InternalChild = CreateCursorContent();
 
-            userCursorScale = config.GetBindable<float>(OsuSetting.GameplayCursorSize);
+            userCursorScale = config.GetBindable<float>(SpaceRulesetSetting.GameplayCursorSize);
             userCursorScale.ValueChanged += _ => cursorScale.Value = CalculateCursorScale();
 
             ModScaleAdjust.ValueChanged += _ => cursorScale.Value = CalculateCursorScale();

@@ -21,9 +21,6 @@ namespace osu.Game.Rulesets.Space.Configuration
         protected override void InitialiseDefaults()
         {
             base.InitialiseDefaults();
-            SetDefault(SpaceRulesetSetting.SnakingInSliders, true);
-            SetDefault(SpaceRulesetSetting.SnakingOutSliders, true);
-            SetDefault(SpaceRulesetSetting.ShowCursorTrail, true);
             SetDefault(SpaceRulesetSetting.PlayfieldBorderStyle, PlayfieldBorderStyle.Full);
             SetDefault(SpaceRulesetSetting.noteOpacity, 1f, 0f, 1f, 0.01f);
             SetDefault(SpaceRulesetSetting.noteScale, 1.0f, 0.5f, 4.0f, 0.05f);
@@ -37,13 +34,13 @@ namespace osu.Game.Rulesets.Space.Configuration
             SetDefault(SpaceRulesetSetting.Palette, SpacePalette.White);
             SetDefault(SpaceRulesetSetting.Parallax, 2f, 0.0f, 20f, 0.1f);
             SetDefault(SpaceRulesetSetting.ScalePlayfield, 0.6f, 0.2f, 0.9f, 0.1f);
+            SetDefault(SpaceRulesetSetting.GameplayCursorSize, 1.0f, 0.1f, 6f, 0.01f);
+            SetDefault(SpaceRulesetSetting.ShowCursorTrail, true);
         }
     }
 
     public enum SpaceRulesetSetting
     {
-        SnakingInSliders,
-        SnakingOutSliders,
         ShowCursorTrail,
         PlayfieldBorderStyle,
         noteOpacity,
@@ -57,6 +54,7 @@ namespace osu.Game.Rulesets.Space.Configuration
         NoteCornerRadius,
         Palette,
         Parallax,
-        ScalePlayfield
+        ScalePlayfield,
+        GameplayCursorSize
     }
 }

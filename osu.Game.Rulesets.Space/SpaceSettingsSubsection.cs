@@ -23,6 +23,8 @@ using osu.Game.Overlays.Dialog;
 using osu.Game.Overlays.Notifications;
 using osu.Game.Graphics.Containers;
 using osu.Game.Online.API.Requests.Responses;
+using osu.Game.Overlays.Settings.Sections;
+using osu.Game.Overlays.Settings.Sections.Maintenance;
 
 namespace osu.Game.Rulesets.Space
 {
@@ -85,6 +87,17 @@ namespace osu.Game.Rulesets.Space
                 {
                     LabelText = RulesetSettingsStrings.PlayfieldBorderStyle,
                     Current = config.GetBindable<PlayfieldBorderStyle>(SpaceRulesetSetting.PlayfieldBorderStyle),
+                },
+                new SettingsSlider<float, SizeSlider<float>>
+                {
+                    LabelText = SkinSettingsStrings.GameplayCursorSize,
+                    Current = config.GetBindable<float>(SpaceRulesetSetting.GameplayCursorSize),
+                    KeyboardStep = 0.01f
+                },
+                new SettingsCheckbox
+                {
+                    LabelText = "Show Cursor Trail",
+                    Current = config.GetBindable<bool>(SpaceRulesetSetting.ShowCursorTrail),
                 },
                 paletteSelector = new SettingsEnumDropdown<SpacePalette>
                 {
