@@ -1,10 +1,8 @@
 ﻿#nullable enable
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
-using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Containers;
 using osu.Game.Rulesets.UI;
-using osuTK.Graphics;
 using osu.Game.Rulesets.Space.UI.Cursor;
 using osuTK;
 using osu.Game.Rulesets.Space.Configuration;
@@ -96,92 +94,6 @@ namespace osu.Game.Rulesets.Space.UI
             Vector2 local = HitObjectContainer.ToLocalSpace(screenSpacePosition);
             Vector2 normalized = new Vector2(local.X / HitObjectContainer.DrawSize.X, local.Y / HitObjectContainer.DrawSize.Y);
             return normalized * BASE_SIZE;
-        }
-    }
-
-    public partial class SpaceGrid : CompositeDrawable
-    {
-        public SpaceGrid()
-        {
-            RelativeSizeAxes = Axes.Both;
-            Alpha = 0;
-            Masking = true;
-
-            AddInternal(new DashedLine(Axes.Y) { RelativePositionAxes = Axes.Both, X = 1f / 3f });
-            AddInternal(new DashedLine(Axes.Y) { RelativePositionAxes = Axes.Both, X = 2f / 3f });
-            AddInternal(new DashedLine(Axes.X) { RelativePositionAxes = Axes.Both, Y = 1f / 3f });
-            AddInternal(new DashedLine(Axes.X) { RelativePositionAxes = Axes.Both, Y = 2f / 3f });
-
-            AddInternal(new GridIntersection { RelativePositionAxes = Axes.Both, Position = new Vector2(1f / 3f, 1f / 3f) });
-            AddInternal(new GridIntersection { RelativePositionAxes = Axes.Both, Position = new Vector2(2f / 3f, 1f / 3f) });
-            AddInternal(new GridIntersection { RelativePositionAxes = Axes.Both, Position = new Vector2(1f / 3f, 2f / 3f) });
-            AddInternal(new GridIntersection { RelativePositionAxes = Axes.Both, Position = new Vector2(2f / 3f, 2f / 3f) });
-        }
-    }
-
-    public partial class GridIntersection : CompositeDrawable
-    {
-        public GridIntersection()
-        {
-            Origin = Anchor.Centre;
-            Size = new Vector2(15);
-
-            InternalChildren = new Drawable[]
-            {
-                new Circle
-                {
-                    RelativeSizeAxes = Axes.Both,
-                    Anchor = Anchor.Centre,
-                    Origin = Anchor.Centre,
-                    Scale = new Vector2(0.4f),
-                    Colour = Color4.White,
-                    Alpha = 0.6f
-                }
-            };
-        }
-    }
-
-    public partial class DashedLine : CompositeDrawable
-    {
-        public DashedLine(Axes axis)
-        {
-            RelativeSizeAxes = axis;
-            float thickness = 1.5f;
-            float dashLength = 6f;
-            float gapLength = 14f;
-
-            if (axis == Axes.Y)
-            {
-                Width = thickness;
-                Anchor = Anchor.TopLeft;
-                Origin = Anchor.TopCentre;
-            }
-            else
-            {
-                Height = thickness;
-                Anchor = Anchor.TopLeft;
-                Origin = Anchor.CentreLeft;
-            }
-
-            var flow = new FillFlowContainer
-            {
-                RelativeSizeAxes = Axes.Both,
-                Direction = axis == Axes.Y ? FillDirection.Vertical : FillDirection.Horizontal,
-                Spacing = new Vector2(gapLength),
-            };
-
-            for (int i = 0; i < 60; i++)
-            {
-                flow.Add(new Circle
-                {
-                    RelativeSizeAxes = axis == Axes.Y ? Axes.X : Axes.Y,
-                    Size = new Vector2(axis == Axes.Y ? 1 : dashLength, axis == Axes.Y ? dashLength : 1),
-                    Colour = Color4.White,
-                    Alpha = 0.8f
-                });
-            }
-
-            InternalChild = flow;
         }
     }
 }
