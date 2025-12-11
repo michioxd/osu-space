@@ -20,6 +20,9 @@ using osu.Game.Configuration;
 using osu.Game.Rulesets.Space.Configuration;
 using osu.Game.Overlays.Settings;
 using osu.Game.Rulesets.Space.Scoring;
+using osu.Game.Skinning;
+using osu.Game.Rulesets.Space.Skinning.Legacy;
+using osu.Game.Rulesets.Space.Skinning.Argon;
 
 namespace osu.Game.Rulesets.Space
 {
@@ -51,6 +54,20 @@ namespace osu.Game.Rulesets.Space
                 HitResult.Perfect,
                 HitResult.Miss
             ];
+        }
+
+        public override ISkin? CreateSkinTransformer(ISkin skin, IBeatmap beatmap)
+        {
+            switch (skin)
+            {
+                case LegacySkin:
+                    return new SpaceLegacySkinTransformer(skin);
+
+                case ArgonSkin:
+                    return new SpaceArgonSkinTransformer(skin);
+            }
+
+            return null;
         }
 
         public override IEnumerable<Mod> GetModsFor(ModType type)
