@@ -6,8 +6,7 @@ Currently still **highly under development**. Some features have been implemente
 
 | Main gameplay | Customization |
 |---|---|
-| ![](https://github.com/user-attachments/assets/e0254047-6f6f-43ec-ae1d-b1d14b74a2ba) | ![](https://github.com/user-attachments/assets/b299dc9a-a071-4a38-b20d-b1b696a508f3) |
-
+| ![](https://github.com/user-attachments/assets/e0254047-6f6f-43ec-ae1d-b1d14b74a2ba) ![](https://github.com/user-attachments/assets/472f9e2d-3b9b-4a3c-b477-dc0403ae1359) | ![](https://github.com/user-attachments/assets/b299dc9a-a071-4a38-b20d-b1b696a508f3) |
 ## Features
 
 - Unique hit objects and gameplay mechanics inspired by Sound Space.
@@ -48,4 +47,5 @@ You can also contribute new color palettes for the game by opening an issue if y
 Interested? Support meeee!!
 
 [![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg)](https://www.buymeacoffee.com/michioxd)
+
 
