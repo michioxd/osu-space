@@ -147,7 +147,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
                 return;
             }
 
-            if(current_dist < -1.25f)
+            if (current_dist < -1f)
             {
                 HitObject.IsOverArea = true;
             }
@@ -228,7 +228,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
                 ApplyResult(HitResult.Perfect);
                 return;
             }
-            
+
         }
 
         protected override void UpdateHitStateTransforms(ArmedState state)

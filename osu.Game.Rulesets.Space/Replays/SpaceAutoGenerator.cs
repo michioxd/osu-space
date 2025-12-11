@@ -48,14 +48,14 @@ namespace osu.Game.Rulesets.Space.Replays
             Vector2 startPosition = lastFrame.Position;
             Vector2 endPosition = h.Position;
 
-            double reactionTime = 100;
+            double reactionTime = 0;
 
             double moveStartTime = h.StartTime - h.TimePreempt + reactionTime;
 
             moveStartTime = Math.Max(moveStartTime, lastFrame.Time);
             moveStartTime = Math.Min(moveStartTime, h.StartTime);
 
-            double frameInterval = 1000.0 / 60.0;
+            double frameInterval = 1000.0 / 1000.0;
 
             for (double t = lastFrame.Time + frameInterval; t < moveStartTime; t += frameInterval)
             {
