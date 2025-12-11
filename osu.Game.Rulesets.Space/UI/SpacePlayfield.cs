@@ -108,6 +108,33 @@ namespace osu.Game.Rulesets.Space.UI
             AddInternal(new DashedLine(Axes.Y) { RelativePositionAxes = Axes.Both, X = 2f / 3f });
             AddInternal(new DashedLine(Axes.X) { RelativePositionAxes = Axes.Both, Y = 1f / 3f });
             AddInternal(new DashedLine(Axes.X) { RelativePositionAxes = Axes.Both, Y = 2f / 3f });
+
+            AddInternal(new GridIntersection { RelativePositionAxes = Axes.Both, Position = new Vector2(1f / 3f, 1f / 3f) });
+            AddInternal(new GridIntersection { RelativePositionAxes = Axes.Both, Position = new Vector2(2f / 3f, 1f / 3f) });
+            AddInternal(new GridIntersection { RelativePositionAxes = Axes.Both, Position = new Vector2(1f / 3f, 2f / 3f) });
+            AddInternal(new GridIntersection { RelativePositionAxes = Axes.Both, Position = new Vector2(2f / 3f, 2f / 3f) });
+        }
+    }
+
+    public partial class GridIntersection : CompositeDrawable
+    {
+        public GridIntersection()
+        {
+            Origin = Anchor.Centre;
+            Size = new Vector2(15);
+
+            InternalChildren = new Drawable[]
+            {
+                new Circle
+                {
+                    RelativeSizeAxes = Axes.Both,
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
+                    Scale = new Vector2(0.4f),
+                    Colour = Color4.White,
+                    Alpha = 0.6f
+                }
+            };
         }
     }
 
@@ -116,9 +143,9 @@ namespace osu.Game.Rulesets.Space.UI
         public DashedLine(Axes axis)
         {
             RelativeSizeAxes = axis;
-            float thickness = 2f;
-            float dashLength = 10f;
-            float gapLength = 10f;
+            float thickness = 1.5f;
+            float dashLength = 6f;
+            float gapLength = 14f;
 
             if (axis == Axes.Y)
             {
@@ -140,14 +167,14 @@ namespace osu.Game.Rulesets.Space.UI
                 Spacing = new Vector2(gapLength),
             };
 
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 60; i++)
             {
-                flow.Add(new Box
+                flow.Add(new Circle
                 {
                     RelativeSizeAxes = axis == Axes.Y ? Axes.X : Axes.Y,
                     Size = new Vector2(axis == Axes.Y ? 1 : dashLength, axis == Axes.Y ? dashLength : 1),
                     Colour = Color4.White,
-                    Alpha = 0.3f
+                    Alpha = 0.8f
                 });
             }
 
