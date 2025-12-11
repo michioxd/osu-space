@@ -9,6 +9,7 @@ namespace osu.Game.Rulesets.Space.Configuration
             switch (palette)
             {
                 case SpacePalette.White: return new[] { Colour4.FromHex("#FFFFFF") };
+                case SpacePalette.Cyan: return new[] { Colour4.FromHex("#00FFFF") };
                 case SpacePalette.Purple: return new[] { Colour4.FromHex("#9A5EF9") };
                 case SpacePalette.KawaiiPink:
                     return new[] {
@@ -42,6 +43,17 @@ namespace osu.Game.Rulesets.Space.Configuration
                     Colour4.FromHex("#715AE0"), Colour4.FromHex("#845CE0"), Colour4.FromHex("#9E5EE0"), Colour4.FromHex("#B361E0"), Colour4.FromHex("#C462E0"), Colour4.FromHex("#D164DF"),
                     Colour4.FromHex("#E167DF"), Colour4.FromHex("#E36AC4"), Colour4.FromHex("#E66D9E"), Colour4.FromHex("#E66F85"), Colour4.FromHex("#E77175"), Colour4.FromHex("#E8746F")
                 };
+                case SpacePalette.RadixUI:
+                    return new[] {
+                        Colour4.FromHex("#FF8E72"), Colour4.FromHex("#FF9897"), Colour4.FromHex("#FF98AB"),
+                        Colour4.FromHex("#FF96BF"), Colour4.FromHex("#FF96E2"), Colour4.FromHex("#D896FF"),
+                        Colour4.FromHex("#BD96FF"), Colour4.FromHex("#A896FF"), Colour4.FromHex("#99A8FF"),
+                        Colour4.FromHex("#71B8FF"), Colour4.FromHex("#5CDDEB"), Colour4.FromHex("#00DAB8"),
+                        Colour4.FromHex("#33E7AA"), Colour4.FromHex("#76DA84"), Colour4.FromHex("#DABCAB"),
+                        Colour4.FromHex("#CCB79F"), Colour4.FromHex("#E2B793"), Colour4.FromHex("#FFAD69"),
+                        Colour4.FromHex("#FFCD31"), Colour4.FromHex("#FFE950"), Colour4.FromHex("#CEE178"),
+                        Colour4.FromHex("#5DDCC7"), Colour4.FromHex("#7BCCE7")
+                    };
                 default: return new[] { Colour4.White };
             }
         }

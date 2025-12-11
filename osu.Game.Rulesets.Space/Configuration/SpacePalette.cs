@@ -6,6 +6,8 @@ namespace osu.Game.Rulesets.Space.Configuration
     {
         [Description("White")]
         White,
+        [Description("Cyan")]
+        Cyan,
         [Description("purple!!! by Chedski")]
         Purple,
         [Description("kawaii pink by michioxd")]
@@ -30,5 +32,7 @@ namespace osu.Game.Rulesets.Space.Configuration
         HueWheel,
         [Description("Hue Wheel Ultra by Chedski")]
         HueWheelUltra,
+        [Description("Radix UI colors by michioxd")]
+        RadixUI
     }
 }
