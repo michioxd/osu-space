@@ -88,6 +88,11 @@ namespace osu.Game.Rulesets.Space
                     LabelText = RulesetSettingsStrings.PlayfieldBorderStyle,
                     Current = config.GetBindable<PlayfieldBorderStyle>(SpaceRulesetSetting.PlayfieldBorderStyle),
                 },
+                new SettingsCheckbox
+                {
+                    LabelText = "Enable Grid",
+                    Current = config.GetBindable<bool>(SpaceRulesetSetting.EnableGrid),
+                },
                 new SettingsSlider<float, SizeSlider<float>>
                 {
                     LabelText = SkinSettingsStrings.GameplayCursorSize,

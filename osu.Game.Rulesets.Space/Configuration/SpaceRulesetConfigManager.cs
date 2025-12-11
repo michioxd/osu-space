@@ -3,9 +3,7 @@
 
 #nullable enable
 
-using osu.Framework.Configuration.Tracking;
 using osu.Game.Configuration;
-using osu.Game.Localisation;
 using osu.Game.Rulesets.Configuration;
 using osu.Game.Rulesets.UI;
 
@@ -22,6 +20,7 @@ namespace osu.Game.Rulesets.Space.Configuration
         {
             base.InitialiseDefaults();
             SetDefault(SpaceRulesetSetting.PlayfieldBorderStyle, PlayfieldBorderStyle.Full);
+            SetDefault(SpaceRulesetSetting.EnableGrid, false);
             SetDefault(SpaceRulesetSetting.noteOpacity, 1f, 0f, 1f, 0.01f);
             SetDefault(SpaceRulesetSetting.noteScale, 1.0f, 0.5f, 4.0f, 0.05f);
             SetDefault(SpaceRulesetSetting.approachRate, 40f, 1f, 200f, 1f);
@@ -45,6 +44,7 @@ namespace osu.Game.Rulesets.Space.Configuration
     {
         ShowCursorTrail,
         PlayfieldBorderStyle,
+        EnableGrid,
         noteOpacity,
         noteScale,
         approachRate,
