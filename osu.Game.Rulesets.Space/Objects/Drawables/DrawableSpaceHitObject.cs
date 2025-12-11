@@ -147,6 +147,11 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
                 return;
             }
 
+            if(current_dist < -1f)
+            {
+                HitObject.IsOverArea = true;
+            }
+
             if (!userDoNotPushBack && current_dist < -0.1f)
             {
                 Alpha = 0;
@@ -212,16 +217,18 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
                 }
             }
 
+            if (!HitObject.HitWindows.CanBeHit(timeOffset) || timeOffset > HitObject.HitWindows.WindowFor(HitResult.Great) || HitObject.IsOverArea)
+            {
+                ApplyResult(HitResult.Miss);
+                return;
+            }
+
             if (isHit && timeOffset >= -HitObject.HitWindows.WindowFor(HitResult.Great) && timeOffset <= HitObject.HitWindows.WindowFor(HitResult.Great))
             {
                 ApplyResult(HitResult.Perfect);
                 return;
             }
-
-            if (!HitObject.HitWindows.CanBeHit(timeOffset) || timeOffset > HitObject.HitWindows.WindowFor(HitResult.Perfect))
-            {
-                ApplyResult(HitResult.Miss);
-            }
+            
         }
 
         protected override void UpdateHitStateTransforms(ArmedState state)
@@ -233,7 +240,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
                     break;
 
                 case ArmedState.Miss:
-                    this.FadeOut(100, Easing.OutQuint).Expire();
+                    this.FadeOut(250, Easing.OutQuint).Expire();
                     break;
             }
         }
