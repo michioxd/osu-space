@@ -17,7 +17,6 @@ Currently still **highly under development**. Some features have been implemente
     - Note color palette (some color extracted from SSP aka Rhythia)
     - Note (thickness, corner radius, opacity, scale, approach rate, spawn distance, fade, bloom)
 - Online check update.
-- Autoplay (under 9.5* still good but greater is not (but watchable lol)).
 
 ## Download
 
