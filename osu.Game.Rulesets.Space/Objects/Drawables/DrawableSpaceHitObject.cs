@@ -82,7 +82,8 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
                 }
             });
 
-            palette.BindValueChanged(_ => {
+            palette.BindValueChanged(_ =>
+            {
                 updateColor();
                 updateBloom();
             }, true);
@@ -151,7 +152,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
                 return;
             }
 
-            if (current_dist < -5f)
+            if (current_dist < -1.5f)
             {
                 HitObject.IsOverArea = true;
             }
