@@ -163,6 +163,11 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
 
             float rawScale = camera_z / z;
 
+            if (rawScale >= 1f && !HitObject.IsHitOk)
+            {
+                playfield.spaceMiss.ShowMiss(HitObject.col, HitObject.row);
+            }
+
             if (rawScale >= 2f && HitObject.row == 1 || (rawScale >= 1f && HitObject.IsHitOk))
             {
                 Alpha = 0;
@@ -252,10 +257,6 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
         {
             switch (state)
             {
-                // case ArmedState.Hit:
-                //     this.FadeOut(50, Easing.OutQuint).Expire();
-                //     break;
-
                 case ArmedState.Miss:
                     this.FadeOut(0, Easing.OutQuint).Expire();
                     break;

@@ -16,6 +16,7 @@ namespace osu.Game.Rulesets.Space.UI
         private readonly PlayfieldBorder playfieldBorder;
         private readonly SpaceGrid grid;
         public readonly Container contentContainer;
+        public readonly SpaceMiss spaceMiss;
         private readonly Bindable<float> parallaxStrength = new();
         private readonly Bindable<bool> enableGrid = new();
         private readonly Bindable<float> scalePlayfield = new();
@@ -48,7 +49,8 @@ namespace osu.Game.Rulesets.Space.UI
                             RelativeSizeAxes = Axes.Both,
                         },
                         grid = new SpaceGrid(),
-                        HitObjectContainer
+                        spaceMiss = new SpaceMiss(),
+                        HitObjectContainer,
                     ]
                 }
             ];

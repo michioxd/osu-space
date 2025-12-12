@@ -124,8 +124,8 @@ namespace osu.Game.Rulesets.Space
         {
             public Icon(char c)
             {
-                Size = new Vector2(128);
-                float scale = 128f / 50f;
+                Size = new Vector2(256);
+                float scale = 256f / 50f;
 
                 InternalChildren =
                 [
