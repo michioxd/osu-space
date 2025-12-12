@@ -124,14 +124,16 @@ namespace osu.Game.Rulesets.Space
         {
             public Icon(char c)
             {
-                Size = new Vector2(50);
+                Size = new Vector2(128);
+                float scale = 128f / 50f;
+
                 InternalChildren =
                 [
                     new CircularContainer
                     {
                         RelativeSizeAxes = Axes.Both,
                         Masking = true,
-                        BorderThickness = 6f,
+                        BorderThickness = 6f * scale,
                         BorderColour = Color4.White,
                         Child = new Box
                         {
@@ -144,11 +146,11 @@ namespace osu.Game.Rulesets.Space
                     {
                         Anchor = Anchor.Centre,
                         Origin = Anchor.Centre,
-                        Size = new Vector2(28),
+                        Size = new Vector2(28 * scale),
                         Rotation = -25,
                         Masking = true,
-                        CornerRadius = 8,
-                        BorderThickness = 6f,
+                        CornerRadius = 8 * scale,
+                        BorderThickness = 6f * scale,
                         BorderColour = Color4.White,
                         Child = new Box
                         {
