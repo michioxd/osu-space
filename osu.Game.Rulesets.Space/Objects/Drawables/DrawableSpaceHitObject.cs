@@ -39,7 +39,6 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
         private readonly Bindable<float> scalePlayfield = new();
         private readonly Bindable<bool> bloom = new();
         private readonly Bindable<float> bloomStrength = new();
-        private readonly Bindable<bool> autoplayNoMiss = new();
 
         public DrawableSpaceHitObject(SpaceHitObject hitObject)
             : base(hitObject)
@@ -68,7 +67,6 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             config?.BindWith(SpaceRulesetSetting.ScalePlayfield, scalePlayfield);
             config?.BindWith(SpaceRulesetSetting.Bloom, bloom);
             config?.BindWith(SpaceRulesetSetting.BloomStrength, bloomStrength);
-            config?.BindWith(SpaceRulesetSetting.AutoplayNoMiss, autoplayNoMiss);
 
             AddInternal(content = new Container
             {
@@ -151,7 +149,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
                 return;
             }
 
-            if (current_dist < -1f)
+            if (current_dist < -5f)
             {
                 HitObject.IsOverArea = true;
             }
@@ -210,21 +208,23 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
         {
             if (Judged) return;
 
-            if (ruleset.Mods.Any(m => m is ModAutoplay))
-            {
-                if (timeOffset >= -50 && autoplayNoMiss.Value)
-                {
-                    ApplyResult(HitResult.Perfect);
-                    return;
-                }
-            }
-
             bool isHit = false;
 
             var cursor = ruleset.Playfield.Cursor?.ActiveCursor;
             if (cursor != null)
             {
-                if (ScreenSpaceDrawQuad.Intersects(cursor.ScreenSpaceDrawQuad))
+                var playfield = (SpacePlayfield)ruleset.Playfield;
+                var cursorPos = playfield.ScreenSpaceToGamefield(cursor.ScreenSpaceDrawQuad.Centre);
+
+                float cellSize = SpacePlayfield.BASE_SIZE / 3f;
+
+                int cursorCol = (int)(cursorPos.X / cellSize);
+                int cursorRow = (int)(cursorPos.Y / cellSize);
+
+                int objectCol = (int)(HitObject.X / cellSize);
+                int objectRow = (int)(HitObject.Y / cellSize);
+
+                if (cursorCol == objectCol && cursorRow == objectRow)
                 {
                     isHit = true;
                 }

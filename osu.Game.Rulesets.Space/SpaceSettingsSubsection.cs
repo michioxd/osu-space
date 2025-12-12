@@ -202,12 +202,6 @@ namespace osu.Game.Rulesets.Space
                     Current = config.GetBindable<float>(SpaceRulesetSetting.BloomStrength),
                     KeyboardStep = 0.01f,
                 },
-                new SettingsCheckbox
-                {
-                    LabelText = "Autoplay No Miss",
-                    TooltipText = "When enabled, this option makes Autoplay ignore all miss notes. (On 9*+ maps, misses may still occur if AR is set above 30, so dismissing is still needed to view perfect gameplay.) This option will be removed once we resolve this issue :)",
-                    Current = config.GetBindable<bool>(SpaceRulesetSetting.AutoplayNoMiss)
-                },
             };
 
 

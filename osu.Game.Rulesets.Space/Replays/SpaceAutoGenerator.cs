@@ -48,7 +48,7 @@ namespace osu.Game.Rulesets.Space.Replays
             Vector2 startPosition = lastFrame.Position;
             Vector2 endPosition = h.Position;
 
-            double reactionTime = 0;
+            double reactionTime = 100;
 
             double moveStartTime = h.StartTime - h.TimePreempt + reactionTime;
 
