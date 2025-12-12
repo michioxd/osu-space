@@ -18,7 +18,6 @@ using osuTK;
 using osuTK.Graphics;
 using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics.Effects;
-using osu.Framework.Extensions.PolygonExtensions;
 
 namespace osu.Game.Rulesets.Space.Objects.Drawables
 {
@@ -83,7 +82,10 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
                 }
             });
 
-            palette.BindValueChanged(_ => updateColor(), true);
+            palette.BindValueChanged(_ => {
+                updateColor();
+                updateBloom();
+            }, true);
             bloom.BindValueChanged(_ => updateBloom(), true);
             bloomStrength.BindValueChanged(_ => updateBloom(), true);
         }
