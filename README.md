@@ -17,7 +17,7 @@ Currently still **highly under development**. Some features have been implemente
     - Note color palette (some color extracted from SSP aka Rhythia)
     - Note (thickness, corner radius, opacity, scale, approach rate, spawn distance, fade, bloom)
 - Online check update.
-- Autoplay
+- Autoplay (under 9.5* still good but greater is not (but watchable lol)).
 
 ## Download
 
@@ -47,5 +47,6 @@ You can also contribute new color palettes for the game by opening an issue if y
 Interested? Support meeee!!
 
 [![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg)](https://www.buymeacoffee.com/michioxd)
+
 
 
