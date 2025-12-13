@@ -25,8 +25,8 @@ namespace osu.Game.Rulesets.Space
             if (beatmap.HitObjects.Count == 0)
                 return new DifficultyAttributes(mods, 0);
 
-            double aimRating = Math.Sqrt(skills[0].DifficultyValue()) * 0.15;
-            double readingRating = Math.Sqrt(skills[1].DifficultyValue()) * 0.15;
+            double aimRating = Math.Sqrt(skills[0].DifficultyValue()) * 0.1;
+            double readingRating = Math.Sqrt(skills[1].DifficultyValue()) * 0.1;
             double starRating = aimRating + readingRating;
 
             return new DifficultyAttributes(mods, starRating);

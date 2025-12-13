@@ -1,8 +1,6 @@
 ﻿#nullable enable
 using System.Collections.Generic;
 using osu.Framework.Graphics;
-using osu.Framework.Graphics.Containers;
-using osu.Framework.Graphics.Shapes;
 using osu.Framework.Input.Bindings;
 using osu.Game.Beatmaps;
 using osu.Game.Rulesets.Difficulty;
@@ -11,8 +9,6 @@ using osu.Game.Rulesets.Space.Mods;
 using osu.Game.Rulesets.Space.UI;
 using osu.Game.Rulesets.Mods;
 using osu.Game.Rulesets.UI;
-using osuTK;
-using osuTK.Graphics;
 using osu.Game.Rulesets.Scoring;
 using osu.Game.Rulesets.Configuration;
 using osu.Game.Configuration;
@@ -30,6 +26,12 @@ namespace osu.Game.Rulesets.Space
         public override string Description => "osu!space";
         public override string ShortName => "osuspaceruleset";
         public const string VERSION_STRING = "2025.1213.1";
+
+        public SpaceRuleset()
+        {
+            // lol who fkin knows
+            RulesetInfo.OnlineID = 727;
+        }
 
         public override DrawableRuleset CreateDrawableRulesetWith(IBeatmap beatmap, IReadOnlyList<Mod>? mods = null) =>
             new DrawableSpaceRuleset(this, beatmap, mods);
@@ -118,50 +120,7 @@ namespace osu.Game.Rulesets.Space
 
         public override IEnumerable<KeyBinding> GetDefaultKeyBindings(int variant = 0) => [];
 
-        public override Drawable CreateIcon() => new Icon(ShortName[0]);
-
-        public partial class Icon : CompositeDrawable
-        {
-            public Icon(char c)
-            {
-                Size = new Vector2(256);
-                float scale = 256f / 50f;
-
-                InternalChildren =
-                [
-                    new CircularContainer
-                    {
-                        RelativeSizeAxes = Axes.Both,
-                        Masking = true,
-                        BorderThickness = 6f * scale,
-                        BorderColour = Color4.White,
-                        Child = new Box
-                        {
-                            RelativeSizeAxes = Axes.Both,
-                            Alpha = 0,
-                            AlwaysPresent = true,
-                        }
-                    },
-                    new Container
-                    {
-                        Anchor = Anchor.Centre,
-                        Origin = Anchor.Centre,
-                        Size = new Vector2(28 * scale),
-                        Rotation = -25,
-                        Masking = true,
-                        CornerRadius = 8 * scale,
-                        BorderThickness = 6f * scale,
-                        BorderColour = Color4.White,
-                        Child = new Box
-                        {
-                            RelativeSizeAxes = Axes.Both,
-                            Alpha = 0,
-                            AlwaysPresent = true,
-                        }
-                    }
-                ];
-            }
-        }
+        public override Drawable CreateIcon() => new SpaceRulesetIcon(this);
 
         // Leave this line intact. It will bake the correct version into the ruleset on each build/release.
         public override string RulesetAPIVersionSupported => CURRENT_RULESET_API_VERSION;

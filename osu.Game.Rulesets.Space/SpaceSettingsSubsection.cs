@@ -25,6 +25,9 @@ using osu.Game.Graphics.Containers;
 using osu.Game.Online.API.Requests.Responses;
 using osu.Game.Overlays.Settings.Sections;
 using osu.Game.Overlays.Settings.Sections.Maintenance;
+using osu.Game.Rulesets.Space.Extension.SSPM;
+using osu.Game.Rulesets.Space.UI;
+using osu.Framework.Screens;
 
 namespace osu.Game.Rulesets.Space
 {
@@ -51,7 +54,13 @@ namespace osu.Game.Rulesets.Space
         private UserProfileOverlay? userProfile { get; set; }
 
         [Resolved]
+        private Storage storage { get; set; }
+
+        [Resolved]
         private GameHost host { get; set; }
+
+        [Resolved(CanBeNull = true)]
+        private OsuGame game { get; set; }
 
         [BackgroundDependencyLoader]
         private void load()
@@ -82,6 +91,11 @@ namespace osu.Game.Rulesets.Space
                 {
                     Text = "Check for Updates",
                     Action = checkRulesetUpdate
+                },
+                new SettingsButton
+                {
+                    Text = "Import Sound Space Plus map (.sspm) (WIP)",
+                    Action = importSSPM
                 },
                 new SettingsEnumDropdown<PlayfieldBorderStyle>
                 {
@@ -213,6 +227,11 @@ namespace osu.Game.Rulesets.Space
 
 
             paletteSelector.SetNoticeText("Some colors extracted from Sound Space Plus (Rhythia)");
+        }
+
+        private void importSSPM()
+        {
+            game?.PerformFromScreen(s => s.Push(new SSPMImportScreen()));
         }
 
         private void checkRulesetUpdate()

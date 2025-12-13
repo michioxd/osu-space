@@ -19,6 +19,8 @@ namespace osu.Game.Rulesets.Space.Beatmaps
         {
         }
 
+        protected override Beatmap<SpaceHitObject> CreateBeatmap() => new SpaceBeatmap();
+
         public override bool CanConvert() => Beatmap.HitObjects.All(h => h is IHasXPosition && h is IHasYPosition);
 
         protected override IEnumerable<SpaceHitObject> ConvertHitObject(HitObject original, IBeatmap beatmap, CancellationToken cancellationToken)

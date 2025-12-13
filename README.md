@@ -20,6 +20,7 @@ https://github.com/user-attachments/assets/7eb79bfb-90f1-409a-8aa0-f08481fa6481
     - Note color palette (some color extracted from SSP aka Rhythia)
     - Note (thickness, corner radius, opacity, scale, approach rate, spawn distance, fade, bloom)
 - Online check update.
+- Import .sspm (Sound Space Plus map) files from Sound Space Plus (Rhythia).
 
 ## Download
 
