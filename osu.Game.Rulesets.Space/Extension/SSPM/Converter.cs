@@ -76,6 +76,10 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                                     }
                                 });
                             }
+                            else
+                            {
+                                Logger.Log("Could not find osuspaceruleset in ruleset store.");
+                            }
                         }
 
                         Logger.Log($"Successfully converted and imported: {file}");

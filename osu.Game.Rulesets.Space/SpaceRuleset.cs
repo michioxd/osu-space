@@ -1,5 +1,6 @@
 ﻿#nullable enable
 using System.Collections.Generic;
+using System.Linq;
 using osu.Framework.Graphics;
 using osu.Framework.Input.Bindings;
 using osu.Game.Beatmaps;
@@ -18,6 +19,8 @@ using osu.Game.Rulesets.Space.Scoring;
 using osu.Game.Skinning;
 using osu.Game.Rulesets.Space.Skinning.Legacy;
 using osu.Game.Rulesets.Space.Skinning.Argon;
+using osu.Game.Rulesets.Space.Beatmaps.Formats;
+using osu.Framework.Logging;
 
 namespace osu.Game.Rulesets.Space
 {
@@ -25,10 +28,11 @@ namespace osu.Game.Rulesets.Space
     {
         public override string Description => "osu!space";
         public override string ShortName => "osuspaceruleset";
-        public const string VERSION_STRING = "2025.1213.2";
-
+        public const string VERSION_STRING = "2025.1214.0";
         public SpaceRuleset()
         {
+            SpaceLegacyBeatmapDecoder.Register();
+
             // lol who fkin knows
             RulesetInfo.OnlineID = 727;
         }

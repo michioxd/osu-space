@@ -19,6 +19,8 @@ using osu.Game.Beatmaps;
 using System;
 using osu.Game.Overlays.Dialog;
 using System.Collections.Immutable;
+using osu.Game.Database;
+using System.Linq;
 
 namespace osu.Game.Rulesets.Space.Extension.SSPM
 {
@@ -51,6 +53,9 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
         [Resolved]
         private RulesetStore? rulesets { get; set; }
 
+        [Resolved]
+        private RealmAccess realm { get; set; } = null!;
+
         private OsuDirectorySelector? directorySelector;
 
         [BackgroundDependencyLoader]
@@ -60,12 +65,27 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
             string userHomePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             string initialPath = userHomePath;
 
-            string sspMapsPath = System.IO.Path.Combine(appData, "SoundSpacePlus", "maps");
-
-            if (System.IO.Directory.Exists(sspMapsPath))
+            realm.Write(r =>
             {
-                dialogOverlay?.Push(new ImportConfirmationDialog(sspMapsPath, () => startImport(sspMapsPath), () => { }));
-            }
+                var badRulesets = r.All<RulesetInfo>().Where(rs => rs.ShortName == "osuspaceruleset" && rs.OnlineID != 727);
+                if (badRulesets.Any())
+                {
+                    r.RemoveRange(badRulesets);
+                    dialogOverlay?.Push(new ConfirmRebootToApply(() =>
+                    {
+                        this.Exit();
+                    }));
+                }
+                else
+                {
+                    string sspMapsPath = System.IO.Path.Combine(appData, "SoundSpacePlus", "maps");
+
+                    if (System.IO.Directory.Exists(sspMapsPath))
+                    {
+                        dialogOverlay?.Push(new ImportConfirmationDialog(sspMapsPath, () => startImport(sspMapsPath), () => { }));
+                    }
+                }
+            });
 
             InternalChildren =
             [
@@ -181,10 +201,10 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                     notification.Progress = (float)current / total;
                     if (done)
                     {
-                        notification.State = ProgressNotificationState.Completed;
                         notification.Text = failed > 0 ?
                             $"Import completed with {failed} failed imports." :
                             "Import completed successfully!";
+                        notification.State = ProgressNotificationState.Completed;
                     }
                 });
             });
@@ -209,6 +229,31 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                     new PopupDialogCancelButton
                     {
                         Text = "No, I'll select manually",
+                        Action = onCancel
+                    }
+                ];
+            }
+        }
+
+        private partial class ConfirmRebootToApply : PopupDialog
+        {
+            public ConfirmRebootToApply(Action onCancel)
+            {
+                HeaderText = "osu!space need you to restart the game";
+                BodyText = "Since you have previously installed an earlier version of osu!space, and this update includes breaking changes. To use this feature, a game restart is required to apply the fixes. Please restart the game to ensure everything works correctly.";
+                Icon = FontAwesome.Solid.ExclamationTriangle;
+                Buttons =
+                [
+                    new PopupDialogOkButton
+                    {
+                        Text = "Restart now (quit the game)",
+                        Action = () => {
+                            Environment.Exit(0);
+                        }
+                    },
+                    new PopupDialogCancelButton
+                    {
+                        Text = "Later",
                         Action = onCancel
                     }
                 ];
