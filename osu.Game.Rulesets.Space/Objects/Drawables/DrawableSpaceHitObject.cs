@@ -142,7 +142,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
 
             double timeRemaining = HitObject.StartTime - Time.Current;
             float speed = userAr;
-            float current_dist = speed * (float)(timeRemaining / 1000);
+            float current_dist = speed * (float)((timeRemaining + hitWindow.Value) / 1000);
 
             if (!Judged && current_dist > userSpawnDistance)
             {
@@ -163,11 +163,6 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
 
             float rawScale = camera_z / z;
 
-            if (rawScale >= 1f && !HitObject.IsHitOk)
-            {
-                playfield.spaceMiss.ShowMiss(HitObject.col, HitObject.row);
-            }
-
             if (rawScale >= 2f && HitObject.row == 1 || (rawScale >= 1f && HitObject.IsHitOk))
             {
                 Alpha = 0;
@@ -183,7 +178,6 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
 
             Position = center + offset * rawScale;
             RelativePositionAxes = Axes.Both;
-
 
             float alpha = 1f;
 
@@ -239,7 +233,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
                 }
             }
 
-            if (!HitObject.HitWindows.CanBeHit(timeOffset))
+            if (!HitObject.HitWindows.CanBeHit(timeOffset) || timeOffset > hitWindow.Value)
             {
                 ApplyResult(HitResult.Miss);
                 return;
@@ -258,6 +252,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             switch (state)
             {
                 case ArmedState.Miss:
+                    ((SpacePlayfield)ruleset.Playfield).spaceMiss.ShowMiss(HitObject.col, HitObject.row);
                     this.FadeOut(0, Easing.OutQuint).Expire();
                     break;
             }

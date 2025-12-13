@@ -205,7 +205,7 @@ namespace osu.Game.Rulesets.Space
                 new SettingsSlider<float>
                 {
                     LabelText = "Hit Window",
-                    TooltipText = "The length of time notes can be hit after reaching the grid (default 25ms)",
+                    TooltipText = "The length of time notes can be hit after reaching the grid (default 25ms, rhythia def 55ms)",
                     Current = config.GetBindable<float>(SpaceRulesetSetting.HitWindow),
                     KeyboardStep = 1f,
                 },

@@ -29,7 +29,7 @@ namespace osu.Game.Rulesets.Space
     {
         public override string Description => "osu!space";
         public override string ShortName => "osuspaceruleset";
-        public const string VERSION_STRING = "2025.1213.0";
+        public const string VERSION_STRING = "2025.1213.1";
 
         public override DrawableRuleset CreateDrawableRulesetWith(IBeatmap beatmap, IReadOnlyList<Mod>? mods = null) =>
             new DrawableSpaceRuleset(this, beatmap, mods);
