@@ -13,14 +13,14 @@ https://github.com/user-attachments/assets/7eb79bfb-90f1-409a-8aa0-f08481fa6481
 ## Features
 
 - Unique hit objects and gameplay mechanics inspired by Sound Space.
-- Map rating system.
+- Map star rating calculation. (WIP)
 - Customizable playfield.
     - Cursor size/trail.
     - Playfield (grid, border, scale, parallax).
     - Note color palette (some color extracted from SSP aka Rhythia)
     - Note (thickness, corner radius, opacity, scale, approach rate, spawn distance, fade, bloom)
 - Online check update.
-- Import .sspm (Sound Space Plus map, v1 and v2) files from Sound Space Plus (Rhythia).
+- Import .sspm (Sound Space Plus map, v1 and v2) files from Sound Space Plus (Rhythia) (WIP).
 
 ## Download
 

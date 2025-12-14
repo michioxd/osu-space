@@ -36,16 +36,31 @@ namespace osu.Game.Rulesets.Space.Difficulty.Skills
             var spaceCurrent = (SpaceDifficultyHitObject)current;
 
             double time = Math.Max(spaceCurrent.DeltaTime, 50);
-
             double velocity = spaceCurrent.JumpDistance / time;
 
             double angleBonus = 1.0;
+
             if (spaceCurrent.Angle != null)
             {
                 double angle = spaceCurrent.Angle.Value;
+                double degrees = angle * (180.0 / Math.PI);
+                if (degrees > 135)
+                {
+                    angleBonus = 1.0 + (1.8 * Math.Sin(angle / 2.0));
+                }
+                else if (degrees > 40 && degrees <= 135)
+                {
+                    angleBonus = 1.0 + (1.2 * Math.Sin(angle / 2.0));
+                }
+                else
+                {
+                    angleBonus = 1.0 + (0.5 * Math.Sin(angle / 2.0));
+                }
+            }
 
-                double angleFactor = Math.Sin(angle);
-                angleBonus = 1.0 + 0.5 * angleFactor;
+            if (spaceCurrent.JumpDistance < 10)
+            {
+                return 0;
             }
 
             return velocity * angleBonus;
