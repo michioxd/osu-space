@@ -42,6 +42,17 @@ Visit the [Releases](https://github.com/michioxd/osu-space/releases) page to dow
     - macOS: `~/Library/Application Support/osu/rulesets`.
 3. Restart osu!(lazer) if it was running.
 
+## Todos
+
+- [x] Basic converter from standard
+- [x] Basic gameplay
+- [x] SSPM v1/2 converter/importer
+- [ ] Note speed change event
+- [ ] Quantum note **(need refactor)**
+- [ ] **(NP)** Editor
+
+NP: Not planned
+
 ## Contributing
 
 Contributions are welcome! If you want to contribute, please fork the repository and create a pull request.
@@ -53,6 +64,7 @@ You can also contribute new color palettes for the game by opening an issue if y
 Interested? Support meeee!!
 
 [![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg)](https://www.buymeacoffee.com/michioxd)
+
 
 
 
