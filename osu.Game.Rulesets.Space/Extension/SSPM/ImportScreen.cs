@@ -199,11 +199,21 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
 
         private void startImport(string? path)
         {
-            if (string.IsNullOrEmpty(path) || !System.IO.Directory.Exists(path))
+            if (string.IsNullOrEmpty(path) || !Directory.Exists(path))
             {
                 notifications?.Post(new SimpleNotification
                 {
                     Text = "Please select a valid directory.",
+                    Icon = FontAwesome.Solid.ExclamationTriangle,
+                });
+                return;
+            }
+
+            if (!tryPromptImportFromPath(path))
+            {
+                notifications?.Post(new SimpleNotification
+                {
+                    Text = "No .sspm files found in the selected directory. Please select a different folder.",
                     Icon = FontAwesome.Solid.ExclamationTriangle,
                 });
                 return;
@@ -236,9 +246,12 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                     notification.Progress = (float)current / total;
                     if (done)
                     {
-                        notification.Text = failed > 0 ?
-                            $"Import completed with {failed} failed imports." :
-                            "Import completed successfully!";
+                        if (failed > 0)
+                            notifications?.Post(new SimpleNotification
+                            {
+                                Text = $"Import completed with {failed} failed imports. Please check the logs for more details.",
+                                Icon = FontAwesome.Solid.ExclamationTriangle,
+                            });
                         notification.State = ProgressNotificationState.Completed;
                     }
                 });

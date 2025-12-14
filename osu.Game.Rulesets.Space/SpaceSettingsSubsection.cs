@@ -62,6 +62,9 @@ namespace osu.Game.Rulesets.Space
         [Resolved(CanBeNull = true)]
         private OsuGame game { get; set; }
 
+        [Resolved]
+        private OsuColour colours { get; set; }
+
         [BackgroundDependencyLoader]
         private void load()
         {
@@ -85,17 +88,19 @@ namespace osu.Game.Rulesets.Space
                 new SettingsButton
                 {
                     Text = "GitHub Repository",
-                    Action = () => host.OpenUrlExternally("https://github.com/michioxd/osu-space")
+                    Action = () => host.OpenUrlExternally("https://github.com/michioxd/osu-space"),
+                    BackgroundColour = colours.YellowDark,
                 },
                 checkForUpdatesButton = new SettingsButton
                 {
                     Text = "Check for Updates",
-                    Action = checkRulesetUpdate
+                    Action = checkRulesetUpdate,
+                    BackgroundColour = colours.BlueDark,
                 },
                 new SettingsButton
                 {
                     Text = "Import Sound Space Plus map (.sspm) (WIP)",
-                    Action = importSSPM
+                    Action = importSSPM,
                 },
                 new SettingsEnumDropdown<PlayfieldBorderStyle>
                 {
