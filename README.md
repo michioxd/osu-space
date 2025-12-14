@@ -4,7 +4,7 @@ Custom game mode for [osu!(lazer)](https://github.com/ppy/osu) based on [Sound S
 
 Currently still **highly under development**. Some features have been implemented, but there are still tons of bugs. Please open an issue if you encounter any.
 
-Status: **THE CONVERTER NEEDS TO BE REFACTORED!** I forgot about quantum notes (float), so basically every note is shifted toward the center of the grid.
+Status: **THE CONVERTER NEEDS TO BE REFACTORED!** I forgot about quantum notes (float), so basically every note is shifted toward the center of each grid cell.
 
 | Main gameplay | Customization |
 |---|---|
@@ -53,5 +53,6 @@ You can also contribute new color palettes for the game by opening an issue if y
 Interested? Support meeee!!
 
 [![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg)](https://www.buymeacoffee.com/michioxd)
+
 
 
