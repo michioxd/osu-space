@@ -46,7 +46,7 @@ Visit the [Releases](https://github.com/michioxd/osu-space/releases) page to dow
 - [x] Basic gameplay
 - [x] SSPM v1/2 converter/importer
 - [ ] Note speed change event
-- [x] Quantum note **(need refactor)**
+- [x] Quantum note
 - [ ] **(NP)** Editor
 
 NP: Not planned
@@ -62,6 +62,7 @@ You can also contribute new color palettes for the game by opening an issue if y
 Interested? Support meeee!!
 
 [![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg)](https://www.buymeacoffee.com/michioxd)
+
 
 
 
