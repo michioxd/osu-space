@@ -9,6 +9,7 @@ using osu.Game.Rulesets.Objects.Types;
 using osu.Game.Rulesets.Space.UI;
 using osuTK;
 using System.Linq;
+using osu.Framework.Logging;
 
 namespace osu.Game.Rulesets.Space.Beatmaps
 {
@@ -25,7 +26,7 @@ namespace osu.Game.Rulesets.Space.Beatmaps
 
         protected override IEnumerable<SpaceHitObject> ConvertHitObject(HitObject original, IBeatmap beatmap, CancellationToken cancellationToken)
         {
-            var (col, row) = getGridPosition(original, beatmap.BeatmapInfo.Ruleset.ShortName != "osuspaceruleset");
+            var (col, row) = getGridPosition(original, beatmap.BeatmapInfo.Ruleset.ShortName == "osuspaceruleset");
 
             int index = -1;
             if (beatmap.HitObjects is IList<HitObject> list)

@@ -26,6 +26,10 @@ using osu.Game.Online.API.Requests.Responses;
 using osu.Game.Overlays.Settings.Sections;
 using osu.Game.Rulesets.Space.Extension.SSPM;
 using osu.Framework.Screens;
+using System;
+using osu.Game.Database;
+using osu.Game.Beatmaps;
+using System.Linq;
 
 namespace osu.Game.Rulesets.Space
 {
@@ -63,6 +67,15 @@ namespace osu.Game.Rulesets.Space
         [Resolved]
         private OsuColour colours { get; set; }
 
+        [Resolved]
+        private RealmAccess realm { get; set; } = null!;
+
+        [Resolved]
+        private Bindable<WorkingBeatmap> currentBeatmap { get; set; }
+
+        [Resolved]
+        private BeatmapManager beatmapManager { get; set; }
+
         [BackgroundDependencyLoader]
         private void load()
         {
@@ -99,6 +112,11 @@ namespace osu.Game.Rulesets.Space
                 {
                     Text = "Import Sound Space Plus map (.sspm) (WIP)",
                     Action = importSSPM,
+                },
+                new DangerousSettingsButton
+                {
+                    Text = "Delete all osu!space beatmaps",
+                    Action = deleteAllBeatmaps,
                 },
                 new SettingsEnumDropdown<PlayfieldBorderStyle>
                 {
@@ -237,6 +255,46 @@ namespace osu.Game.Rulesets.Space
             game?.PerformFromScreen(s => s.Push(new SSPMImportScreen()));
         }
 
+        private void deleteAllBeatmaps()
+        {
+            dialogOverlay?.Push(new DeleteAllBeatmapDialog(() =>
+            {
+                if (currentBeatmap.Value.BeatmapInfo?.Ruleset?.ShortName == "osuspaceruleset")
+                {
+                    currentBeatmap.Value = (WorkingBeatmap)beatmapManager.DefaultBeatmap;
+                }
+                realm.Write(r =>
+                {
+                    var beatmapsToDelete = r.All<BeatmapInfo>()
+                        .Where(b => b.Ruleset != null)
+                        .ToList()
+                        .Where(b => b.Ruleset.ShortName == "osuspaceruleset")
+                        .ToList();
+
+                    foreach (var beatmap in beatmapsToDelete)
+                    {
+                        var parentSet = beatmap.BeatmapSet;
+
+                        if (parentSet != null)
+                        {
+                            parentSet.Beatmaps.Remove(beatmap);
+                            r.Remove(beatmap);
+
+                            if (parentSet.Beatmaps.Count == 0)
+                            {
+                                parentSet.DeletePending = true;
+                            }
+                        }
+                    }
+                });
+                notifications?.Post(new SimpleNotification
+                {
+                    Text = "All osu!space beatmaps added to deletion queue.",
+                    Icon = FontAwesome.Solid.Trash,
+                });
+            }));
+        }
+
         private void checkRulesetUpdate()
         {
             checkForUpdatesButton.Enabled.Value = false;
@@ -328,6 +386,30 @@ namespace osu.Game.Rulesets.Space
                     new PopupDialogCancelButton
                     {
                         Text = "Cancel"
+                    },
+                ];
+            }
+        }
+
+        private partial class DeleteAllBeatmapDialog : PopupDialog
+        {
+            public DeleteAllBeatmapDialog(Action delete)
+            {
+                HeaderText = $"Delete all osu!space beatmaps?";
+                BodyText = $"Are you sure you want to delete all osu!space beatmaps? This action cannot be undone.";
+
+                Icon = FontAwesome.Solid.Trash;
+
+                Buttons =
+                [
+                    new PopupDialogDangerousButton
+                    {
+                        Text = "Delete All Beatmaps",
+                        Action = delete
+                    },
+                    new PopupDialogCancelButton
+                    {
+                        Text = "Lemme think again..."
                     },
                 ];
             }

@@ -89,7 +89,7 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                 float ox = note.x * 1e4f;
                 float oy = note.y * 1e4f;
 
-                sb.AppendLine($"{ox},{oy},{note.time},1,0,0:0:0:0:");
+                sb.AppendLine($"{Math.Round(ox)},{Math.Round(oy)},{note.time},1,0,0:0:0:0:");
             }
 
             return sb.ToString();
