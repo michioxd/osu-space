@@ -23,6 +23,7 @@ using System.Linq;
 using System.Drawing;
 using osu.Game.Screens.OnlinePlay.Match.Components;
 using System.IO;
+using osu.Game.Screens.SelectV2;
 
 namespace osu.Game.Rulesets.Space.Extension.SSPM
 {
@@ -225,6 +226,11 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                 Text = "Importing Sound Space Plus map files...",
                 CompletionText = "Import Sound Space Plus map complete!",
                 State = ProgressNotificationState.Active,
+                CompletionClickAction = () =>
+                {
+                    game?.PerformFromScreen(s => s.Push(new SoloSongSelect()));
+                    return true;
+                }
             };
             notifications?.Post(notification);
 
