@@ -16,8 +16,6 @@ using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics.Effects;
 using osu.Framework.Graphics.Primitives;
 using osu.Framework.Extensions.PolygonExtensions;
-using System.Linq;
-using osu.Framework.Logging;
 
 namespace osu.Game.Rulesets.Space.Objects.Drawables
 {

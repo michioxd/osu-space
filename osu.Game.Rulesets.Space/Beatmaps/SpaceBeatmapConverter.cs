@@ -71,10 +71,8 @@ namespace osu.Game.Rulesets.Space.Beatmaps
                 {
                     var ringPath = new List<(float c, float r)>
                     {
-                        (0.5f, 2.5f), (1.5f, 2.5f), (2.5f, 2.5f),
-                        (2.5f, 1.5f),
-                        (2.5f, 0.5f), (1.5f, 0.5f), (0.5f, 0.5f),
-                        (0.5f, 1.5f)
+                        (0f, 2f), (1f, 2f), (2f, 2f), (2f, 1f),
+                        (2f, 0f), (1f, 0f), (0f, 0f), (0f, 1f)
                     };
 
                     int startIndex = closestIndex(ringPath, col, row, epsilon);
