@@ -12,8 +12,8 @@ namespace osu.Game.Rulesets.Space.Objects
         public bool IsHitOk { get; set; } = false;
         public float X { get; set; }
         public float Y { get; set; }
-        public int col { get; set; }
-        public int row { get; set; }
+        public float oX { get; set; }
+        public float oY { get; set; }
         public override Judgement CreateJudgement() => new Judgement();
 
         public Vector2 Position

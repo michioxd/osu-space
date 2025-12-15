@@ -29,10 +29,10 @@ namespace osu.Game.Rulesets.Space.UI
             }
         }
 
-        public void ShowMiss(int col, int row)
+        public void ShowMiss(float col, float row)
         {
             if (col < 0 || col > 2 || row < 0 || row > 2) return;
-            int index = row * 3 + col;
+            int index = (int)(row * 3 + col);
             icons[index].Show();
         }
     }

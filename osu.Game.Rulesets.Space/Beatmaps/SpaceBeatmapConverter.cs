@@ -47,6 +47,7 @@ namespace osu.Game.Rulesets.Space.Beatmaps
             if (beatmap.BeatmapInfo.Ruleset.ShortName != "osuspaceruleset")
             {
                 int streak = 0;
+                const float epsilon = 0.2f;
                 if (index > 0)
                 {
                     double lastTime = original.StartTime;
@@ -54,8 +55,7 @@ namespace osu.Game.Rulesets.Space.Beatmaps
                     {
                         var prevObj = beatmap.HitObjects[i];
                         var prevPos = getGridPosition(prevObj);
-
-                        if (prevPos.col != col || prevPos.row != row)
+                        if (Math.Abs(prevPos.col - col) > epsilon || Math.Abs(prevPos.row - row) > epsilon)
                             break;
 
                         if (lastTime - prevObj.StartTime > 1000)
@@ -68,15 +68,15 @@ namespace osu.Game.Rulesets.Space.Beatmaps
 
                 if (streak > 0)
                 {
-                    var ringPath = new List<(int c, int r)>
-                {
-                    (0, 2), (1, 2), (2, 2),
-                    (2, 1),
-                    (2, 0), (1, 0), (0, 0),
-                    (0, 1)
-                };
+                    var ringPath = new List<(float c, float r)>
+                    {
+                        (0.5f, 2.5f), (1.5f, 2.5f), (2.5f, 2.5f),
+                        (2.5f, 1.5f),
+                        (2.5f, 0.5f), (1.5f, 0.5f), (0.5f, 0.5f),
+                        (0.5f, 1.5f)
+                    };
 
-                    int startIndex = ringPath.IndexOf((col, row));
+                    int startIndex = closestIndex(ringPath, col, row, epsilon);
 
                     if (startIndex != -1)
                     {
@@ -100,19 +100,29 @@ namespace osu.Game.Rulesets.Space.Beatmaps
                 StartTime = original.StartTime,
                 X = (col + 0.5f) * (SpacePlayfield.BASE_SIZE / 3f),
                 Y = (row + 0.5f) * (SpacePlayfield.BASE_SIZE / 3f),
-                col = col,
-                row = row
+                oX = col,
+                oY = row
             };
-
         }
 
-        private (int col, int row) getGridPosition(HitObject hitObject)
+        private static int closestIndex(List<(float c, float r)> path, float col, float row, float epsilon)
+        {
+            for (int i = 0; i < path.Count; i++)
+            {
+                if (Math.Abs(path[i].c - col) < epsilon && Math.Abs(path[i].r - row) < epsilon)
+                    return i;
+            }
+            return -1;
+        }
+
+        private static (float col, float row) getGridPosition(HitObject hitObject)
         {
             float x = ((IHasXPosition)hitObject).X;
             float y = ((IHasYPosition)hitObject).Y;
-            int col = Math.Clamp((int)(x / (SpacePlayfield.BASE_SIZE / 3f)), 0, 2);
-            int row = Math.Clamp((int)(y / (SpacePlayfield.BASE_SIZE / 3f)), 0, 2);
-            return (col, row);
+            return (
+                Math.Clamp(x / (SpacePlayfield.BASE_SIZE / 3f), 0, 2),
+                Math.Clamp(y / (SpacePlayfield.BASE_SIZE / 3f), 0, 2)
+                );
         }
     }
 }

@@ -17,6 +17,7 @@ using osu.Framework.Graphics.Effects;
 using osu.Framework.Graphics.Primitives;
 using osu.Framework.Extensions.PolygonExtensions;
 using System.Linq;
+using osu.Framework.Logging;
 
 namespace osu.Game.Rulesets.Space.Objects.Drawables
 {
@@ -163,7 +164,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
 
             float rawScale = camera_z / z;
 
-            if (rawScale >= 2f && HitObject.row == 1 || (rawScale >= 1f && HitObject.IsHitOk))
+            if (rawScale >= 2f && HitObject.oX >= 1 && HitObject.oX <= 1.5 || (rawScale >= 1f && HitObject.IsHitOk))
             {
                 Alpha = 0;
                 Scale = new Vector2(2f);
@@ -172,7 +173,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
 
             Scale = new Vector2(rawScale * userNoteScale);
 
-            Vector2 targetRelative = new Vector2((HitObject.col + 0.5f) / 3f, (HitObject.row + 0.5f) / 3f);
+            Vector2 targetRelative = new Vector2((HitObject.oX + 0.5f) / 3f, (HitObject.oY + 0.5f) / 3f);
             Vector2 center = new Vector2(0.5f, 0.5f);
             Vector2 offset = targetRelative - center;
 
@@ -252,7 +253,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             switch (state)
             {
                 case ArmedState.Miss:
-                    ((SpacePlayfield)ruleset.Playfield).spaceMiss.ShowMiss(HitObject.col, HitObject.row);
+                    ((SpacePlayfield)ruleset.Playfield).spaceMiss.ShowMiss(HitObject.X, HitObject.Y);
                     this.FadeOut(0, Easing.OutQuint).Expire();
                     break;
             }
