@@ -162,13 +162,6 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
 
             float rawScale = camera_z / z;
 
-            if (rawScale >= 2f && HitObject.oX >= 1 && HitObject.oX <= 1.5 || (rawScale >= 1f && HitObject.IsHitOk))
-            {
-                Alpha = 0;
-                Scale = new Vector2(2f);
-                return;
-            }
-
             Scale = new Vector2(rawScale * userNoteScale);
 
             Vector2 targetRelative = new Vector2((HitObject.oX + 0.5f) / 3f, (HitObject.oY + 0.5f) / 3f);
@@ -202,6 +195,12 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             }
 
             Alpha = alpha * userNoteOpacity;
+
+            if (rawScale >= 2f && HitObject.oX >= 1 && HitObject.oX <= 1.5 || (rawScale >= 1f && HitObject.IsHitOk))
+            {
+                Alpha = 0;
+                Scale = new Vector2(2f);
+            }
         }
 
         protected override void CheckForResult(bool userTriggered, double timeOffset)
@@ -209,6 +208,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             if (Judged) return;
 
             bool isHit = false;
+            HitObject.IsHitOk = false;
 
             var cursor = ruleset.Playfield.Cursor?.ActiveCursor;
             if (cursor != null)
@@ -250,6 +250,9 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
         {
             switch (state)
             {
+                case ArmedState.Hit:
+                    this.FadeOut(150, Easing.OutQuint).Expire();
+                    break;
                 case ArmedState.Miss:
                     ((SpacePlayfield)ruleset.Playfield).spaceMiss.ShowMiss(HitObject.X, HitObject.Y);
                     this.FadeOut(0, Easing.OutQuint).Expire();
