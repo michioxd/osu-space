@@ -255,7 +255,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
                     break;
                 case ArmedState.Miss:
                     ((SpacePlayfield)ruleset.Playfield).spaceMiss.ShowMiss(HitObject.oX, HitObject.oY);
-                    this.FadeOut(0, Easing.OutQuint).Expire();
+                    this.FadeOut(50, Easing.OutQuint).Expire();
                     break;
             }
         }
