@@ -70,7 +70,7 @@ public partial class SpaceModFlashlight : ModFlashlight<SpaceHitObject>
 
         protected override void UpdateFlashlightSize(float size)
         {
-            float fieldSize = SpaceRulesetConfigManager.FieldSize.Value;
+            float fieldSize = SpaceRulesetConfigManager.FieldSize?.Value ?? 0.6f;
             this.TransformTo(nameof(FlashlightSize), new Vector2(0, size * (fieldSize + 0.1f)), FLASHLIGHT_FADE_DURATION);
         }
 
