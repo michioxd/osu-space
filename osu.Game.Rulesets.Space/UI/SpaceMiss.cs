@@ -11,29 +11,24 @@ namespace osu.Game.Rulesets.Space.UI
 {
     public partial class SpaceMiss : CompositeDrawable
     {
-        private readonly MissIcon[] icons = new MissIcon[9];
-
         public SpaceMiss()
         {
             RelativeSizeAxes = Axes.Both;
-
-            for (int i = 0; i < 9; i++)
-            {
-                int col = i % 3;
-                int row = i / 3;
-
-                AddInternal(icons[i] = new MissIcon
-                {
-                    RelativePositionAxes = Axes.Both,
-                    Position = new Vector2((col + 0.5f) / 3f, (row + 0.5f) / 3f),
-                });
-            }
         }
 
         public void ShowMiss(float col, float row)
         {
-            int index = Math.Clamp((int)Math.Round(row * 3 + col), 0, 8);
-            icons[index].Show();
+            var missIcon = new MissIcon
+            {
+                RelativePositionAxes = Axes.Both,
+                Position = new Vector2((col + 0.5f) / 3f, (row + 0.5f) / 3f),
+            };
+
+            AddInternal(missIcon);
+            missIcon.Show();
+
+            // throw it away after it's done
+            missIcon.Delay(800).Expire();
         }
     }
 
