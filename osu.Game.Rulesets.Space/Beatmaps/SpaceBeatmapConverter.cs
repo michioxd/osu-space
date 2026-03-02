@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -9,7 +8,6 @@ using osu.Game.Rulesets.Objects.Types;
 using osu.Game.Rulesets.Space.UI;
 using osuTK;
 using System.Linq;
-using osu.Framework.Logging;
 
 namespace osu.Game.Rulesets.Space.Beatmaps
 {
@@ -24,83 +22,73 @@ namespace osu.Game.Rulesets.Space.Beatmaps
 
         public override bool CanConvert() => Beatmap.HitObjects.All(h => h is IHasXPosition && h is IHasYPosition);
 
-        private Vector2? prevPos;
-        private (int c, int r) prevGridPos;
-        private (int c, int r) prevPrevGridPos;
+        private Vector2? prevOsuPos;
+        private (int col, int row) prevGridPos;
+        private (int col, int row) ppGridPos; // prev-prev grid pos
         private double prevTime;
         private int currentIndex;
 
         protected override IEnumerable<SpaceHitObject> ConvertHitObject(HitObject original, IBeatmap beatmap, CancellationToken cancellationToken)
         {
-            bool isSpace = beatmap.BeatmapInfo.Ruleset.ShortName == "osuspaceruleset";
+            bool isSpaceMap = beatmap.BeatmapInfo.Ruleset.ShortName == "osuspaceruleset";
 
-            // If it's already a Space map, use the existing logic (absolute positioning)
-            if (isSpace)
+            if (isSpaceMap)
             {
-                var (col, row) = getGridPosition(original, true);
+                var (absCol, absRow) = getGridPosition(original, true);
                 yield return new SpaceHitObject
                 {
-                    Index = currentIndex++, // Keep consistent indexing
+                    Index = currentIndex++,
                     Samples = original.Samples,
                     StartTime = original.StartTime,
-                    X = (col + 0.5f) * (SpacePlayfield.BASE_SIZE / 3f),
-                    Y = (row + 0.5f) * (SpacePlayfield.BASE_SIZE / 3f),
-                    oX = col,
-                    oY = row
+                    X = (absCol + 0.5f) * (SpacePlayfield.BASE_SIZE / 3f),
+                    Y = (absRow + 0.5f) * (SpacePlayfield.BASE_SIZE / 3f),
+                    oX = absCol,
+                    oY = absRow
                 };
                 yield break;
             }
 
-            // For conversion from osu! or other rulesets
             var osuPos = (original as IHasPosition)?.Position ?? Vector2.Zero;
-            var time = original.StartTime;
+            double time = original.StartTime;
 
-            int newCol, newRow;
-
-            // Reset context if too much time passed (break) or first object
-            if (prevPos == null || (time - prevTime) > 1000)
+            int targetCol, targetRow;
+            if (prevOsuPos == null || (time - prevTime) > 1000)
             {
-                // Use absolute mapping as anchor
-                var abs = getGridPosition(original, false);
-                newCol = (int)abs.col;
-                newRow = (int)abs.row;
-                prevPrevGridPos = (newCol, newRow);
+                var initPos = getGridPosition(original, false);
+                targetCol = (int)initPos.col;
+                targetRow = (int)initPos.row;
+                ppGridPos = (-1, -1);
+                prevGridPos = (-1, -1);
             }
             else
             {
-                // Relative mapping based on flow
-                var diff = osuPos - prevPos.Value;
+                var diff = osuPos - prevOsuPos.Value;
                 float dist = diff.Length;
-                float osuAngle = MathF.Atan2(diff.Y, diff.X); // Radians
+                float osuAngle = MathF.Atan2(diff.Y, diff.X);
 
-                // Target distance in grid units (Chebyshev)
-                // 0 = stack, 1 = adjacent/diagonal, 2 = jump
-                int targetStep = 1;
-                // osu! stacks are very precise, usually < 2-3 units.
-                // Streams are usually ~15-30 units.
-                if (dist < 10) targetStep = 0;
-                else if (dist > 180) targetStep = 2;
+                int step = 1;
+                if (dist < 10) step = 0;
+                else if (dist > 180) step = 2;
 
-                var candidates = new List<((int c, int r) pos, double score)>();
+                var candidates = new List<((int col, int row) pos, double score)>();
 
-                // Flow heuristic: Check if this is a high-density stream
-                double timeDelta = time - prevTime;
-                bool isStream = timeDelta < 150;
-                bool isHighBpmStream = timeDelta < 90; // > 166 BPM 1/4
+                double dt = time - prevTime;
+                bool isStream = dt < 150;
+                bool isHighBpm = dt < 90;
 
-                if (isHighBpmStream && targetStep > 1) targetStep = 1; // Cap jumps at high BPM
+                if (isHighBpm && step > 1) step = 1;
 
                 for (int c = 0; c <= 2; c++)
                 {
                     for (int r = 0; r <= 2; r++)
                     {
-                        int dc = c - prevGridPos.c;
-                        int dr = r - prevGridPos.r;
+                        int dc = c - prevGridPos.col;
+                        int dr = r - prevGridPos.row;
                         int gridDist = Math.Max(Math.Abs(dc), Math.Abs(dr));
 
-                        // 1. Distance Score
                         double score = 0;
-                        if (targetStep == 0)
+
+                        if (step == 0)
                         {
                             if (gridDist == 0) score += 100;
                             else score -= 100;
@@ -109,74 +97,62 @@ namespace osu.Game.Rulesets.Space.Beatmaps
                         {
                             if (gridDist == 0)
                             {
-                                score -= 50; // Avoid stacks if not intended
-                                if (isStream) score -= 100; // Heavily penalize stacks during streams (force movement)
+                                score -= 50;
+                                if (isStream) score -= 100;
                             }
-                            else if (targetStep == 2)
+                            else if (step == 2)
                             {
                                 if (gridDist >= 2) score += 20;
                                 else score -= 10;
                             }
-                            else // targetStep == 1
+                            else
                             {
                                 if (gridDist == 1) score += 20;
                                 else score -= 5;
                             }
                         }
 
-                        // 2. Angle Score (only if moving)
                         if (gridDist > 0)
                         {
-                            // Vector from prevGrid to candidate
-                            // Y is down in osu! and grid, so (dr) is correct for Y component
-                            // However, grid is small, so we treat it as vector
                             float gridAngle = MathF.Atan2(dr, dc);
+                            float dAngle = osuAngle - gridAngle;
 
-                            // Difference between osu! angle and grid angle
-                            float angleDiff = Math.Abs(osuAngle - gridAngle);
-                            while (angleDiff > MathF.PI) angleDiff -= 2 * MathF.PI;
-                            while (angleDiff < -MathF.PI) angleDiff += 2 * MathF.PI;
-                            angleDiff = Math.Abs(angleDiff);
+                            if (float.IsNaN(dAngle) || float.IsInfinity(dAngle))
+                                dAngle = 0f;
 
-                            // Closer angle is better.
-                            // Score ranges from roughly +15 (match) to -15 (opposite)
-                            score += (1.0 - (angleDiff / MathF.PI)) * 30;
+                            while (dAngle > MathF.PI) dAngle -= 2 * MathF.PI;
+                            while (dAngle < -MathF.PI) dAngle += 2 * MathF.PI;
 
-                            // 2.1 Flow Angle Bonus (High BPM)
-                            // Only apply strict flow to streams (targetStep < 2).
-                            // For jumps (targetStep >= 2), allow more angular variance (sharp turns) if the map calls for it.
-                            if (isStream && prevGridPos != prevPrevGridPos && targetStep < 2)
+                            dAngle = Math.Abs(dAngle);
+
+                            score += (1.0 - (dAngle / MathF.PI)) * 30;
+
+                            if (isStream && prevGridPos != ppGridPos && ppGridPos.col != -1 && step < 2)
                             {
-                                int prevDc = prevGridPos.c - prevPrevGridPos.c;
-                                int prevDr = prevGridPos.r - prevPrevGridPos.r;
-                                float prevMoveAngle = MathF.Atan2(prevDr, prevDc);
+                                int prevDc = prevGridPos.col - ppGridPos.col;
+                                int prevDr = prevGridPos.row - ppGridPos.row;
+                                float prevAngle = MathF.Atan2(prevDr, prevDc);
 
-                                float flowAngleDiff = Math.Abs(prevMoveAngle - gridAngle);
-                                while (flowAngleDiff > MathF.PI) flowAngleDiff -= 2 * MathF.PI;
-                                while (flowAngleDiff < -MathF.PI) flowAngleDiff += 2 * MathF.PI;
-                                flowAngleDiff = Math.Abs(flowAngleDiff);
+                                float flowAngle = prevAngle - gridAngle;
 
-                                // If flow angle > 90 deg (sharp turn), penalize
-                                if (flowAngleDiff > MathF.PI / 2 + 0.1f)
-                                {
-                                    score -= 20;
-                                }
-                                else
-                                {
-                                    score += 10; // Bonus for smooth flow
-                                }
+                                if (float.IsNaN(flowAngle) || float.IsInfinity(flowAngle))
+                                    flowAngle = 0f;
+
+                                while (flowAngle > MathF.PI) flowAngle -= 2 * MathF.PI;
+                                while (flowAngle < -MathF.PI) flowAngle += 2 * MathF.PI;
+
+                                flowAngle = Math.Abs(flowAngle);
+
+                                if (flowAngle > MathF.PI / 2 + 0.1f) score -= 20;
+                                else score += 10;
                             }
                         }
 
-                        // 3. Backtracking Penalty (Anti-Spam)
-                        // If we go back to exactly where we were 2 notes ago, and it's not a stack pattern
-                        if (targetStep > 0 && c == prevPrevGridPos.c && r == prevPrevGridPos.r)
+                        if (step > 0 && c == ppGridPos.col && r == ppGridPos.row && ppGridPos.col != -1)
                         {
-                            score -= 200; // Heavy penalty to prevent A-B-A trills/spams
+                            score -= 200;
                         }
 
-                        // 4. Variety/Randomness tie-breaker (deterministically based on time/index)
-                        // This helps avoid always picking the same diagonal for the same angle
                         double noise = (Math.Sin(time * 0.1 + c * 13 + r * 7) + 1) * 2;
                         score += noise;
 
@@ -184,15 +160,14 @@ namespace osu.Game.Rulesets.Space.Beatmaps
                     }
                 }
 
-                // Select best candidate
-                var best = candidates.OrderByDescending(x => x.score).First();
-                newCol = best.pos.c;
-                newRow = best.pos.r;
+                var best = candidates.OrderByDescending(p => p.score).First();
+                targetCol = best.pos.col;
+                targetRow = best.pos.row;
             }
 
-            prevPrevGridPos = prevGridPos;
-            prevPos = osuPos;
-            prevGridPos = (newCol, newRow);
+            ppGridPos = prevGridPos;
+            prevOsuPos = osuPos;
+            prevGridPos = (targetCol, targetRow);
             prevTime = time;
 
             yield return new SpaceHitObject
@@ -200,10 +175,10 @@ namespace osu.Game.Rulesets.Space.Beatmaps
                 Index = currentIndex++,
                 Samples = original.Samples,
                 StartTime = original.StartTime,
-                X = (newCol + 0.5f) * (SpacePlayfield.BASE_SIZE / 3f),
-                Y = (newRow + 0.5f) * (SpacePlayfield.BASE_SIZE / 3f),
-                oX = newCol,
-                oY = newRow
+                X = (targetCol + 0.5f) * (SpacePlayfield.BASE_SIZE / 3f),
+                Y = (targetRow + 0.5f) * (SpacePlayfield.BASE_SIZE / 3f),
+                oX = targetCol,
+                oY = targetRow
             };
         }
 
