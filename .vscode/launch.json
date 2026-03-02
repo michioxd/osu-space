@@ -4,43 +4,6 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        // execute cd ../osu && dotnet run --project .\osu.Desktop\ -c Release -v detailed
-        {
-            "name": "Run osu! (Release)",
-            "type": "coreclr",
-            "request": "launch",
-            "cwd": "${workspaceFolder}/../osu",
-            "program": "dotnet",
-            "args": [
-                "run",
-                "--project",
-                ".\\osu.Desktop\\",
-                "-c",
-                "Release",
-                "-v",
-                "detailed"
-            ],
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen"
-        },
-        {
-            "name": "Run osu! (Debug)",
-            "type": "coreclr",
-            "request": "launch",
-            "cwd": "${workspaceFolder}/../osu",
-            "program": "dotnet",
-            "args": [
-                "run",
-                "--project",
-                ".\\osu.Desktop\\",
-                "-c",
-                "Debug",
-                "-v",
-                "detailed"
-            ],
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen"
-        },
         {
             "name": "Run osu!space test",
             "type": "coreclr",
@@ -53,6 +16,22 @@
                 ".\\osu.Game.Rulesets.Space.Tests\\",
                 "-c",
                 "Debug",
+                "-v",
+                "detailed"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "name": "Build Release",
+            "type": "coreclr",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "program": "dotnet",
+            "args": [
+                "build",
+                "-c",
+                "Release",
                 "-v",
                 "detailed"
             ],
