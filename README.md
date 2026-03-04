@@ -18,7 +18,7 @@ https://github.com/user-attachments/assets/7eb79bfb-90f1-409a-8aa0-f08481fa6481
     - Cursor size/trail.
     - Playfield (grid, border, scale, parallax).
     - Note color palette (some color extracted from SSP aka Rhythia)
-    - Note (thickness, corner radius, opacity, scale, approach rate, spawn distance, fade, bloom)
+    - Note (thickness, corner radius, opacity, scale, approach rate, spawn distance, fade, glow)
 - Online check update.
 - Import .sspm (Sound Space Plus map, v1 and v2) files from Sound Space Plus (Rhythia) (WIP).
 

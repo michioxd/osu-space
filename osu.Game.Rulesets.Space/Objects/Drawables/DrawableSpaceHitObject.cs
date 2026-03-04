@@ -34,8 +34,8 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
         private readonly Bindable<float> noteCornerRadius = new();
         private readonly Bindable<SpacePalette> palette = new();
         private readonly Bindable<float> scalePlayfield = new();
-        private readonly Bindable<bool> bloom = new();
-        private readonly Bindable<float> bloomStrength = new();
+        private readonly Bindable<bool> glow = new();
+        private readonly Bindable<float> glowStrength = new();
         private readonly Bindable<float> hitWindow = new();
         public DrawableSpaceHitObject(SpaceHitObject hitObject)
             : base(hitObject)
@@ -62,8 +62,8 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             config?.BindWith(SpaceRulesetSetting.NoteCornerRadius, noteCornerRadius);
             config?.BindWith(SpaceRulesetSetting.Palette, palette);
             config?.BindWith(SpaceRulesetSetting.ScalePlayfield, scalePlayfield);
-            config?.BindWith(SpaceRulesetSetting.Bloom, bloom);
-            config?.BindWith(SpaceRulesetSetting.BloomStrength, bloomStrength);
+            config?.BindWith(SpaceRulesetSetting.Glow, glow);
+            config?.BindWith(SpaceRulesetSetting.GlowStrength, glowStrength);
             config?.BindWith(SpaceRulesetSetting.HitWindow, hitWindow);
 
             AddInternal(content = new Container
@@ -84,10 +84,10 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             palette.BindValueChanged(_ =>
             {
                 updateColor();
-                updateBloom();
+                updateGlow();
             }, true);
-            bloom.BindValueChanged(_ => updateBloom(), true);
-            bloomStrength.BindValueChanged(_ => updateBloom(), true);
+            glow.BindValueChanged(_ => updateGlow(), true);
+            glowStrength.BindValueChanged(_ => updateGlow(), true);
         }
 
         public override IEnumerable<HitSampleInfo> GetSamples() => new[]
@@ -101,15 +101,15 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             content.Colour = colors[HitObject.Index % colors.Length];
         }
 
-        private void updateBloom()
+        private void updateGlow()
         {
-            if (bloom.Value == true && bloomStrength.Value > 0)
+            if (glow.Value == true && glowStrength.Value > 0)
             {
                 content.EdgeEffect = new EdgeEffectParameters
                 {
                     Type = EdgeEffectType.Glow,
                     Colour = ((Color4)content.Colour).Opacity(0.5f),
-                    Radius = bloomStrength.Value * 10f,
+                    Radius = glowStrength.Value * 10f,
                     Roundness = content.CornerRadius,
                     Hollow = true,
                 };

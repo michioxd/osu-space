@@ -227,15 +227,15 @@ namespace osu.Game.Rulesets.Space
                 },
                 new SettingsCheckbox
                 {
-                    LabelText = "Enable Bloom",
+                    LabelText = "Enable Glow",
                     TooltipText = "Enables a glow effect on notes. Best used with 100% background dim and light note colors.",
-                    Current = config.GetBindable<bool>(SpaceRulesetSetting.Bloom)
+                    Current = config.GetBindable<bool>(SpaceRulesetSetting.Glow)
                 },
                 new SettingsSlider<float>
                 {
-                    LabelText = "Bloom Strength",
-                    TooltipText = "Strength of the bloom effect on notes",
-                    Current = config.GetBindable<float>(SpaceRulesetSetting.BloomStrength),
+                    LabelText = "Glow Strength",
+                    TooltipText = "Strength of the glow effect on notes",
+                    Current = config.GetBindable<float>(SpaceRulesetSetting.GlowStrength),
                     KeyboardStep = 0.01f,
                 },
                 new SettingsSlider<float>
