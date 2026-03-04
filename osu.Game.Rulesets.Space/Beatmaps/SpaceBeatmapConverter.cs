@@ -186,7 +186,7 @@ namespace osu.Game.Rulesets.Space.Beatmaps
         {
             if (isOSpaceBeatmap)
             {
-                return (((IHasXPosition)hitObject).X / 1e4f, ((IHasYPosition)hitObject).Y / 1e4f);
+                return (Math.Clamp(((IHasXPosition)hitObject).X / 1e4f, 0f, 2f), Math.Clamp(((IHasYPosition)hitObject).Y / 1e4f, 0f, 2f));
             }
             float x = ((IHasXPosition)hitObject).X;
             float y = ((IHasYPosition)hitObject).Y;
