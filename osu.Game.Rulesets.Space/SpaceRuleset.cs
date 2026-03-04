@@ -126,6 +126,9 @@ namespace osu.Game.Rulesets.Space
 
         public override Drawable CreateIcon() => new SpaceRulesetIcon(this);
 
+        // only notes is enough
+        public override IEnumerable<RulesetBeatmapAttribute> GetBeatmapAttributesForDisplay(IBeatmapInfo beatmapInfo, IReadOnlyCollection<Mod> mods) => [];
+
         // Leave this line intact. It will bake the correct version into the ruleset on each build/release.
         public override string RulesetAPIVersionSupported => CURRENT_RULESET_API_VERSION;
     }

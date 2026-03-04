@@ -22,7 +22,7 @@ namespace osu.Game.Rulesets.Space.Beatmaps
                     Name = BeatmapStatisticStrings.Notes,
                     CreateIcon = () => new BeatmapStatisticIcon(BeatmapStatisticsIconType.Circles),
                     Content = notes.ToString(),
-                    BarDisplayLength = notes,
+                    BarDisplayLength = 1,
                 },
             ];
         }
