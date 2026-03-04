@@ -7,6 +7,7 @@ using osu.Game.Rulesets.Difficulty;
 using osu.Game.Rulesets.Difficulty.Preprocessing;
 using osu.Game.Rulesets.Difficulty.Skills;
 using osu.Game.Rulesets.Mods;
+using osu.Game.Rulesets.Space.Difficulty;
 using osu.Game.Rulesets.Space.Difficulty.Preprocessing;
 using osu.Game.Rulesets.Space.Difficulty.Skills;
 using osu.Game.Rulesets.Space.Objects;
@@ -23,7 +24,7 @@ namespace osu.Game.Rulesets.Space
         protected override DifficultyAttributes CreateDifficultyAttributes(IBeatmap beatmap, Mod[] mods, Skill[] skills, double clockRate)
         {
             if (beatmap.HitObjects.Count == 0)
-                return new DifficultyAttributes(mods, 0);
+                return new SpaceDifficultyAttributes(mods, 0);
 
             double aimRating = Math.Sqrt(skills[0].DifficultyValue()) * 0.0675;
             double readingRating = Math.Sqrt(skills[1].DifficultyValue()) * 0.0675;
@@ -36,7 +37,12 @@ namespace osu.Game.Rulesets.Space
 
             double starRating = baseRating;
 
-            var attributes = new DifficultyAttributes(mods, starRating);
+            var attributes = new SpaceDifficultyAttributes(mods, starRating)
+            {
+                AimDifficulty = aimRating,
+                ReadingDifficulty = readingRating,
+                MaxCombo = beatmap.HitObjects.Count
+            };
 
             return attributes;
         }

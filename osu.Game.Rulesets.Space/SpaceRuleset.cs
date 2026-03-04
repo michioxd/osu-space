@@ -46,6 +46,8 @@ namespace osu.Game.Rulesets.Space
         public override DifficultyCalculator CreateDifficultyCalculator(IWorkingBeatmap beatmap) =>
             new SpaceDifficultyCalculator(RulesetInfo, beatmap);
 
+        public override PerformanceCalculator CreatePerformanceCalculator() => new SpacePerformanceCalculator();
+
         public override IRulesetConfigManager CreateConfig(SettingsStore? settings) => new SpaceRulesetConfigManager(settings, RulesetInfo);
 
         public override RulesetSettingsSubsection CreateSettings() => new SpaceSettingsSubsection(this);
