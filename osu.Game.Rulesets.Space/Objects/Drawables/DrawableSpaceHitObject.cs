@@ -7,7 +7,6 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
 using osu.Game.Audio;
 using osu.Game.Rulesets.Objects.Drawables;
-using osu.Game.Rulesets.Scoring;
 using osu.Game.Rulesets.Space.Configuration;
 using osu.Game.Rulesets.Space.UI;
 using osuTK;
@@ -234,13 +233,13 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
 
             if (!HitObject.HitWindows.CanBeHit(timeOffset) || timeOffset > hitWindow.Value)
             {
-                ApplyResult(HitResult.Miss);
+                ApplyMinResult();
                 return;
             }
 
             if (isHit && timeOffset >= -hitWindow.Value && timeOffset <= hitWindow.Value)
             {
-                ApplyResult(HitResult.Perfect);
+                ApplyMaxResult();
                 HitObject.IsHitOk = true;
                 return;
             }
