@@ -6,7 +6,7 @@ Currently still **highly under development**. Some features have been implemente
 
 | Main gameplay | Customization |
 |---|---|
-| ![](https://github.com/user-attachments/assets/22e24ad0-c870-432e-883a-8e2e844c6bc1) ![](https://github.com/user-attachments/assets/12fe79b0-092a-4e37-ab2b-d55c3907c79b) | ![](https://github.com/user-attachments/assets/0a742521-de94-4151-9114-2aae7b5ea298) |
+| ![](https://github.com/user-attachments/assets/22e24ad0-c870-432e-883a-8e2e844c6bc1) ![](https://github.com/user-attachments/assets/12fe79b0-092a-4e37-ab2b-d55c3907c79b) | ![](https://github.com/user-attachments/assets/6a384060-5290-4219-b712-d041ddfff09b) |
 
 https://github.com/user-attachments/assets/7eb79bfb-90f1-409a-8aa0-f08481fa6481
 
@@ -62,6 +62,7 @@ You can also contribute new color palettes for the game by opening an issue if y
 Interested? Support meeee!!
 
 [![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg)](https://www.buymeacoffee.com/michioxd)
+
 
 
 
