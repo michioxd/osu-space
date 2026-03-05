@@ -52,7 +52,7 @@ namespace osu.Game.Rulesets.Space
 
         public override RulesetSettingsSubsection CreateSettings() => new SpaceSettingsSubsection(this);
 
-        protected override IEnumerable<HitResult> GetValidHitResults()
+        public override IEnumerable<HitResult> GetValidHitResults()
         {
             return
             [
