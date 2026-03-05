@@ -31,6 +31,7 @@ using osu.Game.Database;
 using osu.Game.Beatmaps;
 using System.Linq;
 using osu.Game.Screens.Menu;
+using osu.Game.Graphics.UserInterfaceV2;
 
 namespace osu.Game.Rulesets.Space
 {
@@ -43,9 +44,7 @@ namespace osu.Game.Rulesets.Space
         {
         }
 
-        private SettingsEnumDropdown<SpacePalette> paletteSelector;
-
-        private SettingsButton checkForUpdatesButton;
+        private SettingsButtonV2 checkForUpdatesButton;
 
         [Resolved]
         private IDialogOverlay? dialogOverlay { get; set; }
@@ -86,169 +85,171 @@ namespace osu.Game.Rulesets.Space
             {
                 RelativeSizeAxes = Axes.X,
                 AutoSizeAxes = Axes.Y,
-                Padding = new MarginPadding { Horizontal = 20, Vertical = 0 }
+                Padding = new MarginPadding { Horizontal = 13, Vertical = 6 }
             };
 
-            header.AddText("osu!space by ");
+            header.AddText("by ");
             header.AddLink("michioxd", () => userProfile?.ShowUser(new APIUser { Id = 16149043 }), "View profile");
             header.AddText(" ฅ^>//<^ฅ ");
             header.AddLink("v" + SpaceRuleset.VERSION_STRING, "https://github.com/michioxd/osu-space/releases/tag/" + SpaceRuleset.VERSION_STRING);
+            header.AddText(". Thanks to ");
+            header.AddLink("all contributors", "https://github.com/michioxd/osu-space/graphs/contributors");
+            header.AddText(".");
 
-            Children = new Drawable[]
-            {
+            Children =
+            [
                 header,
-                new SettingsButton
+                new SettingsButtonV2
                 {
                     Text = "GitHub Repository",
                     Action = () => host.OpenUrlExternally("https://github.com/michioxd/osu-space"),
                     BackgroundColour = colours.YellowDark,
                 },
-                checkForUpdatesButton = new SettingsButton
+                checkForUpdatesButton = new SettingsButtonV2
                 {
                     Text = "Check for Updates",
                     Action = checkRulesetUpdate,
                     BackgroundColour = colours.BlueDark,
                 },
-                new SettingsButton
+                new SettingsButtonV2
                 {
                     Text = "Import Sound Space Plus map (.sspm) (WIP)",
                     Action = importSSPM,
                 },
-                new DangerousSettingsButton
+                new DangerousSettingsButtonV2
                 {
                     Text = "Delete all osu!space beatmaps",
                     Action = deleteAllBeatmaps,
                 },
-                new SettingsEnumDropdown<PlayfieldBorderStyle>
+                new CreateHeader("Playfield"),
+                new SettingsItemV2(new FormEnumDropdown<PlayfieldBorderStyle>
                 {
-                    LabelText = RulesetSettingsStrings.PlayfieldBorderStyle,
+                    Caption = RulesetSettingsStrings.PlayfieldBorderStyle,
                     Current = config.GetBindable<PlayfieldBorderStyle>(SpaceRulesetSetting.PlayfieldBorderStyle),
-                },
-                new SettingsCheckbox
+                }),
+                new SettingsItemV2(new FormCheckBox
                 {
-                    LabelText = "Enable Grid",
+                    Caption = "Enable Grid",
                     Current = config.GetBindable<bool>(SpaceRulesetSetting.EnableGrid),
-                },
-                new SettingsSlider<float>
+                }),
+                new SettingsItemV2(new FormSliderBar<float>
                 {
-                    LabelText = "Playfield Scale",
-                    TooltipText = "Scale of the playfield (higher values = larger playfield)",
+                    Caption = "Playfield Scale",
+                    HintText = "Scale of the playfield (higher values = larger playfield)",
                     Current = config.GetBindable<float>(SpaceRulesetSetting.ScalePlayfield),
                     KeyboardStep = 0.05f,
-                },
-                new SettingsSlider<float, SizeSlider<float>>
+                }),
+                new SettingsItemV2(new FormSliderBar<float>
                 {
-                    LabelText = SkinSettingsStrings.GameplayCursorSize,
+                    Caption = SkinSettingsStrings.GameplayCursorSize,
                     Current = config.GetBindable<float>(SpaceRulesetSetting.GameplayCursorSize),
-                    KeyboardStep = 0.01f
-                },
-                new SettingsCheckbox
+                    KeyboardStep = 0.01f,
+                }),
+                new SettingsItemV2(new FormCheckBox
                 {
-                    LabelText = "Show Cursor Trail",
+                    Caption = "Show Cursor Trail",
                     Current = config.GetBindable<bool>(SpaceRulesetSetting.ShowCursorTrail),
-                },
-                paletteSelector = new SettingsEnumDropdown<SpacePalette>
+                }),
+                new CreateHeader("Notes"),
+                new SettingsItemV2(new FormEnumDropdown<SpacePalette>
                 {
-                    LabelText = "Note Color Palette",
+                    Caption = "Note Color Palette",
+                    HintText = "Changes the colors of the notes. Some colors extracted from Sound Space Plus (Rhythia)",
                     Current = config.GetBindable<SpacePalette>(SpaceRulesetSetting.Palette),
-                },
+                }),
                 new PalettePreview(config),
-                new SettingsSlider<float>
+                new SettingsItemV2(new FormSliderBar<float>
                 {
-                    LabelText = "Note Thickness",
-                    TooltipText = "Thickness of the notes' borders",
+                    Caption = "Note Thickness",
+                    HintText = "Thickness of the notes' borders",
                     Current = config.GetBindable<float>(SpaceRulesetSetting.NoteThickness),
                     KeyboardStep = 0.5f,
-                },
-                new SettingsSlider<float>
+                }),
+                new SettingsItemV2(new FormSliderBar<float>
                 {
-                    LabelText = "Note Corner Radius",
-                    TooltipText = "Roundness of the notes' corners",
+                    Caption = "Note Corner Radius",
+                    HintText = "Roundness of the notes' corners",
                     Current = config.GetBindable<float>(SpaceRulesetSetting.NoteCornerRadius),
                     KeyboardStep = 0.5f,
-                },
-                new SettingsSlider<float>
+                }),
+                new SettingsItemV2(new FormSliderBar<float>
                 {
-                    LabelText = "Note Opacity",
-                    TooltipText = "How opaque/transparent/visible the note appears",
+                    Caption = "Note Opacity",
+                    HintText = "How opaque/transparent/visible the note appears",
                     Current = config.GetBindable<float>(SpaceRulesetSetting.noteOpacity),
                     KeyboardStep = 0.01f,
                     DisplayAsPercentage = true
-                },
-                new SettingsSlider<float>
+                }),
+                new SettingsItemV2(new FormSliderBar<float>
                 {
-                    LabelText = "Note Scale",
-                    TooltipText = "The visual size of the notes (doesn't affect hitboxes)",
+                    Caption = "Note Scale",
+                    HintText = "The visual size of the notes (doesn't affect hitboxes)",
                     Current = config.GetBindable<float>(SpaceRulesetSetting.noteScale),
                     KeyboardStep = 0.05f
-                },
-                new SettingsSlider<float>
+                }),
+                new SettingsItemV2(new FormCheckBox
                 {
-                    LabelText = "Approach Rate",
-                    TooltipText = "The speed that note move toward the grid (m/s)",
+                    Caption = "Note Glow",
+                    HintText = "Enables a glow effect on notes. Best used with 100% background dim and light note colors.",
+                    Current = config.GetBindable<bool>(SpaceRulesetSetting.Glow)
+                }),
+                new SettingsItemV2(new FormSliderBar<float>
+                {
+                    Caption = "Glow Strength",
+                    HintText = "Strength of the glow effect on notes",
+                    Current = config.GetBindable<float>(SpaceRulesetSetting.GlowStrength),
+                    KeyboardStep = 0.01f,
+                }),
+                new CreateHeader("Gameplay"),
+                new SettingsItemV2(new FormSliderBar<float>
+                {
+                    Caption = "Approach Rate",
+                    HintText = "The speed that note move toward the grid (m/s)",
                     Current = config.GetBindable<float>(SpaceRulesetSetting.approachRate),
                     KeyboardStep = 1f
-                },
-                new SettingsSlider<float>
+                }),
+                new SettingsItemV2(new FormSliderBar<float>
                 {
-                    LabelText = "Spawn Distance",
-                    TooltipText = "Distance from the grid that note spawn (m)",
+                    Caption = "Spawn Distance",
+                    HintText = "Distance from the grid that note spawn (m)",
                     Current = config.GetBindable<float>(SpaceRulesetSetting.spawnDistance),
                     KeyboardStep = 1f
-                },
-                new SettingsSlider<float>
+                }),
+                new SettingsItemV2(new FormSliderBar<float>
                 {
-                    LabelText = "Fade Length",
-                    TooltipText = "Percentage of the spawn distance that notes take to fade from invisible to fully opaque",
+                    Caption = "Fade Length",
+                    HintText = "Percentage of the spawn distance that notes take to fade from invisible to fully opaque",
                     Current = config.GetBindable<float>(SpaceRulesetSetting.fadeLength),
                     KeyboardStep = 0.01f,
                     DisplayAsPercentage = true
-                },
-                new SettingsCheckbox
+                }),
+                new SettingsItemV2(new FormCheckBox
                 {
-                    LabelText = "Do not push back",
-                    TooltipText = "While enabled, notes will go past the grid when you miss, instead of always vanishing 0.2 units past the grid",
-                    Keywords = new[] { "miss", "push", "back" },
+                    Caption = "Do not push back",
+                    HintText = "While enabled, notes will go past the grid when you miss, instead of always vanishing 0.2 units past the grid",
                     Current = config.GetBindable<bool>(SpaceRulesetSetting.doNotPushBack)
-                },
-                new SettingsCheckbox
+                }),
+                new SettingsItemV2(new FormCheckBox
                 {
-                    LabelText = "Half ghost",
-                    TooltipText = "Useful for patterns that fill the whole screen",
-                    Keywords = new[] { "ghost", "transparency", "alpha" },
+                    Caption = "Half ghost",
+                    HintText = "Useful for patterns that fill the whole screen",
                     Current = config.GetBindable<bool>(SpaceRulesetSetting.halfGhost)
-                },
-                new SettingsSlider<float>
+                }),
+                new SettingsItemV2(new FormSliderBar<float>
                 {
-                    LabelText = "Parallax Strength",
-                    TooltipText = "Strength of the parallax effect on the playfield (higher values = stronger effect, 0 = disable)",
+                    Caption = "Parallax Strength",
+                    HintText = "Strength of the parallax effect on the playfield (higher values = stronger effect, 0 = disable)",
                     Current = config.GetBindable<float>(SpaceRulesetSetting.Parallax),
                     KeyboardStep = 0.1f,
-                },
-                new SettingsCheckbox
+                }),
+                new SettingsItemV2(new FormSliderBar<float>
                 {
-                    LabelText = "Enable Glow",
-                    TooltipText = "Enables a glow effect on notes. Best used with 100% background dim and light note colors.",
-                    Current = config.GetBindable<bool>(SpaceRulesetSetting.Glow)
-                },
-                new SettingsSlider<float>
-                {
-                    LabelText = "Glow Strength",
-                    TooltipText = "Strength of the glow effect on notes",
-                    Current = config.GetBindable<float>(SpaceRulesetSetting.GlowStrength),
-                    KeyboardStep = 0.01f,
-                },
-                new SettingsSlider<float>
-                {
-                    LabelText = "Hit Window",
-                    TooltipText = "The length of time notes can be hit after reaching the grid (default 25ms, rhythia def 55ms)",
+                    Caption = "Hit Window",
+                    HintText = "The length of time notes can be hit after reaching the grid (default 25ms, rhythia def 55ms)",
                     Current = config.GetBindable<float>(SpaceRulesetSetting.HitWindow),
                     KeyboardStep = 1f,
-                },
-            };
-
-
-            paletteSelector.SetNoticeText("Some colors extracted from Sound Space Plus (Rhythia)");
+                }),
+            ];
         }
 
         private void importSSPM()
@@ -312,6 +313,17 @@ namespace osu.Game.Rulesets.Space
                     });
                 });
             }));
+        }
+
+        private new partial class CreateHeader : LinkFlowContainer
+        {
+            public CreateHeader(string text) : base(t => t.Font = OsuFont.GetFont(size: 16))
+            {
+                RelativeSizeAxes = Axes.X;
+                AutoSizeAxes = Axes.Y;
+                Padding = new MarginPadding { Horizontal = 13, Vertical = 6 };
+                Text = text;
+            }
         }
 
         private void checkRulesetUpdate()
