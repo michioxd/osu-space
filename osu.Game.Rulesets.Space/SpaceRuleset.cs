@@ -19,6 +19,7 @@ using osu.Game.Skinning;
 using osu.Game.Rulesets.Space.Skinning.Legacy;
 using osu.Game.Rulesets.Space.Skinning.Argon;
 using osu.Game.Rulesets.Space.Beatmaps.Formats;
+using osu.Game.Screens.Edit.Setup;
 
 namespace osu.Game.Rulesets.Space
 {
@@ -51,6 +52,12 @@ namespace osu.Game.Rulesets.Space
         public override IRulesetConfigManager CreateConfig(SettingsStore? settings) => new SpaceRulesetConfigManager(settings, RulesetInfo);
 
         public override RulesetSettingsSubsection CreateSettings() => new SpaceSettingsSubsection(this);
+
+        public override IEnumerable<Drawable> CreateEditorSetupSections() =>
+        [
+            new MetadataSection(),
+            new ResourcesSection(),
+        ];
 
         public override IEnumerable<HitResult> GetValidHitResults()
         {
