@@ -20,7 +20,7 @@ namespace osu.Game.Rulesets.Space.Beatmaps
 
         protected override Beatmap<SpaceHitObject> CreateBeatmap() => new SpaceBeatmap();
 
-        public override bool CanConvert() => Beatmap.HitObjects.All(h => h is IHasXPosition && h is IHasYPosition);
+        public override bool CanConvert() => Beatmap.HitObjects.All(h => h is SpaceHitObject || (h is IHasXPosition && h is IHasYPosition));
 
         private Vector2? prevOsuPos;
         private (int col, int row) prevGridPos;
@@ -30,31 +30,13 @@ namespace osu.Game.Rulesets.Space.Beatmaps
 
         protected override IEnumerable<SpaceHitObject> ConvertHitObject(HitObject original, IBeatmap beatmap, CancellationToken cancellationToken)
         {
-            bool isSpaceMap = beatmap.BeatmapInfo.Ruleset.ShortName == "osuspaceruleset";
-
-            if (isSpaceMap)
-            {
-                var (absCol, absRow) = getGridPosition(original, true);
-                yield return new SpaceHitObject
-                {
-                    Index = currentIndex++,
-                    Samples = original.Samples,
-                    StartTime = original.StartTime,
-                    X = (absCol + 0.5f) * (SpacePlayfield.BASE_SIZE / 3f),
-                    Y = (absRow + 0.5f) * (SpacePlayfield.BASE_SIZE / 3f),
-                    oX = absCol,
-                    oY = absRow
-                };
-                yield break;
-            }
-
             var osuPos = (original as IHasPosition)?.Position ?? Vector2.Zero;
             double time = original.StartTime;
 
             int targetCol, targetRow;
             if (prevOsuPos == null || (time - prevTime) > 1000)
             {
-                var initPos = getGridPosition(original, false);
+                var initPos = getGridPosition(original);
                 targetCol = (int)initPos.col;
                 targetRow = (int)initPos.row;
                 ppGridPos = (-1, -1);
@@ -170,7 +152,7 @@ namespace osu.Game.Rulesets.Space.Beatmaps
             prevGridPos = (targetCol, targetRow);
             prevTime = time;
 
-            yield return new SpaceHitObject
+            yield return new Note
             {
                 Index = currentIndex++,
                 Samples = original.Samples,
@@ -182,12 +164,8 @@ namespace osu.Game.Rulesets.Space.Beatmaps
             };
         }
 
-        private static (float col, float row) getGridPosition(HitObject hitObject, bool isOSpaceBeatmap = false)
+        private static (float col, float row) getGridPosition(HitObject hitObject)
         {
-            if (isOSpaceBeatmap)
-            {
-                return (Math.Clamp(((IHasXPosition)hitObject).X / 1e4f, 0f, 2f), Math.Clamp(((IHasYPosition)hitObject).Y / 1e4f, 0f, 2f));
-            }
             float x = ((IHasXPosition)hitObject).X;
             float y = ((IHasYPosition)hitObject).Y;
             return (

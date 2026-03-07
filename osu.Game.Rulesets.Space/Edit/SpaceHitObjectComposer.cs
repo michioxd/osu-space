@@ -8,8 +8,11 @@ using osu.Game.Rulesets.UI;
 using osu.Game.Rulesets.Mods;
 using osu.Game.Beatmaps;
 
+using osu.Framework.Allocation;
+
 namespace osu.Game.Rulesets.Space.Edit
 {
+    [Cached]
     public partial class SpaceHitObjectComposer : HitObjectComposer<SpaceHitObject>
     {
         private DrawableSpaceEditorRuleset drawableRuleset = null!;
@@ -19,10 +22,10 @@ namespace osu.Game.Rulesets.Space.Edit
         {
         }
 
-        protected override IReadOnlyList<CompositionTool> CompositionTools => new CompositionTool[]
-        {
+        protected override IReadOnlyList<CompositionTool> CompositionTools =>
+        [
             new NoteCompositionTool()
-        };
+        ];
 
         protected override DrawableRuleset<SpaceHitObject> CreateDrawableRuleset(Ruleset ruleset, IBeatmap beatmap, IReadOnlyList<Mod> mods) =>
         drawableRuleset = new DrawableSpaceEditorRuleset(ruleset, beatmap, mods);
@@ -30,5 +33,6 @@ namespace osu.Game.Rulesets.Space.Edit
         protected override ComposeBlueprintContainer CreateBlueprintContainer()
             => new SpaceBlueprintContainer(this);
 
+        public SpaceEditorPlayfield EditorPlayfield => (SpaceEditorPlayfield)drawableRuleset.Playfield;
     }
 }

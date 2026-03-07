@@ -16,5 +16,7 @@ namespace osu.Game.Rulesets.Space.Edit.Blueprints
 
             Position = HitObject.Position;
         }
+
+        public override osuTK.Vector2 ScreenSpaceSelectionPoint => Position;
     }
 }
