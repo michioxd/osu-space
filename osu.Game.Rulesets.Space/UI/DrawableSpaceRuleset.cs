@@ -12,7 +12,6 @@ using osu.Game.Rulesets.Mods;
 using osu.Game.Rulesets.Objects.Drawables;
 using osu.Game.Rulesets.UI;
 using osu.Framework.Graphics;
-using osuTK;
 
 namespace osu.Game.Rulesets.Space.UI
 {
@@ -43,7 +42,12 @@ namespace osu.Game.Rulesets.Space.UI
         {
             base.LoadComplete();
             if (replayInputHandler != null)
-                replayInputHandler.GamefieldToScreenSpace = ((SpacePlayfield)Playfield).GamefieldToScreenSpace;
+            {
+                if (Playfield is SpacePlayfield spacePlayfield)
+                    replayInputHandler.GamefieldToScreenSpace = spacePlayfield.GamefieldToScreenSpace;
+                else if (Playfield is osu.Game.Rulesets.Space.Edit.SpaceEditorPlayfield editorPlayfield)
+                    replayInputHandler.GamefieldToScreenSpace = editorPlayfield.GamefieldToScreenSpace;
+            }
         }
     }
 }

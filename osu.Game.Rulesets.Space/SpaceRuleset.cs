@@ -20,6 +20,8 @@ using osu.Game.Rulesets.Space.Skinning.Legacy;
 using osu.Game.Rulesets.Space.Skinning.Argon;
 using osu.Game.Rulesets.Space.Beatmaps.Formats;
 using osu.Game.Screens.Edit.Setup;
+using osu.Game.Rulesets.Space.Edit;
+using osu.Game.Rulesets.Edit;
 
 namespace osu.Game.Rulesets.Space
 {
@@ -38,6 +40,8 @@ namespace osu.Game.Rulesets.Space
 
         public override DrawableRuleset CreateDrawableRulesetWith(IBeatmap beatmap, IReadOnlyList<Mod>? mods = null) =>
             new DrawableSpaceRuleset(this, beatmap, mods);
+
+        public override HitObjectComposer CreateHitObjectComposer() => new SpaceHitObjectComposer(this);
 
         public override HealthProcessor CreateHealthProcessor(double drainStartTime) => new SpaceHealthProcessor();
 
