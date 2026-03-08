@@ -10,6 +10,7 @@ using osu.Framework.Allocation;
 using osu.Game.Screens.Edit;
 using osu.Game.Graphics.Sprites;
 using osu.Game.Graphics;
+using osu.Framework.Graphics.Sprites;
 
 namespace osu.Game.Rulesets.Space.Edit
 {
@@ -59,7 +60,7 @@ namespace osu.Game.Rulesets.Space.Edit
                             {
                                 Anchor = Anchor.Centre,
                                 Origin = Anchor.Centre,
-                                Font = OsuFont.Numeric.With(size: 20, weight: FontWeight.Bold),
+                                Font = OsuFont.Numeric.With(size: 15, family: "Torus Alternate"),
                                 Colour = Color4.White
                             }
                         }
@@ -88,29 +89,42 @@ namespace osu.Game.Rulesets.Space.Edit
         {
             public EditorBeatmap Beatmap;
             public readonly Dictionary<SpaceHitObject, int> CellIndexes = new Dictionary<SpaceHitObject, int>();
+            public readonly Dictionary<SpaceHitObject, int> TimelineIndexes = new Dictionary<SpaceHitObject, int>();
             public bool IsValid;
 
             public void Rebuild(EditorBeatmap beatmap)
             {
                 Beatmap = beatmap;
                 CellIndexes.Clear();
+                TimelineIndexes.Clear();
                 IsValid = true;
 
                 if (beatmap == null) return;
 
                 var positionCounts = new Dictionary<(float, float), int>();
 
-                var hitObjects = beatmap.HitObjects;
-                int count = hitObjects.Count;
-                for (int i = 0; i < count; i++)
+                var hitObjects = new List<SpaceHitObject>();
+                foreach (var ho in beatmap.HitObjects)
                 {
-                    if (hitObjects[i] is SpaceHitObject spaceHo)
+                    if (ho is SpaceHitObject spaceHo)
                     {
-                        var key = (spaceHo.oX, spaceHo.oY);
-                        positionCounts.TryGetValue(key, out int currentCount);
-                        CellIndexes[spaceHo] = currentCount;
-                        positionCounts[key] = currentCount + 1;
+                        hitObjects.Add(spaceHo);
                     }
+                }
+
+                // Sort properly to assign index by time
+                hitObjects.Sort((a, b) => a.StartTime.CompareTo(b.StartTime));
+
+                for (int i = 0; i < hitObjects.Count; i++)
+                {
+                    var spaceHo = hitObjects[i];
+
+                    var key = (spaceHo.oX, spaceHo.oY);
+                    positionCounts.TryGetValue(key, out int currentCount);
+                    CellIndexes[spaceHo] = currentCount;
+                    positionCounts[key] = currentCount + 1;
+
+                    TimelineIndexes[spaceHo] = i + 1;
                 }
             }
         }
@@ -200,7 +214,30 @@ namespace osu.Game.Rulesets.Space.Edit
 
                 if (indexText != null)
                 {
-                    indexText.Text = HitObject.Index.ToString();
+                    int displayIndex = HitObject.Index;
+                    if (editorBeatmap != null && HitObject is SpaceHitObject spaceHo && shared_cache.TimelineIndexes.TryGetValue(spaceHo, out int timelineIndex))
+                    {
+                        displayIndex = timelineIndex;
+                    }
+                    else if (Parent is Container<DrawableHitObject> container)
+                    {
+                        displayIndex = 1;
+                        var hitObjects = container.Children;
+                        int count = hitObjects.Count;
+                        for (int i = 0; i < count; i++)
+                        {
+                            var dho = hitObjects[i];
+                            if (dho is DrawableSpaceEditorHitObject other)
+                            {
+                                if (other.HitObject.StartTime < HitObject.StartTime)
+                                    displayIndex++;
+                                else if (other.HitObject.StartTime == HitObject.StartTime && other.HitObject.GetHashCode() < HitObject.GetHashCode())
+                                    displayIndex++;
+                            }
+                        }
+                    }
+
+                    indexText.Text = displayIndex.ToString();
                     indexText.Colour = isPink ? Color4.LightPink : Color4.LightCyan;
                 }
             }
