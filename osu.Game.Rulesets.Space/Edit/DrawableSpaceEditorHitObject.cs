@@ -57,7 +57,7 @@ namespace osu.Game.Rulesets.Space.Edit
                             {
                                 Anchor = Anchor.Centre,
                                 Origin = Anchor.Centre,
-                                Font = OsuFont.Numeric.With(size: 15, family: "Torus Alternate"),
+                                Font = OsuFont.Numeric.With(size: 17, family: "Torus Alternate"),
                                 Colour = Color4.White
                             }
                         }
