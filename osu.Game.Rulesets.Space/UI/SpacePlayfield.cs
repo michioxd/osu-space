@@ -7,6 +7,9 @@ using osu.Game.Rulesets.Space.UI.Cursor;
 using osuTK;
 using osu.Game.Rulesets.Space.Configuration;
 using osu.Framework.Bindables;
+using osu.Game.Rulesets.Judgements;
+using osu.Game.Rulesets.Objects.Drawables;
+using osu.Game.Rulesets.Scoring;
 
 namespace osu.Game.Rulesets.Space.UI
 {
@@ -16,7 +19,8 @@ namespace osu.Game.Rulesets.Space.UI
         private readonly PlayfieldBorder playfieldBorder;
         private readonly SpaceGrid grid;
         public readonly Container contentContainer;
-        public readonly SpaceMiss spaceMiss;
+        private readonly JudgementContainer<DrawableSpaceJudgement> judgementLayer;
+        private JudgementPooler<DrawableSpaceJudgement>? judgementPooler;
         private readonly Bindable<float> parallaxStrength = new();
         private readonly Bindable<bool> enableGrid = new();
         private readonly Bindable<float> scalePlayfield = new();
@@ -49,11 +53,16 @@ namespace osu.Game.Rulesets.Space.UI
                             RelativeSizeAxes = Axes.Both,
                         },
                         grid = new SpaceGrid(),
-                        spaceMiss = new SpaceMiss(),
+                        judgementLayer = new JudgementContainer<DrawableSpaceJudgement>
+                        {
+                            RelativeSizeAxes = Axes.Both,
+                        },
                         HitObjectContainer,
                     ]
                 }
             ];
+
+            NewResult += onNewResult;
         }
 
         protected override void Update()
@@ -83,6 +92,25 @@ namespace osu.Game.Rulesets.Space.UI
 
             enableGrid.BindValueChanged(e => grid.FadeTo(e.NewValue ? 1 : 0, 100), true);
             scalePlayfield.BindValueChanged(s => contentContainer.ResizeTo(s.NewValue, 200, Easing.OutQuint), true);
+
+            AddInternal(judgementPooler = new JudgementPooler<DrawableSpaceJudgement>(new[]
+            {
+                HitResult.Miss,
+                HitResult.Perfect,
+            }));
+        }
+
+        private void onNewResult(DrawableHitObject judgedObject, JudgementResult result)
+        {
+            if (!judgedObject.DisplayResult || !DisplayJudgements.Value)
+                return;
+
+            var explosion = judgementPooler?.Get(result.Type, doj => doj.Apply(result, judgedObject));
+
+            if (explosion == null)
+                return;
+
+            judgementLayer.Add(explosion);
         }
 
         public new Vector2 GamefieldToScreenSpace(Vector2 point)
