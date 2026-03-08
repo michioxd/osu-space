@@ -5,9 +5,7 @@ using osu.Game.Rulesets.Objects.Drawables;
 using osu.Game.Rulesets.Space.Objects;
 using osuTK;
 using osuTK.Graphics;
-using System.Collections.Generic;
 using osu.Framework.Allocation;
-using osu.Game.Screens.Edit;
 using osu.Game.Graphics.Sprites;
 using osu.Game.Graphics;
 
@@ -96,11 +94,8 @@ namespace osu.Game.Rulesets.Space.Edit
         {
             base.Update();
 
-            if (X != HitObject.X / UI.SpacePlayfield.BASE_SIZE)
-                X = HitObject.X / UI.SpacePlayfield.BASE_SIZE;
-
-            if (Y != HitObject.Y / UI.SpacePlayfield.BASE_SIZE)
-                Y = HitObject.Y / UI.SpacePlayfield.BASE_SIZE;
+            X = HitObject.X / UI.SpacePlayfield.BASE_SIZE;
+            Y = HitObject.Y / UI.SpacePlayfield.BASE_SIZE;
 
             if (lastCellIndex != HitObject.CellIndex || lastIndex != HitObject.Index)
             {
@@ -155,14 +150,9 @@ namespace osu.Game.Rulesets.Space.Edit
                 targetApproachScale = 1.15f;
             }
 
-            if (content.Alpha != targetAlpha)
-                content.Alpha = targetAlpha;
-
-            if (approachSquare.Alpha != targetAlpha)
-                approachSquare.Alpha = targetAlpha;
-
-            if (approachSquare.Scale.X != targetApproachScale)
-                approachSquare.Scale = new Vector2(targetApproachScale);
+            content.Alpha = targetAlpha;
+            approachSquare.Alpha = targetAlpha;
+            approachSquare.Scale = new Vector2(targetApproachScale);
         }
 
         protected override void CheckForResult(bool userTriggered, double timeOffset)
@@ -171,15 +161,19 @@ namespace osu.Game.Rulesets.Space.Edit
                 ApplyMaxResult();
         }
 
+        private const double lifetime_end_buffer = 1500;
+
         protected override void UpdateHitStateTransforms(ArmedState state)
         {
-            base.UpdateHitStateTransforms(state);
-
             switch (state)
             {
                 case ArmedState.Hit:
                 case ArmedState.Miss:
-                    this.FadeOut(200, Easing.OutQuint).Expire();
+                    LifetimeEnd = HitObject.StartTime + lifetime_end_buffer;
+                    break;
+
+                default:
+                    LifetimeEnd = double.MaxValue;
                     break;
             }
         }

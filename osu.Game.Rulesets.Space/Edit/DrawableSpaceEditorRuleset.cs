@@ -33,14 +33,12 @@ namespace osu.Game.Rulesets.Space.Edit
 
         protected override ReplayInputHandler CreateReplayInputHandler(Replay replay) => replayInputHandler = new SpaceFramedReplayInputHandler(replay);
 
-        protected override void LoadComplete()
+        protected override void Update()
         {
-            base.LoadComplete();
-            if (replayInputHandler != null)
-            {
-                if (Playfield is osu.Game.Rulesets.Space.Edit.SpaceEditorPlayfield editorPlayfield)
-                    replayInputHandler.GamefieldToScreenSpace = editorPlayfield.GamefieldToScreenSpace;
-            }
+            base.Update();
+
+            if (replayInputHandler != null && Playfield is SpaceEditorPlayfield editorPlayfield)
+                replayInputHandler.GamefieldToScreenSpace = editorPlayfield.GamefieldToScreenSpace;
         }
     }
 }
