@@ -4,6 +4,8 @@ Custom game mode for [osu!(lazer)](https://github.com/ppy/osu) based on [Sound S
 
 Currently still **highly under development**. Some features have been implemented, but there are still tons of bugs. Please open an issue if you encounter any.
 
+Please note that breaking changes may occur in the future, as I'm still figuring out how osu! and osu!framework work while developing this ruleset. Expect instability and bugs.
+
 | Main gameplay | Customization |
 |---|---|
 | ![](https://github.com/user-attachments/assets/22e24ad0-c870-432e-883a-8e2e844c6bc1) ![](https://github.com/user-attachments/assets/12fe79b0-092a-4e37-ab2b-d55c3907c79b) | ![](https://github.com/user-attachments/assets/6a384060-5290-4219-b712-d041ddfff09b) |
