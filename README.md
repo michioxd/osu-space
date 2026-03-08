@@ -1,6 +1,6 @@
 # osu!space (osu! ruleset)
 
-Custom game mode for [osu!(lazer)](https://github.com/ppy/osu) based on [Sound Space (Roblox)](https://www.roblox.com/games/2677609345/Sound-Space-Rhythm-Game) and [Sound Space Plus](https://github.com/David20122/sound-space-plus) game.
+Custom game mode for [osu!(lazer)](https://github.com/ppy/osu) based on [Sound Space (Roblox)](https://www.roblox.com/games/2677609345/Sound-Space-Rhythm-Game) and [Sound Space Plus (a.k.a Rhythia)](https://github.com/David20122/sound-space-plus) game.
 
 Currently still **highly under development**. Some features have been implemented, but there are still tons of bugs. Please open an issue if you encounter any.
 
@@ -68,6 +68,7 @@ You can also contribute new color palettes for the game by opening an issue if y
 Interested? Support meeee!!
 
 [![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg)](https://www.buymeacoffee.com/michioxd)
+
 
 
 
