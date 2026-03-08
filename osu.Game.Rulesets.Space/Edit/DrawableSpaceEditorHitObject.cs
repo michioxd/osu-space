@@ -210,25 +210,30 @@ namespace osu.Game.Rulesets.Space.Edit
             float targetAlpha;
             float targetApproachScale;
 
-            if (timeRemaining > 1500)
+            double zoom = editorBeatmap?.TimelineZoom > 0 ? editorBeatmap.TimelineZoom : 1.0;
+            double tPreempt = 1500 / zoom;
+            double tFadeInSt = 500 / zoom;
+            double tFadeOut = 200 / zoom;
+
+            if (timeRemaining > tPreempt)
             {
                 targetAlpha = 0f;
                 targetApproachScale = 2.5f;
             }
-            else if (timeRemaining > 500)
+            else if (timeRemaining > tFadeInSt)
             {
-                targetAlpha = 1f - (float)((timeRemaining - 500) / 1000);
-                targetApproachScale = 1f + (1.5f * (float)(timeRemaining / 1500));
+                targetAlpha = 1f - (float)((timeRemaining - tFadeInSt) / (tPreempt - tFadeInSt));
+                targetApproachScale = 1f + (1.5f * (float)(timeRemaining / tPreempt));
             }
             else if (timeRemaining > 0)
             {
                 targetAlpha = 1f;
-                targetApproachScale = 1f + (1.5f * (float)(timeRemaining / 1500));
+                targetApproachScale = 1f + (1.5f * (float)(timeRemaining / tPreempt));
             }
-            else if (timeRemaining > -200)
+            else if (timeRemaining > -tFadeOut)
             {
-                targetAlpha = 1f - (float)(-timeRemaining / 200);
-                targetApproachScale = 1f + (float)(-timeRemaining / 200) * 0.15f;
+                targetAlpha = 1f - (float)(-timeRemaining / tFadeOut);
+                targetApproachScale = 1f + (float)(-timeRemaining / tFadeOut) * 0.15f;
             }
             else
             {

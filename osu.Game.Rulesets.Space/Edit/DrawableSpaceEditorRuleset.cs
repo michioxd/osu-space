@@ -6,6 +6,9 @@ using osu.Game.Rulesets.UI;
 using osu.Framework.Graphics;
 using osu.Game.Rulesets.Objects.Drawables;
 using osu.Game.Rulesets.Space.Objects;
+using osu.Game.Rulesets.Space.Replays;
+using osu.Game.Input.Handlers;
+using osu.Game.Replays;
 
 namespace osu.Game.Rulesets.Space.Edit
 {
@@ -25,5 +28,19 @@ namespace osu.Game.Rulesets.Space.Edit
 
         public override DrawableHitObject<SpaceHitObject> CreateDrawableRepresentation(SpaceHitObject h)
             => new DrawableSpaceEditorHitObject(h);
+
+        private SpaceFramedReplayInputHandler replayInputHandler;
+
+        protected override ReplayInputHandler CreateReplayInputHandler(Replay replay) => replayInputHandler = new SpaceFramedReplayInputHandler(replay);
+
+        protected override void LoadComplete()
+        {
+            base.LoadComplete();
+            if (replayInputHandler != null)
+            {
+                if (Playfield is osu.Game.Rulesets.Space.Edit.SpaceEditorPlayfield editorPlayfield)
+                    replayInputHandler.GamefieldToScreenSpace = editorPlayfield.GamefieldToScreenSpace;
+            }
+        }
     }
 }
