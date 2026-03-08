@@ -55,7 +55,7 @@ Visit the [Releases](https://github.com/michioxd/osu-space/releases) page to dow
 
 The editor is currently still in early development, and it is not yet fully functional. Currently only basic features are implemented, such as placing hit objects and basic timeline. You cannot save your map yet (ask peppy). So staying tuned for more updates on the editor.
 
-![](https://github.com/user-attachments/assets/5f088052-0ba1-4d07-9c7c-b416bea10620)
+![](https://github.com/user-attachments/assets/08a52111-b6f7-48bf-8d84-962aa466273f)
 
 ## Contributing
 
@@ -68,6 +68,7 @@ You can also contribute new color palettes for the game by opening an issue if y
 Interested? Support meeee!!
 
 [![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg)](https://www.buymeacoffee.com/michioxd)
+
 
 
 
