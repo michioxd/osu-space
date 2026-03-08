@@ -88,7 +88,7 @@ namespace osu.Game.Rulesets.Space.Edit
                     RelativeSizeAxes = Axes.Both,
                     Masking = true,
                     CornerRadius = 6,
-                    BorderColour = Color4.White,
+                    BorderColour = Color4.Gray,
                     BorderThickness = 2,
                     Child = new Box
                     {

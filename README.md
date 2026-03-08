@@ -47,9 +47,11 @@ Visit the [Releases](https://github.com/michioxd/osu-space/releases) page to dow
 - [x] SSPM v1/2 converter/importer
 - [ ] Note speed change event
 - [x] Quantum note
-- [ ] **(NP)** Editor
+- [ ] Editor (in progress)
 
-NP: Not planned
+## Some note about the editor
+
+The editor is currently still in early development, and it is not yet fully functional. Currently only basic features are implemented, such as placing hit objects and basic timeline. You cannot save your map yet (ask peppy). So staying tuned for more updates on the editor.
 
 ## Contributing
 

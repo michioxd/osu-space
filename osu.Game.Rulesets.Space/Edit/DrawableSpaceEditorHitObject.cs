@@ -10,7 +10,6 @@ using osu.Framework.Allocation;
 using osu.Game.Screens.Edit;
 using osu.Game.Graphics.Sprites;
 using osu.Game.Graphics;
-using osu.Framework.Graphics.Sprites;
 
 namespace osu.Game.Rulesets.Space.Edit
 {
