@@ -38,6 +38,7 @@ namespace osu.Game.Rulesets.Space.Objects
         }
 
         public int Index { get; set; }
+        public int CellIndex { get; set; }
 
         public double TimePreempt = 600;
 

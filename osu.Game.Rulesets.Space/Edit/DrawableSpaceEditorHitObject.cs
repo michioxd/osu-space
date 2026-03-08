@@ -22,7 +22,7 @@ namespace osu.Game.Rulesets.Space.Edit
         private OsuSpriteText indexText;
 
         [Resolved(CanBeNull = true)]
-        private EditorBeatmap editorBeatmap { get; set; }
+        private osu.Game.Screens.Edit.EditorBeatmap editorBeatmap { get; set; }
 
         public DrawableSpaceEditorHitObject(SpaceHitObject hitObject)
             : base(hitObject)
@@ -84,81 +84,12 @@ namespace osu.Game.Rulesets.Space.Edit
             });
         }
 
-        private class SharedEditorCache
-        {
-            public EditorBeatmap Beatmap;
-            public readonly Dictionary<SpaceHitObject, int> CellIndexes = new Dictionary<SpaceHitObject, int>();
-            public readonly Dictionary<SpaceHitObject, int> TimelineIndexes = new Dictionary<SpaceHitObject, int>();
-            public bool IsValid;
-
-            public void Rebuild(EditorBeatmap beatmap)
-            {
-                Beatmap = beatmap;
-                CellIndexes.Clear();
-                TimelineIndexes.Clear();
-                IsValid = true;
-
-                if (beatmap == null) return;
-
-                var positionCounts = new Dictionary<(float, float), int>();
-
-                var hitObjects = new List<SpaceHitObject>();
-                foreach (var ho in beatmap.HitObjects)
-                {
-                    if (ho is SpaceHitObject spaceHo)
-                    {
-                        hitObjects.Add(spaceHo);
-                    }
-                }
-
-                // Sort properly to assign index by time
-                hitObjects.Sort((a, b) => a.StartTime.CompareTo(b.StartTime));
-
-                for (int i = 0; i < hitObjects.Count; i++)
-                {
-                    var spaceHo = hitObjects[i];
-
-                    var key = (spaceHo.oX, spaceHo.oY);
-                    positionCounts.TryGetValue(key, out int currentCount);
-                    CellIndexes[spaceHo] = currentCount;
-                    positionCounts[key] = currentCount + 1;
-
-                    TimelineIndexes[spaceHo] = i + 1;
-                }
-            }
-        }
-
-        private static readonly SharedEditorCache shared_cache = new();
-
-        private int? cachedCellIndex;
+        private int? lastCellIndex;
+        private int? lastIndex;
 
         [BackgroundDependencyLoader]
         private void load()
         {
-            if (editorBeatmap != null)
-            {
-                editorBeatmap.HitObjectAdded += onHitObjectChanged;
-                editorBeatmap.HitObjectRemoved += onHitObjectChanged;
-                editorBeatmap.HitObjectUpdated += onHitObjectChanged;
-            }
-        }
-
-        protected override void Dispose(bool isDisposing)
-        {
-            base.Dispose(isDisposing);
-
-            if (editorBeatmap != null)
-            {
-                editorBeatmap.HitObjectAdded -= onHitObjectChanged;
-                editorBeatmap.HitObjectRemoved -= onHitObjectChanged;
-                editorBeatmap.HitObjectUpdated -= onHitObjectChanged;
-            }
-        }
-
-        private void onHitObjectChanged(osu.Game.Rulesets.Objects.HitObject hitObject)
-        {
-            cachedCellIndex = null;
-            shared_cache.IsValid = false;
         }
 
         protected override void Update()
@@ -171,72 +102,19 @@ namespace osu.Game.Rulesets.Space.Edit
             if (Y != HitObject.Y / UI.SpacePlayfield.BASE_SIZE)
                 Y = HitObject.Y / UI.SpacePlayfield.BASE_SIZE;
 
-            if (!cachedCellIndex.HasValue)
+            if (lastCellIndex != HitObject.CellIndex || lastIndex != HitObject.Index)
             {
-                int cellIndex = 0;
-                if (editorBeatmap != null)
-                {
-                    if (!shared_cache.IsValid || shared_cache.Beatmap != editorBeatmap)
-                    {
-                        shared_cache.Rebuild(editorBeatmap);
-                    }
+                lastCellIndex = HitObject.CellIndex;
+                lastIndex = HitObject.Index;
 
-                    if (HitObject is SpaceHitObject spaceHo && shared_cache.CellIndexes.TryGetValue(spaceHo, out int index))
-                    {
-                        cellIndex = index;
-                    }
-                }
-                else if (Parent is Container<DrawableHitObject> container)
-                {
-                    var hitObjects = container.Children;
-                    int count = hitObjects.Count;
-                    for (int i = 0; i < count; i++)
-                    {
-                        var dho = hitObjects[i];
-                        if (dho is DrawableSpaceEditorHitObject other &&
-                            other.HitObject.oX == HitObject.oX &&
-                            other.HitObject.oY == HitObject.oY)
-                        {
-                            if (other.HitObject.StartTime < HitObject.StartTime)
-                                cellIndex++;
-                            else if (other.HitObject.StartTime == HitObject.StartTime && other.HitObject.GetHashCode() < HitObject.GetHashCode())
-                                cellIndex++;
-                        }
-                    }
-                }
-
-                cachedCellIndex = cellIndex;
-                bool isPink = cellIndex % 2 == 0;
+                bool isPink = HitObject.CellIndex % 2 == 0;
                 borderContainer.BorderColour = isPink ? Color4.LightPink : Color4.LightCyan;
                 innerBox.Colour = isPink ? Color4.Pink : Color4.Cyan;
                 approachSquare.BorderColour = isPink ? Color4.LightPink : Color4.LightCyan;
 
                 if (indexText != null)
                 {
-                    int displayIndex = HitObject.Index;
-                    if (editorBeatmap != null && HitObject is SpaceHitObject spaceHo && shared_cache.TimelineIndexes.TryGetValue(spaceHo, out int timelineIndex))
-                    {
-                        displayIndex = timelineIndex;
-                    }
-                    else if (Parent is Container<DrawableHitObject> container)
-                    {
-                        displayIndex = 1;
-                        var hitObjects = container.Children;
-                        int count = hitObjects.Count;
-                        for (int i = 0; i < count; i++)
-                        {
-                            var dho = hitObjects[i];
-                            if (dho is DrawableSpaceEditorHitObject other)
-                            {
-                                if (other.HitObject.StartTime < HitObject.StartTime)
-                                    displayIndex++;
-                                else if (other.HitObject.StartTime == HitObject.StartTime && other.HitObject.GetHashCode() < HitObject.GetHashCode())
-                                    displayIndex++;
-                            }
-                        }
-                    }
-
-                    indexText.Text = displayIndex.ToString();
+                    indexText.Text = HitObject.Index.ToString();
                     indexText.Colour = isPink ? Color4.LightPink : Color4.LightCyan;
                 }
             }
