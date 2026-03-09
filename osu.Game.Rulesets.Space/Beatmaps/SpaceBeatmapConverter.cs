@@ -22,134 +22,99 @@ namespace osu.Game.Rulesets.Space.Beatmaps
 
         public override bool CanConvert() => Beatmap.HitObjects.All(h => h is SpaceHitObject || (h is IHasXPosition && h is IHasYPosition));
 
+        #region Tuning constants
+
+        private const double gap_threshold_ms = 800;
+        private const int history_length = 6;
+
+        private const float velocity_stack = 0.08f;
+        private const float velocity_normal = 0.50f;
+        private const float velocity_jump = 1.20f;
+
+        private const double stream_threshold_ms = 160;
+        private const double burst_threshold_ms = 100;
+
+        private const double w_direction = 35;
+        private const double w_distance = 25;
+        private const double w_recency_base = -50;
+        private const double w_flow = 20;
+        private const double w_anti_jack = -250;
+        private const double w_variety = 3;
+
+        #endregion
+
+        #region Conversion state
+
         private Vector2? prevOsuPos;
-        private (int col, int row) prevGridPos;
-        private (int col, int row) ppGridPos; // prev-prev grid pos
+        private Vector2 prevOsuEndPos;
         private double prevTime;
         private int currentIndex;
+
+        private readonly (int col, int row)[] history = new (int col, int row)[history_length];
+        private int historyCount;
+
+        #endregion
+
+        #region History helpers
+
+        private void resetHistory()
+        {
+            historyCount = 0;
+
+            for (int i = 0; i < history_length; i++)
+                history[i] = (-1, -1);
+        }
+
+        private void pushHistory(int col, int row)
+        {
+            for (int i = history_length - 1; i > 0; i--)
+                history[i] = history[i - 1];
+
+            history[0] = (col, row);
+
+            if (historyCount < history_length)
+                historyCount++;
+        }
+
+        private (int col, int row) getHistory(int stepsBack)
+        {
+            return stepsBack < historyCount ? history[stepsBack] : (-1, -1);
+        }
+
+        #endregion
 
         protected override IEnumerable<SpaceHitObject> ConvertHitObject(HitObject original, IBeatmap beatmap, CancellationToken cancellationToken)
         {
             var osuPos = (original as IHasPosition)?.Position ?? Vector2.Zero;
             double time = original.StartTime;
 
-            int targetCol, targetRow;
-            if (prevOsuPos == null || (time - prevTime) > 1000)
+            Vector2 effectiveEndPos = osuPos;
+
+            if (original is IHasPath pathObj)
             {
-                var initPos = getGridPosition(original);
-                targetCol = (int)initPos.col;
-                targetRow = (int)initPos.row;
-                ppGridPos = (-1, -1);
-                prevGridPos = (-1, -1);
+                Vector2 pathEnd = pathObj.Path.PositionAt(1);
+                bool returnToStart = original is IHasRepeats rep && (rep.RepeatCount + 1) % 2 == 0;
+                effectiveEndPos = returnToStart ? osuPos : osuPos + pathEnd;
+            }
+
+            int targetCol, targetRow;
+            double dt = time - prevTime;
+
+            if (prevOsuPos == null || dt > gap_threshold_ms)
+            {
+                var initPos = mapOsuPositionToGrid(original);
+                targetCol = initPos.col;
+                targetRow = initPos.row;
+                resetHistory();
             }
             else
             {
-                var diff = osuPos - prevOsuPos.Value;
-                float dist = diff.Length;
-                float osuAngle = MathF.Atan2(diff.Y, diff.X);
-
-                int step = 1;
-                if (dist < 10) step = 0;
-                else if (dist > 180) step = 2;
-
-                var candidates = new List<((int col, int row) pos, double score)>();
-
-                double dt = time - prevTime;
-                bool isStream = dt < 150;
-                bool isHighBpm = dt < 90;
-
-                if (isHighBpm && step > 1) step = 1;
-
-                for (int c = 0; c <= 2; c++)
-                {
-                    for (int r = 0; r <= 2; r++)
-                    {
-                        int dc = c - prevGridPos.col;
-                        int dr = r - prevGridPos.row;
-                        int gridDist = Math.Max(Math.Abs(dc), Math.Abs(dr));
-
-                        double score = 0;
-
-                        if (step == 0)
-                        {
-                            if (gridDist == 0) score += 100;
-                            else score -= 100;
-                        }
-                        else
-                        {
-                            if (gridDist == 0)
-                            {
-                                score -= 50;
-                                if (isStream) score -= 100;
-                            }
-                            else if (step == 2)
-                            {
-                                if (gridDist >= 2) score += 20;
-                                else score -= 10;
-                            }
-                            else
-                            {
-                                if (gridDist == 1) score += 20;
-                                else score -= 5;
-                            }
-                        }
-
-                        if (gridDist > 0)
-                        {
-                            float gridAngle = MathF.Atan2(dr, dc);
-                            float dAngle = osuAngle - gridAngle;
-
-                            if (float.IsNaN(dAngle) || float.IsInfinity(dAngle))
-                                dAngle = 0f;
-
-                            while (dAngle > MathF.PI) dAngle -= 2 * MathF.PI;
-                            while (dAngle < -MathF.PI) dAngle += 2 * MathF.PI;
-
-                            dAngle = Math.Abs(dAngle);
-
-                            score += (1.0 - (dAngle / MathF.PI)) * 30;
-
-                            if (isStream && prevGridPos != ppGridPos && ppGridPos.col != -1 && step < 2)
-                            {
-                                int prevDc = prevGridPos.col - ppGridPos.col;
-                                int prevDr = prevGridPos.row - ppGridPos.row;
-                                float prevAngle = MathF.Atan2(prevDr, prevDc);
-
-                                float flowAngle = prevAngle - gridAngle;
-
-                                if (float.IsNaN(flowAngle) || float.IsInfinity(flowAngle))
-                                    flowAngle = 0f;
-
-                                while (flowAngle > MathF.PI) flowAngle -= 2 * MathF.PI;
-                                while (flowAngle < -MathF.PI) flowAngle += 2 * MathF.PI;
-
-                                flowAngle = Math.Abs(flowAngle);
-
-                                if (flowAngle > MathF.PI / 2 + 0.1f) score -= 20;
-                                else score += 10;
-                            }
-                        }
-
-                        if (step > 0 && c == ppGridPos.col && r == ppGridPos.row && ppGridPos.col != -1)
-                        {
-                            score -= 200;
-                        }
-
-                        double noise = (Math.Sin(time * 0.1 + c * 13 + r * 7) + 1) * 2;
-                        score += noise;
-
-                        candidates.Add(((c, r), score));
-                    }
-                }
-
-                var best = candidates.OrderByDescending(p => p.score).First();
-                targetCol = best.pos.col;
-                targetRow = best.pos.row;
+                (targetCol, targetRow) = computeBestPosition(osuPos, time, dt);
             }
 
-            ppGridPos = prevGridPos;
+            pushHistory(targetCol, targetRow);
+            prevOsuEndPos = effectiveEndPos;
             prevOsuPos = osuPos;
-            prevGridPos = (targetCol, targetRow);
             prevTime = time;
 
             yield return new Note
@@ -164,14 +129,144 @@ namespace osu.Game.Rulesets.Space.Beatmaps
             };
         }
 
-        private static (float col, float row) getGridPosition(HitObject hitObject)
+        private (int col, int row) computeBestPosition(Vector2 osuPos, double time, double dt)
+        {
+            Vector2 diff = osuPos - prevOsuEndPos;
+            float dist = diff.Length;
+            float velocity = dt > 0 ? dist / (float)dt : 0;
+            float moveAngle = MathF.Atan2(diff.Y, diff.X);
+
+            bool isStream = dt < stream_threshold_ms;
+            bool isBurst = dt < burst_threshold_ms;
+
+            float targetGridDist;
+
+            if (velocity < velocity_stack)
+                targetGridDist = 0;
+            else if (velocity < velocity_normal)
+                targetGridDist = 1f;
+            else if (velocity < velocity_jump)
+                targetGridDist = 1.41f;
+            else
+                targetGridDist = 2f;
+
+            if (isBurst && targetGridDist > 1.41f)
+                targetGridDist = 1f;
+
+            var prev = getHistory(0);
+            var prevPrev = getHistory(1);
+
+            int bestCol = prev.col;
+            int bestRow = prev.row;
+            double bestScore = double.MinValue;
+
+            for (int c = 0; c <= 2; c++)
+            {
+                for (int r = 0; r <= 2; r++)
+                {
+                    double score = scoreCandidate(
+                        c, r, prev, prevPrev,
+                        moveAngle, dist, targetGridDist,
+                        isStream, isBurst, time);
+
+                    if (score > bestScore)
+                    {
+                        bestScore = score;
+                        bestCol = c;
+                        bestRow = r;
+                    }
+                }
+            }
+
+            return (bestCol, bestRow);
+        }
+
+        private double scoreCandidate(
+            int c, int r,
+            (int col, int row) prev,
+            (int col, int row) prevPrev,
+            float moveAngle, float dist, float targetGridDist,
+            bool isStream, bool isBurst, double time)
+        {
+            double score = 0;
+
+            int dc = c - prev.col;
+            int dr = r - prev.row;
+            float gridDist = MathF.Sqrt(dc * dc + dr * dr);
+            int chebyshev = Math.Max(Math.Abs(dc), Math.Abs(dr));
+
+            float distError = Math.Abs(gridDist - targetGridDist);
+            score += w_distance * Math.Max(0, 1.0 - distError / 2.0);
+
+            if (dist > 8 && chebyshev > 0)
+            {
+                float gridAngle = MathF.Atan2(dr, dc);
+                float angleDiff = normalizeAngle(moveAngle - gridAngle);
+                score += w_direction * (1.0 - angleDiff / MathF.PI);
+            }
+
+            for (int h = 0; h < historyCount; h++)
+            {
+                var hist = getHistory(h);
+
+                if (hist.col == c && hist.row == r)
+                {
+                    float decay = MathF.Pow(0.45f, h);
+                    score += w_recency_base * decay;
+                }
+            }
+
+            if (chebyshev == 0 && (isStream || isBurst))
+            {
+                score += w_anti_jack;
+
+                if (isBurst)
+                    score += w_anti_jack;
+            }
+
+            if (isStream && historyCount >= 2 && chebyshev > 0 && prevPrev.col >= 0)
+            {
+                int prevDc = prev.col - prevPrev.col;
+                int prevDr = prev.row - prevPrev.row;
+
+                if (prevDc != 0 || prevDr != 0)
+                {
+                    float prevAngle = MathF.Atan2(prevDr, prevDc);
+                    float gridAngle = MathF.Atan2(dr, dc);
+                    float flowDiff = normalizeAngle(gridAngle - prevAngle);
+
+                    if (flowDiff < MathF.PI * 0.5f)
+                        score += w_flow * (1.0 - flowDiff / (MathF.PI * 0.5f));
+                    else if (flowDiff > MathF.PI * 0.67f)
+                        score -= w_flow * 0.6;
+                }
+            }
+
+            score += Math.Sin(time * 0.073 + c * 17.3 + r * 11.7) * w_variety;
+
+            return score;
+        }
+
+        private static float normalizeAngle(float angle)
+        {
+            angle %= (2 * MathF.PI);
+
+            if (angle > MathF.PI) angle -= 2 * MathF.PI;
+            else if (angle < -MathF.PI) angle += 2 * MathF.PI;
+
+            return Math.Abs(angle);
+        }
+
+        private static (int col, int row) mapOsuPositionToGrid(HitObject hitObject)
         {
             float x = ((IHasXPosition)hitObject).X;
             float y = ((IHasYPosition)hitObject).Y;
+            float cellSize = SpacePlayfield.BASE_SIZE / 3f;
+
             return (
-                (int)Math.Clamp(x / (SpacePlayfield.BASE_SIZE / 3f), 0, 2),
-                (int)Math.Clamp(y / (SpacePlayfield.BASE_SIZE / 3f), 0, 2)
-                );
+                (int)Math.Clamp(x / cellSize, 0, 2),
+                (int)Math.Clamp(y / cellSize, 0, 2)
+            );
         }
     }
 }
