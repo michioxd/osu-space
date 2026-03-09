@@ -9,6 +9,7 @@ using osu.Game.Audio;
 using osu.Game.Rulesets.Objects.Drawables;
 using osu.Game.Rulesets.Space.Configuration;
 using osu.Game.Rulesets.Space.UI;
+using osu.Game.Skinning;
 using osuTK;
 using osuTK.Graphics;
 using osu.Framework.Extensions.Color4Extensions;
@@ -21,6 +22,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
     {
         private Container content;
         private NoteGlowPiece glowPiece;
+        private SkinnableSound hitSound;
 
         private readonly Bindable<float> noteOpacity = new();
         private readonly Bindable<float> noteScale = new();
@@ -102,6 +104,8 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             config?.BindWith(SpaceRulesetSetting.GlowStrength, glowStrength);
             config?.BindWith(SpaceRulesetSetting.HitWindow, hitWindow);
 
+            AddInternal(hitSound = new SkinnableSound(new HitSampleInfo(HitSampleInfo.HIT_NORMAL)));
+
             AddInternal(glowPiece = new NoteGlowPiece
             {
                 RelativeSizeAxes = Axes.Both,
@@ -161,6 +165,15 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
         {
             new HitSampleInfo(HitSampleInfo.HIT_NORMAL)
         };
+
+        protected override void LoadSamples()
+        {
+        }
+
+        public override void PlaySamples()
+        {
+            hitSound?.Play();
+        }
 
         private void updateColor()
         {

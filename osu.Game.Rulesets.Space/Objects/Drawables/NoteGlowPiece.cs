@@ -1,3 +1,4 @@
+#nullable enable
 using System.Runtime.InteropServices;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;

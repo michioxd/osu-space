@@ -83,6 +83,43 @@ namespace osu.Game.Rulesets.Space.Beatmaps
 
         #endregion
 
+        protected override Beatmap<SpaceHitObject> ConvertBeatmap(IBeatmap original, CancellationToken cancellationToken)
+        {
+            var beatmap = base.ConvertBeatmap(original, cancellationToken);
+
+            for (int i = 0; i < beatmap.HitObjects.Count; i++)
+            {
+                var h = beatmap.HitObjects[i];
+
+                if (h.GetType() == typeof(Note))
+                {
+                    beatmap.HitObjects[i] = new Note
+                    {
+                        StartTime = h.StartTime,
+                        X = h.X,
+                        Y = h.Y,
+                        Index = h.Index,
+                        CellIndex = h.CellIndex,
+                        Samples = h.Samples,
+                    };
+                }
+                else if (h.GetType() == typeof(SpaceHitObject))
+                {
+                    beatmap.HitObjects[i] = new SpaceHitObject
+                    {
+                        StartTime = h.StartTime,
+                        X = h.X,
+                        Y = h.Y,
+                        Index = h.Index,
+                        CellIndex = h.CellIndex,
+                        Samples = h.Samples,
+                    };
+                }
+            }
+
+            return beatmap;
+        }
+
         protected override IEnumerable<SpaceHitObject> ConvertHitObject(HitObject original, IBeatmap beatmap, CancellationToken cancellationToken)
         {
             var osuPos = (original as IHasPosition)?.Position ?? Vector2.Zero;
