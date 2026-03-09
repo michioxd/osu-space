@@ -29,7 +29,7 @@ namespace osu.Game.Rulesets.Space
     {
         public override string Description => "osu!space";
         public override string ShortName => "osuspaceruleset";
-        public const string VERSION_STRING = "2026.309.1";
+        public const string VERSION_STRING = "2026.309.2";
         public SpaceRuleset()
         {
             SpaceLegacyBeatmapDecoder.Register();
