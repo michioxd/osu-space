@@ -11,6 +11,7 @@
             "cwd": "${workspaceFolder}",
             "program": "dotnet",
             "args": [
+                "watch",
                 "run",
                 "--project",
                 ".\\osu.Game.Rulesets.Space.Tests\\",
