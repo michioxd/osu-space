@@ -70,6 +70,8 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
                 var newScale = new Vector2(e.NewValue);
                 cursorTrail.Scale = newScale;
             }, true);
+
+            Show();
         }
 
         protected override void Update()
@@ -126,6 +128,7 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
 
         protected override void PopOut()
         {
+            Alpha = 1;
             fadeContainer.FadeTo(0.05f, 450, Easing.OutQuint);
             ActiveCursor.ScaleTo(0.8f, 450, Easing.OutQuint);
         }

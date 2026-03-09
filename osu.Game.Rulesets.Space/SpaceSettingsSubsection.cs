@@ -23,7 +23,6 @@ using osu.Game.Overlays.Dialog;
 using osu.Game.Overlays.Notifications;
 using osu.Game.Graphics.Containers;
 using osu.Game.Online.API.Requests.Responses;
-using osu.Game.Overlays.Settings.Sections;
 using osu.Game.Rulesets.Space.Extension.SSPM;
 using osu.Framework.Screens;
 using System;
@@ -32,6 +31,7 @@ using osu.Game.Beatmaps;
 using System.Linq;
 using osu.Game.Screens.Menu;
 using osu.Game.Graphics.UserInterfaceV2;
+using osu.Game.Rulesets.Space.UI;
 
 namespace osu.Game.Rulesets.Space
 {
@@ -45,6 +45,7 @@ namespace osu.Game.Rulesets.Space
         }
 
         private SettingsButtonV2 checkForUpdatesButton;
+        private FormSliderBar<float> touchSensitivitySlider;
 
         [Resolved]
         private IDialogOverlay? dialogOverlay { get; set; }
@@ -149,6 +150,22 @@ namespace osu.Game.Rulesets.Space
                 {
                     Caption = "Show Cursor Trail",
                     Current = config.GetBindable<bool>(SpaceRulesetSetting.ShowCursorTrail),
+                }),
+                new SettingsItemV2(new FormEnumDropdown<SpaceTouchInputType>
+                {
+                    Caption = "Touch Input Type",
+                    HintText = "Only for touch devices. Relative: Touch input moves the cursor relative to its current position. Absolute: Touch input sets the cursor position directly to the touched position.",
+                    Current = config.GetBindable<SpaceTouchInputType>(SpaceRulesetSetting.TouchInputType),
+                }),
+                new SettingsItemV2(new FormSliderBar<float>
+                {
+                    Caption = "Touch Sensitivity",
+                    HintText = "Only for touch devices and Touch Input Type is set to Relative. Sensitivity of touch input (higher values = more sensitive).",
+                    Current = config.GetBindable<float>(SpaceRulesetSetting.TouchSensitivity),
+                    TransferValueOnCommit = true,
+                    LabelFormat = v => $@"{v:0.##}x",
+                    KeyboardStep = 0.1f,
+                    TooltipFormat = v => $@"{v:0.##}x",
                 }),
                 new CreateHeader("Notes"),
                 new SettingsItemV2(new FormEnumDropdown<SpacePalette>
