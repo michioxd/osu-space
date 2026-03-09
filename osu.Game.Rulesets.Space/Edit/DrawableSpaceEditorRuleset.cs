@@ -26,8 +26,7 @@ namespace osu.Game.Rulesets.Space.Edit
             RelativeSizeAxes = Axes.Both
         };
 
-        public override DrawableHitObject<SpaceHitObject> CreateDrawableRepresentation(SpaceHitObject h)
-            => new DrawableSpaceEditorHitObject(h);
+        public override DrawableHitObject<SpaceHitObject> CreateDrawableRepresentation(SpaceHitObject h) => null;
 
         private SpaceFramedReplayInputHandler replayInputHandler;
 

@@ -2,6 +2,8 @@ using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
+using osu.Game.Rulesets.Objects;
+using osu.Game.Rulesets.Space.Objects;
 using osu.Game.Rulesets.Space.UI;
 using osu.Game.Rulesets.UI;
 using osuTK;
@@ -29,6 +31,15 @@ namespace osu.Game.Rulesets.Space.Edit
                 Alpha = 0.4f
             };
         }
+
+        [BackgroundDependencyLoader]
+        private void load()
+        {
+            RegisterPool<Note, DrawableSpaceEditorHitObject>(10, 100);
+        }
+
+        protected override HitObjectLifetimeEntry CreateLifetimeEntry(HitObject hitObject)
+            => new SpaceEditorHitObjectLifetimeEntry(hitObject);
 
         public SpaceEditorPlayfield()
         {
@@ -111,6 +122,19 @@ namespace osu.Game.Rulesets.Space.Edit
             Vector2 local = HitObjectContainer.ToLocalSpace(screenSpacePosition);
             Vector2 normalized = new Vector2(local.X / HitObjectContainer.DrawSize.X, local.Y / HitObjectContainer.DrawSize.Y);
             return normalized * SpacePlayfield.BASE_SIZE;
+        }
+
+        private class SpaceEditorHitObjectLifetimeEntry : HitObjectLifetimeEntry
+        {
+            private const double lifetime_end_delay = 3000;
+
+            public SpaceEditorHitObjectLifetimeEntry(HitObject hitObject)
+                : base(hitObject)
+            {
+                LifetimeEnd = HitObject.GetEndTime() + lifetime_end_delay;
+            }
+
+            protected override double InitialLifetimeOffset => 10000;
         }
     }
 }

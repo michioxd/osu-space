@@ -22,8 +22,19 @@ namespace osu.Game.Rulesets.Space.Edit
         [Resolved(CanBeNull = true)]
         private osu.Game.Screens.Edit.EditorBeatmap editorBeatmap { get; set; }
 
+        public DrawableSpaceEditorHitObject()
+            : base(null)
+        {
+            initialise();
+        }
+
         public DrawableSpaceEditorHitObject(SpaceHitObject hitObject)
             : base(hitObject)
+        {
+            initialise();
+        }
+
+        private void initialise()
         {
             Origin = Anchor.Centre;
             RelativePositionAxes = Axes.Both;
@@ -88,6 +99,14 @@ namespace osu.Game.Rulesets.Space.Edit
         [BackgroundDependencyLoader]
         private void load()
         {
+        }
+
+        protected override void OnApply()
+        {
+            base.OnApply();
+
+            lastCellIndex = null;
+            lastIndex = null;
         }
 
         protected override void Update()
@@ -170,10 +189,6 @@ namespace osu.Game.Rulesets.Space.Edit
                 case ArmedState.Hit:
                 case ArmedState.Miss:
                     LifetimeEnd = HitObject.StartTime + lifetime_end_buffer;
-                    break;
-
-                default:
-                    LifetimeEnd = double.MaxValue;
                     break;
             }
         }
