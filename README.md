@@ -1,5 +1,7 @@
 # osu!space (osu! ruleset)
 
+[![Join our Discord](https://img.shields.io/discord/1286351304171585607)](https://discord.gg/stpVy4GkVJ)
+
 A custom game mode for [osu!(lazer)](https://github.com/ppy/osu) based on [Sound Space (Roblox)](https://www.roblox.com/games/2677609345/Sound-Space-Rhythm-Game) and [Sound Space Plus (a.k.a Rhythia)](https://github.com/Rhythia/sound-space-plus).
 
 This project is currently **in early development**. While some features have been implemented, you may encounter many bugs. Please feel free to open an issue if you find any.
