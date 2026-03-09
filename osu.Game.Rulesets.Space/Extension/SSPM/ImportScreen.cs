@@ -20,12 +20,10 @@ using System;
 using osu.Game.Overlays.Dialog;
 using osu.Game.Database;
 using System.Linq;
-using System.Drawing;
 using osu.Game.Screens.OnlinePlay.Match.Components;
 using System.IO;
-using osu.Game.Screens.SelectV2;
-using Microsoft.Extensions.Logging;
 using osu.Framework.Logging;
+using osu.Game.Screens.Select;
 
 namespace osu.Game.Rulesets.Space.Extension.SSPM
 {
@@ -232,7 +230,13 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                     State = ProgressNotificationState.Active,
                     CompletionClickAction = () =>
                     {
-                        game?.PerformFromScreen(s => s.Push(new SoloSongSelect()));
+                        game?.PerformFromScreen(screen =>
+                        {
+                            if (screen is SongSelect)
+                                return;
+
+                            screen.Push(new SoloSongSelect());
+                        });
                         return true;
                     }
                 };
