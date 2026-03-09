@@ -12,7 +12,6 @@ using osu.Game.Rulesets.Space.UI;
 using osuTK;
 using osuTK.Graphics;
 using osu.Framework.Extensions.Color4Extensions;
-using osu.Framework.Graphics.Effects;
 using osu.Framework.Graphics.Primitives;
 using osu.Framework.Extensions.PolygonExtensions;
 
@@ -21,6 +20,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
     public partial class DrawableSpaceHitObject : DrawableHitObject<SpaceHitObject>
     {
         private Container content;
+        private NoteGlowPiece glowPiece;
 
         private readonly Bindable<float> noteOpacity = new();
         private readonly Bindable<float> noteScale = new();
@@ -102,6 +102,14 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             config?.BindWith(SpaceRulesetSetting.GlowStrength, glowStrength);
             config?.BindWith(SpaceRulesetSetting.HitWindow, hitWindow);
 
+            AddInternal(glowPiece = new NoteGlowPiece
+            {
+                RelativeSizeAxes = Axes.Both,
+                Anchor = Anchor.Centre,
+                Origin = Anchor.Centre,
+                Alpha = 0,
+            });
+
             AddInternal(content = new Container
             {
                 RelativeSizeAxes = Axes.Both,
@@ -146,6 +154,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             float unit = lastBaseSize * inv3;
             content.BorderThickness = unit / (10f - noteThickness.Value);
             content.CornerRadius = unit / (10f - noteCornerRadius.Value);
+            updateGlowCornerRadius();
         }
 
         public override IEnumerable<HitSampleInfo> GetSamples() => new[]
@@ -159,23 +168,32 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             content.Colour = colors[HitObject.Index % colors.Length];
         }
 
+        private float cachedSizeMultiplier = 1f;
+
         private void updateGlow()
         {
             if (glow.Value && glowStrength.Value > 0)
             {
-                content.EdgeEffect = new EdgeEffectParameters
-                {
-                    Type = EdgeEffectType.Glow,
-                    Colour = ((Color4)content.Colour).Opacity(0.5f),
-                    Radius = glowStrength.Value * 10f,
-                    Roundness = content.CornerRadius,
-                    Hollow = true,
-                };
+                float mul = 1f + glowStrength.Value * 0.08f;
+                cachedSizeMultiplier = mul;
+
+                glowPiece.Size = new Vector2(mul);
+                glowPiece.InnerPortion = 1f / mul;
+                glowPiece.Colour = ((Color4)content.Colour).Opacity(0.5f);
+                glowPiece.Alpha = 1f;
+
+                updateGlowCornerRadius();
             }
             else
             {
-                content.EdgeEffect = default;
+                glowPiece.Alpha = 0f;
             }
+        }
+
+        private void updateGlowCornerRadius()
+        {
+            if (glowPiece == null || lastBaseSize <= 0 || cachedSizeMultiplier <= 0) return;
+            glowPiece.GlowCornerRadius = 2f * content.CornerRadius / (lastBaseSize * cachedSizeMultiplier);
         }
 
         protected override void Update()
