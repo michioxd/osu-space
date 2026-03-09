@@ -1,6 +1,6 @@
 # osu!space (osu! ruleset)
 
-Custom game mode for [osu!(lazer)](https://github.com/ppy/osu) based on [Sound Space (Roblox)](https://www.roblox.com/games/2677609345/Sound-Space-Rhythm-Game) and [Sound Space Plus](https://github.com/David20122/sound-space-plus) game.
+Custom game mode for [osu!(lazer)](https://github.com/ppy/osu) based on [Sound Space (Roblox)](https://www.roblox.com/games/2677609345/Sound-Space-Rhythm-Game) and [Sound Space Plus (a.k.a Rhythia)](https://github.com/David20122/sound-space-plus) game.
 
 Currently still **highly under development**. Some features have been implemented, but there are still tons of bugs. Please open an issue if you encounter any.
 
@@ -55,6 +55,8 @@ Visit the [Releases](https://github.com/michioxd/osu-space/releases) page to dow
 
 The editor is currently still in early development, and it is not yet fully functional. Currently only basic features are implemented, such as placing hit objects and basic timeline. You cannot save your map yet (ask peppy). So staying tuned for more updates on the editor.
 
+![](https://github.com/user-attachments/assets/08a52111-b6f7-48bf-8d84-962aa466273f)
+
 ## Contributing
 
 Contributions are welcome! If you want to contribute, please fork the repository and create a pull request.
@@ -66,6 +68,9 @@ You can also contribute new color palettes for the game by opening an issue if y
 Interested? Support meeee!!
 
 [![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg)](https://www.buymeacoffee.com/michioxd)
+
+
+
 
 
 
