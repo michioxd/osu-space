@@ -34,7 +34,7 @@ namespace osu.Game.Rulesets.Space.UI
 
         protected override ReplayInputHandler CreateReplayInputHandler(Replay replay) => replayInputHandler = new SpaceFramedReplayInputHandler(replay);
 
-        public override DrawableHitObject<SpaceHitObject> CreateDrawableRepresentation(SpaceHitObject h) => new DrawableSpaceHitObject(h);
+        public override DrawableHitObject<SpaceHitObject> CreateDrawableRepresentation(SpaceHitObject h) => null;
 
         protected override PassThroughInputManager CreateInputManager() => new SpaceInputManager(Ruleset?.RulesetInfo);
 

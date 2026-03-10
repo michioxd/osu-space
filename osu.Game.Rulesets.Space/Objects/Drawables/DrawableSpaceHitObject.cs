@@ -60,6 +60,14 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
         private static readonly float cell_size = SpacePlayfield.BASE_SIZE / 3f;
         private const float inv3 = 1f / 3f;
 
+        public DrawableSpaceHitObject()
+            : base(null)
+        {
+            Size = new Vector2(cell_size);
+            Origin = Anchor.Centre;
+            Scale = Vector2.Zero;
+        }
+
         public DrawableSpaceHitObject(SpaceHitObject hitObject)
             : base(hitObject)
         {
@@ -68,6 +76,21 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             Scale = Vector2.Zero;
 
             cacheHitObjectGeometry(hitObject);
+        }
+
+        protected override void OnApply()
+        {
+            base.OnApply();
+
+            cacheHitObjectGeometry(HitObject);
+            lastBaseSize = 0;
+            cachedPlayfield = null;
+
+            if (content != null)
+            {
+                updateColor();
+                updateGlow();
+            }
         }
 
         private void cacheHitObjectGeometry(SpaceHitObject ho)
@@ -177,6 +200,8 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
 
         private void updateColor()
         {
+            if (HitObject == null) return;
+
             var colors = SpacePaletteHelper.GetColors(palette.Value);
             content.Colour = colors[HitObject.Index % colors.Length];
         }

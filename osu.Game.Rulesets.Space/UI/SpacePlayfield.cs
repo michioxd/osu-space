@@ -2,7 +2,10 @@
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
+using osu.Game.Rulesets.Objects;
 using osu.Game.Rulesets.UI;
+using osu.Game.Rulesets.Space.Objects;
+using osu.Game.Rulesets.Space.Objects.Drawables;
 using osu.Game.Rulesets.Space.UI.Cursor;
 using osuTK;
 using osu.Game.Rulesets.Space.Configuration;
@@ -82,6 +85,8 @@ namespace osu.Game.Rulesets.Space.UI
         [BackgroundDependencyLoader]
         private void load(SpaceRulesetConfigManager? config)
         {
+            RegisterPool<Note, DrawableSpaceHitObject>(20, 100);
+
             config?.BindWith(SpaceRulesetSetting.PlayfieldBorderStyle, playfieldBorder.PlayfieldBorderStyle);
             config?.BindWith(SpaceRulesetSetting.Parallax, parallaxStrength);
             config?.BindWith(SpaceRulesetSetting.ScalePlayfield, scalePlayfield);
@@ -124,6 +129,21 @@ namespace osu.Game.Rulesets.Space.UI
             Vector2 local = HitObjectContainer.ToLocalSpace(screenSpacePosition);
             Vector2 normalized = new Vector2(local.X / HitObjectContainer.DrawSize.X, local.Y / HitObjectContainer.DrawSize.Y);
             return normalized * BASE_SIZE;
+        }
+
+        protected override HitObjectLifetimeEntry CreateLifetimeEntry(HitObject hitObject)
+            => new SpaceHitObjectLifetimeEntry(hitObject);
+
+        private class SpaceHitObjectLifetimeEntry : HitObjectLifetimeEntry
+        {
+            public SpaceHitObjectLifetimeEntry(HitObject hitObject)
+                : base(hitObject)
+            {
+                LifetimeEnd = HitObject.GetEndTime() + 1000;
+            }
+
+            protected override double InitialLifetimeOffset
+                => ((SpaceHitObject)HitObject).TimePreempt + 500;
         }
     }
 }
