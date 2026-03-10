@@ -26,8 +26,11 @@ namespace osu.Game.Rulesets.Space.Edit.Compose.Components
                     AddValue($"{selected.StartTime:#,0.##}ms");
 
                     AddHeader("Position");
-                    AddValue($"x:{selected.oX:#,0.##}");
-                    AddValue($"y:{selected.oY:#,0.##}");
+                    AddValue($"oX:{selected.oX:#,0.##}");
+                    AddValue($"oY:{selected.oY:#,0.##}");
+
+                    AddHeader("Index");
+                    AddValue($"{selected.Index}");
 
                     break;
 
