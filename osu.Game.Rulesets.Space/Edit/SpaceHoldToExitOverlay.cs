@@ -17,14 +17,17 @@ using osu.Framework.Screens;
 using osu.Framework.Utils;
 using osuTK;
 using osuTK.Graphics;
+using osu.Framework.Logging;
 
 namespace osu.Game.Rulesets.Space.Edit
 {
     public partial class SpaceHoldToExitOverlay : HoldToConfirmContainer, IKeyBindingHandler<GlobalAction>
     {
-        private const double hold_duration = 3000;
+        private const double hold_duration = 2000;
 
         protected override bool AllowMultipleFires => true;
+
+        private double lastTickPlaybackTime;
 
         private Box overlay;
         private Container textContainer;
@@ -54,7 +57,7 @@ namespace osu.Game.Rulesets.Space.Edit
 
             Action = () => editor.Exit();
 
-            tickSample = audio.Samples.Get(@"UI/metronome-tick");
+            tickSample = audio.Samples.Get(@"UI/dialog-dangerous-tick");
 
             Children = new Drawable[]
             {
@@ -142,9 +145,19 @@ namespace osu.Game.Rulesets.Space.Edit
 
             Progress.ValueChanged += p =>
             {
-                double target = p.NewValue * 0.7;
+                double target = p.NewValue * 0.8;
                 audioVolume.Value = 1 - target;
                 overlay.Alpha = (float)target;
+
+                if (!(Clock.CurrentTime - lastTickPlaybackTime < 40))
+                {
+                    var channel = tickSample.GetChannel();
+                    channel.Frequency.Value = 1 + p.NewValue;
+                    channel.Volume.Value = 0.1f + p.NewValue / 2f;
+
+                    channel.Play();
+                    lastTickPlaybackTime = Clock.CurrentTime;
+                }
 
                 if (p.NewValue > 0 && p.NewValue < 1)
                 {
@@ -164,16 +177,10 @@ namespace osu.Game.Rulesets.Space.Edit
                         ), 100, Easing.OutQuint);
                     }
                     else
-                    {
                         progressBarFill.FadeColour(Color4.White, 100, Easing.OutQuint);
-                    }
 
                     if (secondsLeft != lastDisplayedSecond)
-                    {
-                        if (lastDisplayedSecond >= 0)
-                            tickSample?.Play();
                         lastDisplayedSecond = secondsLeft;
-                    }
                     if (p.NewValue > 0.6)
                     {
                         float shakeIntensity = (float)((p.NewValue - 0.6) / 0.4);
@@ -184,9 +191,7 @@ namespace osu.Game.Rulesets.Space.Edit
                         ), 30, Easing.OutQuint);
                     }
                     else
-                    {
                         textContainer.MoveTo(Vector2.Zero, 100, Easing.OutQuint);
-                    }
 
                     textContainer.FadeIn(300, Easing.OutQuint);
                 }
@@ -200,7 +205,6 @@ namespace osu.Game.Rulesets.Space.Edit
             };
 
             audio.Tracks.AddAdjustment(AdjustableProperty.Volume, audioVolume);
-            audio.Samples.AddAdjustment(AdjustableProperty.Volume, audioVolume);
         }
 
         protected override void LoadComplete()
@@ -238,8 +242,8 @@ namespace osu.Game.Rulesets.Space.Edit
 
         protected override void Dispose(bool isDisposing)
         {
+            tickSample?.Dispose();
             audio?.Tracks.RemoveAdjustment(AdjustableProperty.Volume, audioVolume);
-            audio?.Samples.RemoveAdjustment(AdjustableProperty.Volume, audioVolume);
             base.Dispose(isDisposing);
         }
     }
