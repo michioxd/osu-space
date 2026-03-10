@@ -22,7 +22,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
     {
         private Container content;
         private NoteGlowPiece glowPiece;
-        private SkinnableSound hitSound;
+        private PausableSkinnableSound hitSound;
 
         private readonly Bindable<float> noteOpacity = new();
         private readonly Bindable<float> noteScale = new();
@@ -127,7 +127,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             config?.BindWith(SpaceRulesetSetting.GlowStrength, glowStrength);
             config?.BindWith(SpaceRulesetSetting.HitWindow, hitWindow);
 
-            AddInternal(hitSound = new SkinnableSound(new HitSampleInfo(HitSampleInfo.HIT_NORMAL)));
+            AddInternal(hitSound = new PausableSkinnableSound(new HitSampleInfo(HitSampleInfo.HIT_NORMAL)));
 
             AddInternal(glowPiece = new NoteGlowPiece
             {
