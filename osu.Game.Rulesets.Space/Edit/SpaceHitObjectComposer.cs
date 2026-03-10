@@ -9,6 +9,8 @@ using osu.Game.Beatmaps;
 using osu.Game.Screens.Edit;
 
 using osu.Framework.Allocation;
+using osu.Game.Rulesets.Space.Edit.Compose.Components;
+using osu.Framework.Graphics;
 
 namespace osu.Game.Rulesets.Space.Edit
 {
@@ -91,6 +93,8 @@ namespace osu.Game.Rulesets.Space.Edit
         [
             new NoteCompositionTool()
         ];
+
+        protected override Drawable CreateHitObjectInspector() => new SpaceHitObjectInspector();
 
         protected override DrawableRuleset<SpaceHitObject> CreateDrawableRuleset(Ruleset ruleset, IBeatmap beatmap, IReadOnlyList<Mod> mods) =>
         drawableRuleset = new DrawableSpaceEditorRuleset(ruleset, beatmap, mods);
