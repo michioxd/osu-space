@@ -14,6 +14,7 @@ using osu.Game.Graphics;
 using osu.Game.Input.Bindings;
 using osu.Game.Screens.Edit;
 using osu.Framework.Screens;
+using osu.Framework.Utils;
 using osuTK;
 using osuTK.Graphics;
 
@@ -27,8 +28,6 @@ namespace osu.Game.Rulesets.Space.Edit
 
         private Box overlay;
         private Container textContainer;
-        private OsuSpriteText currentText;
-        private OsuSpriteText nextText;
         private readonly BindableDouble audioVolume = new BindableDouble(1);
 
         private Sample tickSample;
@@ -100,20 +99,13 @@ namespace osu.Game.Rulesets.Space.Edit
                                     Origin = Anchor.TopCentre,
                                     Children = new Drawable[]
                                     {
-                                        currentText = new OsuSpriteText
+                                        new OsuSpriteText
                                         {
                                             Anchor = Anchor.Centre,
                                             Origin = Anchor.Centre,
                                             Font = OsuFont.Torus.With(size: 28, weight: FontWeight.Bold),
                                             Colour = Color4.White,
-                                        },
-                                        nextText = new OsuSpriteText
-                                        {
-                                            Anchor = Anchor.Centre,
-                                            Origin = Anchor.Centre,
-                                            Font = OsuFont.Torus.With(size: 28, weight: FontWeight.Bold),
-                                            Colour = Color4.White,
-                                            Alpha = 0,
+                                            Text = "Hold to exit"
                                         }
                                     }
                                 },
@@ -161,33 +153,46 @@ namespace osu.Game.Rulesets.Space.Edit
 
                     progressBarFill.ResizeWidthTo((float)p.NewValue, 100, Easing.OutQuint);
 
+                    if (p.NewValue > 0.2)
+                    {
+                        float t = (float)((p.NewValue - 0.2) / 0.8);
+                        progressBarFill.FadeColour(new Color4(
+                            1f,
+                            1f - t * 0.7f,
+                            1f - t * 0.7f,
+                            1f
+                        ), 100, Easing.OutQuint);
+                    }
+                    else
+                    {
+                        progressBarFill.FadeColour(Color4.White, 100, Easing.OutQuint);
+                    }
+
                     if (secondsLeft != lastDisplayedSecond)
                     {
-                        string newLabel = $"Hold Escape to exit... {secondsLeft}s";
-
-                        nextText.Text = newLabel;
-                        nextText.Alpha = 0;
-                        nextText.FadeIn(200, Easing.OutQuint);
-
-                        currentText.FadeOut(200, Easing.OutQuint);
-
-                        Scheduler.AddDelayed(() =>
-                        {
-                            currentText.Text = newLabel;
-                            currentText.Alpha = 1;
-                            currentText.Scale = Vector2.One;
-                            nextText.Alpha = 0;
-                        }, 210);
-
                         if (lastDisplayedSecond >= 0)
                             tickSample?.Play();
-
                         lastDisplayedSecond = secondsLeft;
                     }
+                    if (p.NewValue > 0.6)
+                    {
+                        float shakeIntensity = (float)((p.NewValue - 0.6) / 0.4);
+                        float amplitude = 8 * shakeIntensity;
+                        textContainer.MoveTo(new Vector2(
+                            RNG.NextSingle(-amplitude, amplitude),
+                            RNG.NextSingle(-amplitude, amplitude)
+                        ), 30, Easing.OutQuint);
+                    }
+                    else
+                    {
+                        textContainer.MoveTo(Vector2.Zero, 100, Easing.OutQuint);
+                    }
+
                     textContainer.FadeIn(300, Easing.OutQuint);
                 }
                 else
                 {
+                    textContainer.MoveTo(Vector2.Zero, 100, Easing.OutQuint);
                     textContainer.FadeOut(300, Easing.OutQuint);
                     progressBarFill.ResizeWidthTo(0, 300, Easing.OutQuint);
                     lastDisplayedSecond = -1;
