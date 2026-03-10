@@ -30,6 +30,8 @@ namespace osu.Game.Rulesets.Space.Edit
         [BackgroundDependencyLoader]
         private void load()
         {
+            AddInternal(new SpaceHoldToExitOverlay());
+
             if (editorBeatmap != null)
             {
                 editorBeatmap.HitObjectAdded += onHitObjectChanged;
@@ -52,7 +54,7 @@ namespace osu.Game.Rulesets.Space.Edit
 
         private bool cacheInvalidated = true;
 
-        private void onHitObjectChanged(osu.Game.Rulesets.Objects.HitObject obj)
+        private void onHitObjectChanged(Rulesets.Objects.HitObject obj)
         {
             cacheInvalidated = true;
         }
