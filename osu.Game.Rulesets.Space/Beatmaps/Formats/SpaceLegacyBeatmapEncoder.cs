@@ -25,7 +25,7 @@ namespace osu.Rulesets.Space.Beatmaps.Formats
 
         private readonly IBeatmap beatmap;
 
-        private readonly int onlineRulesetID;
+        private readonly int onlineRulesetID = 727;
 
         /// <summary>
         /// Creates a new <see cref="SpaceLegacyBeatmapEncoder"/>.
@@ -80,8 +80,6 @@ namespace osu.Rulesets.Space.Beatmaps.Formats
                 writer.WriteLine(@"EpilepsyWarning: 1");
             if (beatmap.CountdownOffset > 0)
                 writer.WriteLine(FormattableString.Invariant($@"CountdownOffset: {beatmap.CountdownOffset}"));
-            if (onlineRulesetID == 3)
-                writer.WriteLine(FormattableString.Invariant($"SpecialStyle: {(beatmap.SpecialStyle ? '1' : '0')}"));
             writer.WriteLine(FormattableString.Invariant($"WidescreenStoryboard: {(beatmap.WidescreenStoryboard ? '1' : '0')}"));
             if (beatmap.SamplesMatchPlaybackRate)
                 writer.WriteLine(@"SamplesMatchPlaybackRate: 1");
@@ -174,7 +172,7 @@ namespace osu.Rulesets.Space.Beatmaps.Formats
                 // If the group contains a timing control point, it needs to be output separately.
                 if (groupTimingPoint != null)
                 {
-                    writer.Write(FormattableString.Invariant($"{groupTimingPoint.Time},"));
+                    writer.Write(FormattableString.Invariant($"{groupTimingPoint.Time - 24},"));
                     writer.Write(FormattableString.Invariant($"{groupTimingPoint.BeatLength},"));
                     outputControlPointAt(controlPointProperties, true);
                     lastControlPointProperties = controlPointProperties;
@@ -185,7 +183,7 @@ namespace osu.Rulesets.Space.Beatmaps.Formats
                     continue;
 
                 // Output any remaining effects as secondary non-timing control point.
-                writer.Write(FormattableString.Invariant($"{group.Time},"));
+                writer.Write(FormattableString.Invariant($"{group.Time - 24},"));
                 writer.Write(FormattableString.Invariant($"{-100 / controlPointProperties.SliderVelocity},"));
                 outputControlPointAt(controlPointProperties, false);
                 lastControlPointProperties = controlPointProperties;
@@ -249,7 +247,7 @@ namespace osu.Rulesets.Space.Beatmaps.Formats
             if (hitObject is not SpaceHitObject h)
                 throw new InvalidOperationException($"Cannot encode hit object of type {hitObject.GetType()} in legacy format. Only {typeof(SpaceHitObject)} is supported.");
 
-            Vector2 position = new Vector2(h.oX, h.Y);
+            Vector2 position = new Vector2(h.oX, h.oY);
 
             writer.Write(FormattableString.Invariant($"{Math.Round(position.X * 1e4f)},"));
             writer.Write(FormattableString.Invariant($"{Math.Round(position.Y * 1e4f)},"));
@@ -436,7 +434,7 @@ namespace osu.Rulesets.Space.Beatmaps.Formats
             return type;
         }
 
-        private LegacySampleBank toLegacySampleBank(string? sampleBank)
+        private LegacySampleBank toLegacySampleBank(string sampleBank)
         {
             switch (sampleBank?.ToLowerInvariant())
             {
@@ -454,7 +452,7 @@ namespace osu.Rulesets.Space.Beatmaps.Formats
             }
         }
 
-        private int toLegacyCustomSampleBank(HitSampleInfo? hitSampleInfo)
+        private int toLegacyCustomSampleBank(HitSampleInfo hitSampleInfo)
         {
             if (hitSampleInfo is ConvertHitObjectParser.LegacyHitSampleInfo legacy)
                 return legacy.CustomSampleBank;

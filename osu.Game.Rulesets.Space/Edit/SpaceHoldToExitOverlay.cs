@@ -222,6 +222,7 @@ namespace osu.Game.Rulesets.Space.Edit
 
         public bool OnPressed(KeyBindingPressEvent<GlobalAction> e)
         {
+            Logger.Log($"Key pressed: {e.Action} {e.ControlPressed}");
             if (e.Repeat)
                 return false;
 
