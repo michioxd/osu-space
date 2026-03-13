@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using osu.Framework.Allocation;
 using osu.Framework.Input.Events;
 using osu.Game.Rulesets.Edit;
 using osu.Game.Rulesets.Objects;
 using osu.Game.Rulesets.Space.Edit.Blueprints;
 using osu.Game.Rulesets.Space.Objects;
+using osu.Game.Screens.Edit;
 using osu.Game.Screens.Edit.Compose.Components;
 using osuTK;
 
@@ -11,6 +13,9 @@ namespace osu.Game.Rulesets.Space.Edit
 {
     public partial class SpaceBlueprintContainer : ComposeBlueprintContainer
     {
+        [Resolved(CanBeNull = true)]
+        private EditorBeatmap editorBeatmap { get; set; }
+
         public SpaceBlueprintContainer(SpaceHitObjectComposer composer)
             : base(composer)
         {
@@ -27,6 +32,29 @@ namespace osu.Game.Rulesets.Space.Edit
             }
 
             return base.CreateHitObjectBlueprintFor(hitObject);
+        }
+
+        protected override void UpdateSelectionFromDragBox(HashSet<HitObject> selectionBeforeDrag)
+        {
+            var quad = DragBox.Box.ScreenSpaceDrawQuad;
+
+            foreach (var blueprint in SelectionBlueprints)
+            {
+                bool shouldBeSelected = selectionBeforeDrag.Contains(blueprint.Item)
+                                        || (blueprint.IsSelectable
+                                            && isWithinVisibleRange(blueprint.Item)
+                                            && quad.Contains(blueprint.ScreenSpaceSelectionPoint));
+
+                if (blueprint.IsSelected)
+                {
+                    if (!shouldBeSelected)
+                        blueprint.Deselect();
+                }
+                else if (shouldBeSelected)
+                {
+                    blueprint.Select();
+                }
+            }
         }
 
         protected override bool TryMoveBlueprints(DragEvent e, IList<(SelectionBlueprint<HitObject> blueprint, Vector2[] originalSnapPositions)> blueprints)
@@ -58,9 +86,10 @@ namespace osu.Game.Rulesets.Space.Edit
             if (blueprints.Count > 0)
             {
                 var firstOriginalScreen = blueprints[0].originalSnapPositions[0];
+                Vector2 firstOriginalGamefield = playfield.ScreenSpaceToGamefield(firstOriginalScreen);
                 Vector2 originalGrid = new Vector2(
-                    (firstOriginalScreen.X / cellSize) - 0.5f,
-                    (firstOriginalScreen.Y / cellSize) - 0.5f
+                    (firstOriginalGamefield.X / cellSize) - 0.5f,
+                    (firstOriginalGamefield.Y / cellSize) - 0.5f
                 );
 
                 Vector2 dragDelta = gridTarget - originalGrid;
@@ -69,9 +98,10 @@ namespace osu.Game.Rulesets.Space.Edit
                 {
                     if (b.blueprint.Item is SpaceHitObject spaceObject)
                     {
+                        Vector2 originalGamefield = playfield.ScreenSpaceToGamefield(b.originalSnapPositions[0]);
                         Vector2 objOriginalGrid = new Vector2(
-                            (b.originalSnapPositions[0].X / cellSize) - 0.5f,
-                            (b.originalSnapPositions[0].Y / cellSize) - 0.5f
+                            (originalGamefield.X / cellSize) - 0.5f,
+                            (originalGamefield.Y / cellSize) - 0.5f
                         );
 
                         Vector2 newGridPos = objOriginalGrid + dragDelta;
@@ -96,6 +126,22 @@ namespace osu.Game.Rulesets.Space.Edit
             }
 
             return true;
+        }
+
+        private bool isWithinVisibleRange(HitObject hitObject)
+        {
+            if (hitObject is not SpaceHitObject spaceHitObject)
+                return false;
+
+            double zoom = editorBeatmap?.TimelineZoom > 0 ? editorBeatmap.TimelineZoom : 1.0;
+            double preempt = 1500 / zoom;
+            double fadeOut = 200 / zoom;
+
+            double visibleStartTime = spaceHitObject.StartTime - preempt;
+            double visibleEndTime = spaceHitObject.StartTime + fadeOut;
+            double currentTime = EditorClock.CurrentTime;
+
+            return visibleStartTime <= currentTime && currentTime <= visibleEndTime;
         }
     }
 }

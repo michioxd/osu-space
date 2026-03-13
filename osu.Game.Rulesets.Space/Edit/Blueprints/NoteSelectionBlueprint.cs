@@ -1,5 +1,6 @@
 using osu.Game.Rulesets.Edit;
 using osu.Game.Rulesets.Space.Objects;
+using osuTK;
 
 namespace osu.Game.Rulesets.Space.Edit.Blueprints
 {
@@ -14,9 +15,8 @@ namespace osu.Game.Rulesets.Space.Edit.Blueprints
         {
             base.Update();
 
-            Position = HitObject.Position;
+            if (Parent != null)
+                Position = Parent.ToLocalSpace(DrawableObject.ScreenSpaceDrawQuad.Centre);
         }
-
-        public override osuTK.Vector2 ScreenSpaceSelectionPoint => Position;
     }
 }
