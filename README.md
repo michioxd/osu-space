@@ -28,7 +28,7 @@ https://github.com/user-attachments/assets/7eb79bfb-90f1-409a-8aa0-f08481fa6481
     - Note properties (thickness, corner radius, opacity, scale, approach rate, spawn distance, fade, glow).
 - Online check for updates.
 - Import `.sspm` files (Sound Space Plus maps, v1 and v2) from Sound Space Plus (Rhythia) (WIP).
-- Editor (WIP / Not able to save maps yet).
+- Editor (Currently unable to save maps using the official method).
 
 ## Download
 
@@ -55,11 +55,11 @@ Visit the [Releases](https://github.com/michioxd/osu-space/releases) page to dow
 - [x] SSPM v1/v2 converter/importer
 - [ ] Note speed change event
 - [x] Quantum note
-- [ ] Editor (in progress)
+- [x] Editor
 
 ## A Note About the Editor
 
-The editor is still in early development and is not fully functional yet. Currently, only basic features are implemented, such as placing hit objects and a basic timeline. You cannot save your maps yet (ask peppy). Stay tuned for more updates on the editor!
+Everything fine now but the editor is currently unable to save maps using the official method (you can export to `.osu` file or use my 'hack' to save your difficulty directly (NOT RECOMMENDED but functional) by press `Ctrl+S`). Since osu! did not implemented the API for custom rulesets to save maps, I had to find a workaround to save maps in the editor.
 
 ![](https://github.com/user-attachments/assets/08a52111-b6f7-48bf-8d84-962aa466273f)
 
