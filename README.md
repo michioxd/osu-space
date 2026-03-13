@@ -9,6 +9,8 @@ This project is currently **in early development**. While some features have bee
 
 Please note that breaking changes may occur in the future as I continue to learn how osu! and the osu!framework work. Expect instability and bugs.
 
+**[Click here to download some sample maps I have manually converted from Rhythia](https://drive.google.com/drive/folders/10o5F4WlCbMHHQW-T1m2xAjmxPOzFxsag?usp=sharing)**
+
 | Main gameplay | Customization |
 |---|---|
 | ![](https://github.com/user-attachments/assets/22e24ad0-c870-432e-883a-8e2e844c6bc1) ![](https://github.com/user-attachments/assets/12fe79b0-092a-4e37-ab2b-d55c3907c79b) | ![](https://github.com/user-attachments/assets/6a384060-5290-4219-b712-d041ddfff09b) |
