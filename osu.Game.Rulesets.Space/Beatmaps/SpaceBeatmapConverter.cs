@@ -28,8 +28,8 @@ namespace osu.Game.Rulesets.Space.Beatmaps
         private const int history_length = 6;
 
         private const float velocity_stack = 0.08f;
-        private const float velocity_normal = 0.50f;
-        private const float velocity_jump = 1.20f;
+        private const float velocity_normal = 0.38f;
+        private const float velocity_jump = 0.82f;
 
         private const double stream_threshold_ms = 160;
         private const double burst_threshold_ms = 100;
@@ -40,10 +40,23 @@ namespace osu.Game.Rulesets.Space.Beatmaps
         private const double w_flow = 20;
         private const double w_anti_jack = -250;
         private const double w_variety = 3;
+        private const double w_jump_preference = 42;
+        private const double w_jack_preference = 15;
+        private const double w_stream_preference = 7;
+        private const double w_pattern_repeat_penalty = -12;
+        private const double w_stream_repeat_penalty = -28;
+        private const double w_pattern_switch_bonus = 14;
 
         #endregion
 
         #region Conversion state
+
+        private enum PatternType
+        {
+            Jack,
+            Stream,
+            Jump,
+        }
 
         private Vector2? prevOsuPos;
         private Vector2 prevOsuEndPos;
@@ -237,7 +250,7 @@ namespace osu.Game.Rulesets.Space.Beatmaps
                 targetGridDist = 2f;
 
             if (isBurst && targetGridDist > 1.41f)
-                targetGridDist = 1f;
+                targetGridDist = 1.41f;
 
             var prev = getHistory(0);
             var prevPrev = getHistory(1);
@@ -253,7 +266,7 @@ namespace osu.Game.Rulesets.Space.Beatmaps
                     double score = scoreCandidate(
                         c, r, prev, prevPrev,
                         moveAngle, dist, targetGridDist,
-                        isStream, isBurst, time);
+                        isStream, isBurst, time, dt);
 
                     if (score > bestScore)
                     {
@@ -272,7 +285,7 @@ namespace osu.Game.Rulesets.Space.Beatmaps
             (int col, int row) prev,
             (int col, int row) prevPrev,
             float moveAngle, float dist, float targetGridDist,
-            bool isStream, bool isBurst, double time)
+            bool isStream, bool isBurst, double time, double dt)
         {
             double score = 0;
 
@@ -280,9 +293,11 @@ namespace osu.Game.Rulesets.Space.Beatmaps
             int dr = r - prev.row;
             float gridDist = MathF.Sqrt(dc * dc + dr * dr);
             int chebyshev = Math.Max(Math.Abs(dc), Math.Abs(dr));
+            PatternType candidateType = classifyPattern(dc, dr);
 
             float distError = Math.Abs(gridDist - targetGridDist);
             score += w_distance * Math.Max(0, 1.0 - distError / 2.0);
+            score += getPatternPreferenceScore(candidateType, dist, dt, targetGridDist, isStream, isBurst);
 
             if (dist > 8 && chebyshev > 0)
             {
@@ -304,10 +319,12 @@ namespace osu.Game.Rulesets.Space.Beatmaps
 
             if (chebyshev == 0 && (isStream || isBurst))
             {
-                score += w_anti_jack;
+                double jackSuitability = Math.Clamp(1.0 - dist / 45f, 0, 1);
+
+                score += w_anti_jack * (1.0 - jackSuitability);
 
                 if (isBurst)
-                    score += w_anti_jack;
+                    score += w_anti_jack * 0.6 * (1.0 - jackSuitability);
             }
 
             if (isStream && historyCount >= 2 && chebyshev > 0 && prevPrev.col >= 0)
@@ -328,9 +345,101 @@ namespace osu.Game.Rulesets.Space.Beatmaps
                 }
             }
 
+            PatternType? previousPattern = getPreviousPatternType();
+
+            if (previousPattern.HasValue)
+            {
+                int streak = getRecentPatternStreak(previousPattern.Value);
+
+                if (candidateType == previousPattern.Value)
+                {
+                    double repeatPenalty = candidateType == PatternType.Stream ? w_stream_repeat_penalty : w_pattern_repeat_penalty;
+                    score += repeatPenalty * Math.Min(streak, 3);
+                }
+                else if (streak >= 2)
+                {
+                    score += w_pattern_switch_bonus * Math.Min(streak, 3);
+                }
+            }
+
             score += Math.Sin(time * 0.073 + c * 17.3 + r * 11.7) * w_variety;
 
             return score;
+        }
+
+        private static PatternType classifyPattern(int dc, int dr)
+        {
+            if (dc == 0 && dr == 0)
+                return PatternType.Jack;
+
+            if (Math.Abs(dc) + Math.Abs(dr) == 1)
+                return PatternType.Stream;
+
+            return PatternType.Jump;
+        }
+
+        private double getPatternPreferenceScore(PatternType patternType, float dist, double dt, float targetGridDist, bool isStream, bool isBurst)
+        {
+            double jackIntent = Math.Max(
+                Math.Clamp(1.0 - dist / 42f, 0, 1),
+                Math.Clamp((0.6f - targetGridDist) / 0.6f, 0, 1));
+
+            double streamIntent = Math.Clamp(1.0 - Math.Abs(targetGridDist - 1f), 0, 1) * 0.75;
+
+            if (isStream)
+                streamIntent = Math.Min(1.0, streamIntent + 0.12);
+
+            if (isBurst)
+                streamIntent = Math.Min(1.0, streamIntent + 0.05);
+
+            double jumpIntent = Math.Max(
+                Math.Clamp((targetGridDist - 0.9f) / 0.7f, 0, 1),
+                Math.Clamp((dist - 60f) / 120f, 0, 1));
+
+            jumpIntent = Math.Max(jumpIntent, Math.Clamp((dt - 120) / 160.0, 0, 1));
+
+            return patternType switch
+            {
+                PatternType.Jack => jackIntent * w_jack_preference,
+                PatternType.Stream => streamIntent * w_stream_preference,
+                PatternType.Jump => jumpIntent * w_jump_preference,
+                _ => 0,
+            };
+        }
+
+        private PatternType? getPreviousPatternType()
+        {
+            if (historyCount < 2)
+                return null;
+
+            var current = getHistory(0);
+            var previous = getHistory(1);
+
+            if (previous.col < 0 || previous.row < 0)
+                return null;
+
+            return classifyPattern(current.col - previous.col, current.row - previous.row);
+        }
+
+        private int getRecentPatternStreak(PatternType patternType)
+        {
+            int streak = 0;
+
+            for (int i = 0; i + 1 < historyCount; i++)
+            {
+                var newer = getHistory(i);
+                var older = getHistory(i + 1);
+
+                if (older.col < 0 || older.row < 0)
+                    break;
+
+                if (classifyPattern(newer.col - older.col, newer.row - older.row) != patternType)
+                    break;
+
+                streak++;
+            }
+
+            return streak;
         }
 
         private static float normalizeAngle(float angle)
