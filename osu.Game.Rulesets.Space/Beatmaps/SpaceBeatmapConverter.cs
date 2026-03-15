@@ -126,20 +126,59 @@ namespace osu.Game.Rulesets.Space.Beatmaps
             double time = original.StartTime;
 
             Vector2 effectiveEndPos = osuPos;
+            double? spanDuration = null;
+            int repeatCount = 0;
 
             if (original is IHasPath pathObj)
             {
                 Vector2 pathEnd = pathObj.Path.PositionAt(1);
                 bool returnToStart = original is IHasRepeats rep && (rep.RepeatCount + 1) % 2 == 0;
                 effectiveEndPos = returnToStart ? osuPos : osuPos + pathEnd;
+
+                if (original is IHasRepeats repeats && original is IHasDuration duration)
+                {
+                    repeatCount = repeats.RepeatCount;
+                    spanDuration = duration.Duration / (repeatCount + 1);
+                }
             }
 
-            int targetCol, targetRow;
+            yield return createConvertedNote(original, time, osuPos, original.Samples, resetFromOriginal: true, stateEndPos: osuPos);
+
+            if (original is IHasPath repeatPath && original is IHasRepeats repeatsObj && spanDuration.HasValue && repeatCount > 0)
+            {
+                Vector2 pathEnd = repeatPath.Path.PositionAt(1);
+
+                for (int i = 1; i <= repeatCount; i++)
+                {
+                    Vector2 reversePos = i % 2 == 1 ? osuPos + pathEnd : osuPos;
+
+                    yield return createConvertedNote(
+                        original,
+                        time + spanDuration.Value * i,
+                        reversePos,
+                        i < repeatsObj.NodeSamples.Count ? repeatsObj.NodeSamples[i] : original.Samples,
+                        resetFromOriginal: false,
+                        stateEndPos: reversePos);
+                }
+
+                prevOsuEndPos = effectiveEndPos;
+                prevOsuPos = effectiveEndPos;
+            }
+            else
+            {
+                prevOsuEndPos = effectiveEndPos;
+            }
+        }
+
+        private Note createConvertedNote(HitObject original, double time, Vector2 osuPos, IList<osu.Game.Audio.HitSampleInfo> samples, bool resetFromOriginal, Vector2 stateEndPos)
+        {
+            int targetCol;
+            int targetRow;
             double dt = time - prevTime;
 
             if (prevOsuPos == null || dt > gap_threshold_ms)
             {
-                var initPos = mapOsuPositionToGrid(original);
+                var initPos = resetFromOriginal ? mapOsuPositionToGrid(original) : mapOsuPositionToGrid(osuPos);
                 targetCol = initPos.col;
                 targetRow = initPos.row;
                 resetHistory();
@@ -150,15 +189,15 @@ namespace osu.Game.Rulesets.Space.Beatmaps
             }
 
             pushHistory(targetCol, targetRow);
-            prevOsuEndPos = effectiveEndPos;
+            prevOsuEndPos = stateEndPos;
             prevOsuPos = osuPos;
             prevTime = time;
 
-            yield return new Note
+            return new Note
             {
                 Index = currentIndex++,
-                Samples = original.Samples,
-                StartTime = original.StartTime,
+                Samples = samples,
+                StartTime = time,
                 X = (targetCol + 0.5f) * (SpacePlayfield.BASE_SIZE / 3f),
                 Y = (targetRow + 0.5f) * (SpacePlayfield.BASE_SIZE / 3f),
                 oX = targetCol,
@@ -303,6 +342,16 @@ namespace osu.Game.Rulesets.Space.Beatmaps
             return (
                 (int)Math.Clamp(x / cellSize, 0, 2),
                 (int)Math.Clamp(y / cellSize, 0, 2)
+            );
+        }
+
+        private static (int col, int row) mapOsuPositionToGrid(Vector2 position)
+        {
+            float cellSize = SpacePlayfield.BASE_SIZE / 3f;
+
+            return (
+                (int)Math.Clamp(position.X / cellSize, 0, 2),
+                (int)Math.Clamp(position.Y / cellSize, 0, 2)
             );
         }
     }
