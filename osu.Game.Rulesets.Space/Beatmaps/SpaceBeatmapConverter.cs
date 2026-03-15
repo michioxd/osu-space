@@ -144,30 +144,40 @@ namespace osu.Game.Rulesets.Space.Beatmaps
 
             yield return createConvertedNote(original, time, osuPos, original.Samples, resetFromOriginal: true, stateEndPos: osuPos);
 
-            if (original is IHasPath repeatPath && original is IHasRepeats repeatsObj && spanDuration.HasValue && repeatCount > 0)
+            if (original is IHasPath sliderPath && original is IHasDuration sliderDuration)
             {
-                Vector2 pathEnd = repeatPath.Path.PositionAt(1);
+                Vector2 pathEnd = sliderPath.Path.PositionAt(1);
 
-                for (int i = 1; i <= repeatCount; i++)
+                if (original is IHasRepeats repeatsObj && spanDuration.HasValue && repeatCount > 0)
                 {
-                    Vector2 reversePos = i % 2 == 1 ? osuPos + pathEnd : osuPos;
+                    for (int i = 1; i <= repeatCount; i++)
+                    {
+                        Vector2 reversePos = i % 2 == 1 ? osuPos + pathEnd : osuPos;
 
-                    yield return createConvertedNote(
-                        original,
-                        time + spanDuration.Value * i,
-                        reversePos,
-                        i < repeatsObj.NodeSamples.Count ? repeatsObj.NodeSamples[i] : original.Samples,
-                        resetFromOriginal: false,
-                        stateEndPos: reversePos);
+                        yield return createConvertedNote(
+                            original,
+                            time + spanDuration.Value * i,
+                            reversePos,
+                            i < repeatsObj.NodeSamples.Count ? repeatsObj.NodeSamples[i] : original.Samples,
+                            resetFromOriginal: false,
+                            stateEndPos: reversePos);
+                    }
                 }
 
-                prevOsuEndPos = effectiveEndPos;
-                prevOsuPos = effectiveEndPos;
+                int tailNodeIndex = repeatCount + 1;
+
+                yield return createConvertedNote(
+                    original,
+                    time + sliderDuration.Duration,
+                    effectiveEndPos,
+                    original is IHasRepeats tailRepeats && tailNodeIndex < tailRepeats.NodeSamples.Count
+                        ? tailRepeats.NodeSamples[tailNodeIndex]
+                        : original.Samples,
+                    resetFromOriginal: false,
+                    stateEndPos: effectiveEndPos);
             }
             else
-            {
                 prevOsuEndPos = effectiveEndPos;
-            }
         }
 
         private Note createConvertedNote(HitObject original, double time, Vector2 osuPos, IList<osu.Game.Audio.HitSampleInfo> samples, bool resetFromOriginal, Vector2 stateEndPos)
