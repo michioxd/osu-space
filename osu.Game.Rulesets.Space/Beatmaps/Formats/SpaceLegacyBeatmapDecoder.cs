@@ -13,10 +13,11 @@ public class SpaceLegacyBeatmapDecoder : LegacyBeatmapDecoder
 {
     public new const int LATEST_VERSION = 1;
 
+    private bool shouldParse = false;
+
     public new static void Register()
     {
         AddDecoder<Beatmap>("osuspaceruleset file format v", m => new SpaceLegacyBeatmapDecoder(Parsing.ParseInt(m.Split('v').Last())));
-        SetFallbackDecoder<Beatmap>(() => new SpaceLegacyBeatmapDecoder());
     }
 
     public SpaceLegacyBeatmapDecoder(int version = LATEST_VERSION)
@@ -31,11 +32,23 @@ public class SpaceLegacyBeatmapDecoder : LegacyBeatmapDecoder
             case Section.General:
                 if (line.StartsWith("Mode", StringComparison.Ordinal))
                 {
-                    beatmap.BeatmapInfo.Ruleset = new SpaceRuleset().RulesetInfo;
+                    if (SplitKeyVal(line).Value == SpaceRuleset.RULESET_ID.ToString())
+                    {
+                        shouldParse = true;
+                        beatmap.BeatmapInfo.Ruleset = new SpaceRuleset().RulesetInfo;
+                        return;
+                    }
+
+                    shouldParse = false;
+                    base.ParseLine(beatmap, section, line);
                     return;
                 }
                 break;
+
             case Section.HitObjects:
+                if (!shouldParse)
+                    break;
+
                 string[] split = line.Split(',');
                 if (split.Length >= 3 &&
                     float.TryParse(split[0], NumberStyles.Float, CultureInfo.InvariantCulture, out float x) &&
