@@ -83,6 +83,17 @@ namespace osu.Game.Rulesets.Space.Skinning.Legacy
         protected override float IntervalMultiplier => 1 / Math.Max(cursorSize.Value, 1);
         protected override bool AvoidDrawingNearCursor => !DisjointTrail;
 
+        public override void HandlePosition(Vector2 position)
+        {
+            if (!DisjointTrail)
+            {
+                base.HandlePosition(position);
+                return;
+            }
+
+            currentPosition = position;
+        }
+
         protected override void Update()
         {
             base.Update();
@@ -102,7 +113,7 @@ namespace osu.Game.Rulesets.Space.Skinning.Legacy
             if (!DisjointTrail)
                 return base.OnMouseMove(e);
 
-            currentPosition = e.ScreenSpaceMousePosition;
+            HandlePosition(e.ScreenSpaceMousePosition);
 
             // Intentionally block the base call as we're adding the trails ourselves.
             return false;

@@ -8,11 +8,11 @@ using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
-using osu.Framework.Graphics.Textures;
 using osu.Framework.Input.Bindings;
 using osu.Framework.Input.Events;
 using osu.Game.Rulesets.Osu.UI.Cursor;
 using osu.Game.Rulesets.Space.Configuration;
+using osu.Game.Rulesets.Space.Skinning.Argon;
 using osu.Game.Rulesets.UI;
 using osu.Game.Skinning;
 using osuTK;
@@ -35,7 +35,6 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
         private readonly Container<Drawable> fadeContainer;
 
         private readonly Bindable<bool> showTrail = new(true);
-        private readonly Bindable<float> scalePlayfield = new();
 
         private readonly SkinnableDrawable cursorTrail;
 
@@ -63,7 +62,6 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
         private void load(SpaceRulesetConfigManager rulesetConfig)
         {
             rulesetConfig?.BindWith(SpaceRulesetSetting.ShowCursorTrail, showTrail);
-            rulesetConfig?.BindWith(SpaceRulesetSetting.ScalePlayfield, scalePlayfield);
         }
 
         protected override void LoadComplete()
@@ -78,13 +76,19 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
             ActiveCursor.CursorScale.BindValueChanged(
                 e =>
                 {
-                    var newScale = new Vector2(e.NewValue);
-                    cursorTrail.Scale = newScale;
+                    updateTrailScale();
                 },
                 true
             );
+            cursorTrail.OnSkinChanged += updateTrailScale;
 
             Show();
+        }
+
+        private void updateTrailScale()
+        {
+            if (cursorTrail.Drawable is CursorTrail trail)
+                trail.CursorScale = new Vector2(ActiveCursor.CursorScale.Value);
         }
 
         protected override void Update()
@@ -113,9 +117,7 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
                 ActiveCursor.Position = Vector2.Clamp(ActiveCursor.Position, minBound, maxBound);
 
                 if (cursorTrail.Drawable is CursorTrail trail)
-                {
-                    trail.AddTrail(ActiveCursor.ScreenSpaceDrawQuad.Centre);
-                }
+                    trail.HandlePosition(ActiveCursor.ScreenSpaceDrawQuad.Centre);
             }
             return false;
         }
@@ -142,14 +144,6 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
             ActiveCursor.ScaleTo(0.8f, 450, Easing.OutQuint);
         }
 
-        private partial class DefaultCursorTrail : CursorTrail
-        {
-            [BackgroundDependencyLoader]
-            private void load(TextureStore textures)
-            {
-                Texture = textures.Get(@"Cursor/cursortrail");
-                Scale = new Vector2(1 / Texture.ScaleAdjust);
-            }
-        }
+        private partial class DefaultCursorTrail : ArgonCursorTrail { }
     }
 }

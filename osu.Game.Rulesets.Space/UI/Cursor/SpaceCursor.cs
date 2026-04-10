@@ -25,6 +25,7 @@ namespace osu.Game.Rulesets.Osu.UI.Cursor
     public partial class SpaceCursor : SkinReloadableDrawable
     {
         public const float SIZE = 28;
+        private const float default_playfield_scale = 0.6f;
 
         private bool cursorExpand;
 
@@ -53,6 +54,7 @@ namespace osu.Game.Rulesets.Osu.UI.Cursor
         private readonly Bindable<float> cursorScale = new BindableFloat(1);
 
         private Bindable<float> userCursorScale = null!;
+        private Bindable<float> playfieldScale = null!;
 
         [Resolved(canBeNull: true)]
         private GameplayState state { get; set; }
@@ -74,6 +76,9 @@ namespace osu.Game.Rulesets.Osu.UI.Cursor
 
             userCursorScale = config.GetBindable<float>(SpaceRulesetSetting.GameplayCursorSize);
             userCursorScale.ValueChanged += _ => cursorScale.Value = CalculateCursorScale();
+
+            playfieldScale = config.GetBindable<float>(SpaceRulesetSetting.ScalePlayfield);
+            playfieldScale.ValueChanged += _ => cursorScale.Value = CalculateCursorScale();
 
             ModScaleAdjust.ValueChanged += _ => cursorScale.Value = CalculateCursorScale();
 
@@ -109,7 +114,8 @@ namespace osu.Game.Rulesets.Osu.UI.Cursor
 
         protected virtual float CalculateCursorScale()
         {
-            float scale = userCursorScale.Value * ModScaleAdjust.Value;
+            float playfieldAdjustedScale = playfieldScale.Value / default_playfield_scale;
+            float scale = userCursorScale.Value * ModScaleAdjust.Value * playfieldAdjustedScale;
             return scale;
         }
 
