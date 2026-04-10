@@ -18,6 +18,19 @@ namespace osu.Game.Rulesets.Space.Difficulty.Skills
 
         protected override double StrainValueAt(DifficultyHitObject current)
         {
+            currentStrain *= strainDecay(current.DeltaTime);
+            currentStrain += StrainValueOf(current) * SkillMultiplier;
+
+            return currentStrain;
+        }
+
+        protected override double CalculateInitialStrain(double time, DifficultyHitObject current)
+        {
+            return currentStrain * strainDecay(time - current.Previous(0).StartTime);
+        }
+
+        protected double StrainValueOf(DifficultyHitObject current)
+        {
             var spaceObject = (SpaceDifficultyHitObject)current;
 
             double density = 1.0 / Math.Max(current.DeltaTime, 50);
@@ -34,26 +47,6 @@ namespace osu.Game.Rulesets.Space.Difficulty.Skills
             }
 
             return density * stackBonus;
-        }
-
-        protected override double CalculateInitialStrain(double time, DifficultyHitObject current)
-        {
-            return currentStrain * strainDecay(time - current.Previous(0).StartTime);
-        }
-
-        protected double StrainValueOf(DifficultyHitObject current)
-        {
-            var spaceObject = (SpaceDifficultyHitObject)current;
-
-            double density = 1.0 / Math.Max(current.DeltaTime, 50);
-
-            double overlapBonus = 1.0;
-            if (spaceObject.JumpDistance < 50)
-            {
-                overlapBonus = 1.2;
-            }
-
-            return density * overlapBonus;
         }
 
         private double strainDecay(double ms) => Math.Pow(StrainDecayBase, ms / 1000);

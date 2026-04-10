@@ -1,3 +1,5 @@
+#nullable enable
+
 // Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the MIT Licence.
 // See the LICENCE file in the repository root for full licence text.
 
@@ -42,8 +44,7 @@ namespace osu.Game.Rulesets.Space
         public SpaceSettingsSubsection(SpaceRuleset ruleset)
             : base(ruleset) { }
 
-        private SettingsButtonV2 checkForUpdatesButton;
-        private FormSliderBar<float> touchSensitivitySlider;
+        private SettingsButtonV2 checkForUpdatesButton = null!;
 
         [Resolved]
         private IDialogOverlay? dialogOverlay { get; set; }
@@ -55,25 +56,25 @@ namespace osu.Game.Rulesets.Space
         private UserProfileOverlay? userProfile { get; set; }
 
         [Resolved]
-        private Storage storage { get; set; }
+        private Storage storage { get; set; } = null!;
 
         [Resolved]
-        private GameHost host { get; set; }
+        private GameHost host { get; set; } = null!;
 
         [Resolved(CanBeNull = true)]
-        private OsuGame game { get; set; }
+        private OsuGame? game { get; set; }
 
         [Resolved]
-        private OsuColour colours { get; set; }
+        private OsuColour colours { get; set; } = null!;
 
         [Resolved]
         private RealmAccess realm { get; set; } = null!;
 
         [Resolved]
-        private Bindable<WorkingBeatmap> currentBeatmap { get; set; }
+        private Bindable<WorkingBeatmap> currentBeatmap { get; set; } = null!;
 
         [Resolved]
-        private BeatmapManager beatmapManager { get; set; }
+        private BeatmapManager beatmapManager { get; set; } = null!;
 
         [BackgroundDependencyLoader]
         private void load()
@@ -427,9 +428,19 @@ namespace osu.Game.Rulesets.Space
                         try
                         {
                             var response = req.ResponseObject;
-                            string version = response["version"].ToString();
-                            string downloadUrl = response["download"].ToString();
-                            string releaseUrl = response["release"].ToString();
+
+                            string? version = response["version"]?.ToString();
+                            string? downloadUrl = response["download"]?.ToString();
+                            string? releaseUrl = response["release"]?.ToString();
+
+                            if (
+                                string.IsNullOrWhiteSpace(version)
+                                || string.IsNullOrWhiteSpace(downloadUrl)
+                                || string.IsNullOrWhiteSpace(releaseUrl)
+                            )
+                                throw new InvalidOperationException(
+                                    "Update response is missing required fields."
+                                );
 
                             if (
                                 System.Version.TryParse(version, out var latestVersion)

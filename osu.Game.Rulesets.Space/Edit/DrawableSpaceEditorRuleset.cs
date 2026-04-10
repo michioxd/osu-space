@@ -1,3 +1,5 @@
+#nullable enable
+
 using System.Collections.Generic;
 using osu.Framework.Graphics;
 using osu.Game.Beatmaps;
@@ -31,9 +33,9 @@ namespace osu.Game.Rulesets.Space.Edit
 
         public override DrawableHitObject<SpaceHitObject> CreateDrawableRepresentation(
             SpaceHitObject h
-        ) => null;
+        ) => null!;
 
-        private SpaceFramedReplayInputHandler replayInputHandler;
+        private SpaceFramedReplayInputHandler? replayInputHandler;
 
         protected override ReplayInputHandler CreateReplayInputHandler(Replay replay) =>
             replayInputHandler = new SpaceFramedReplayInputHandler(replay);

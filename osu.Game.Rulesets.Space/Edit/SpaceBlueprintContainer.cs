@@ -1,3 +1,5 @@
+#nullable enable
+
 using System.Collections.Generic;
 using osu.Framework.Allocation;
 using osu.Framework.Input.Events;
@@ -14,7 +16,7 @@ namespace osu.Game.Rulesets.Space.Edit
     public partial class SpaceBlueprintContainer : ComposeBlueprintContainer
     {
         [Resolved(CanBeNull = true)]
-        private EditorBeatmap editorBeatmap { get; set; }
+        private EditorBeatmap? editorBeatmap { get; set; }
 
         public SpaceBlueprintContainer(SpaceHitObjectComposer composer)
             : base(composer) { }

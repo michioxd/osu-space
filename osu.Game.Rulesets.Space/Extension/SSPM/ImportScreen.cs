@@ -24,6 +24,7 @@ using osu.Game.Screens;
 using osu.Game.Screens.OnlinePlay.Match.Components;
 using osu.Game.Screens.Select;
 using osuTK;
+using osuTK.Graphics;
 
 namespace osu.Game.Rulesets.Space.Extension.SSPM
 {
@@ -94,7 +95,11 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                     Size = new Vector2(0.5f, 0.8f),
                     Children = new Drawable[]
                     {
-                        new Box { Colour = colours.GreySeaFoamDark, RelativeSizeAxes = Axes.Both },
+                        new Box
+                        {
+                            Colour = colours?.GreySeaFoamDark ?? Colour4.Black,
+                            RelativeSizeAxes = Axes.Both,
+                        },
                         new GridContainer
                         {
                             RelativeSizeAxes = Axes.Both,

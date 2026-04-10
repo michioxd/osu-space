@@ -1,3 +1,5 @@
+#nullable enable
+
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
@@ -10,7 +12,6 @@ namespace osu.Game.Rulesets.Space.UI
     public partial class SpaceJudgementPiece : CompositeDrawable, IAnimatableJudgement
     {
         protected readonly HitResult Result;
-        protected SpriteText JudgementText { get; private set; }
 
         public SpaceJudgementPiece(HitResult result)
         {
