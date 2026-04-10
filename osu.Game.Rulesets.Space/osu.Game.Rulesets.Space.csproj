@@ -10,8 +10,6 @@
     <EmbeddedResource Include="Resources\**" />
   </ItemGroup>
   <ItemGroup>
-    <!-- they not released 2026.305.0 yet so i need to include directly from the local source -->
-    <!-- <PackageReference Include="ppy.osu.Game" Version="2026.303.0" /> -->
-    <ProjectReference Include="..\..\osu\osu.Game\osu.Game.csproj" />
+    <PackageReference Include="ppy.osu.Game" Version="2026.408.0" />
   </ItemGroup>
 </Project>

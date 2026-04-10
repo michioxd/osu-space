@@ -1,5 +1,4 @@
-﻿
-using osu.Game.Beatmaps;
+﻿using osu.Game.Beatmaps;
 using osu.Game.Beatmaps.ControlPoints;
 using osu.Game.Rulesets.Judgements;
 using osu.Game.Rulesets.Objects;
@@ -42,11 +41,15 @@ namespace osu.Game.Rulesets.Space.Objects
 
         public double TimePreempt = 600;
 
-        protected override void ApplyDefaultsToSelf(ControlPointInfo controlPointInfo, IBeatmapDifficultyInfo difficulty)
+        protected override void ApplyDefaultsToSelf(
+            ControlPointInfo controlPointInfo,
+            IBeatmapDifficultyInfo difficulty
+        )
         {
             base.ApplyDefaultsToSelf(controlPointInfo, difficulty);
 
-            TimePreempt = (float)IBeatmapDifficultyInfo.DifficultyRange(difficulty.ApproachRate, 3500, 2500, 1500);
+            TimePreempt = (float)
+                IBeatmapDifficultyInfo.DifficultyRange(difficulty.ApproachRate, 3500, 2500, 1500);
         }
     }
 }

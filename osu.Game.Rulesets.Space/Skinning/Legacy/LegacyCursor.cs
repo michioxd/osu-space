@@ -32,8 +32,16 @@ namespace osu.Game.Rulesets.Space.Skinning.Legacy
         [BackgroundDependencyLoader]
         private void load()
         {
-            bool centre = skin.GetConfig<SpaceSkinConfiguration, bool>(SpaceSkinConfiguration.CursorCentre)?.Value ?? true;
-            spin = skin.GetConfig<SpaceSkinConfiguration, bool>(SpaceSkinConfiguration.CursorRotate)?.Value ?? true;
+            bool centre =
+                skin.GetConfig<SpaceSkinConfiguration, bool>(
+                    SpaceSkinConfiguration.CursorCentre
+                )?.Value
+                ?? true;
+            spin =
+                skin.GetConfig<SpaceSkinConfiguration, bool>(
+                    SpaceSkinConfiguration.CursorRotate
+                )?.Value
+                ?? true;
 
             InternalChildren = new[]
             {
@@ -60,8 +68,7 @@ namespace osu.Game.Rulesets.Space.Skinning.Legacy
 
         public override void Expand()
         {
-            ExpandTarget?.ScaleTo(released_scale)
-                        .ScaleTo(pressed_scale, 100, Easing.Out);
+            ExpandTarget?.ScaleTo(released_scale).ScaleTo(pressed_scale, 100, Easing.Out);
         }
 
         public override void Contract()

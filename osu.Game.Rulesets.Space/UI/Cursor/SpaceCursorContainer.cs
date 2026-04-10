@@ -19,7 +19,9 @@ using osuTK;
 
 namespace osu.Game.Rulesets.Space.UI.Cursor
 {
-    public partial class SpaceCursorContainer : GameplayCursorContainer, IKeyBindingHandler<SpaceAction>
+    public partial class SpaceCursorContainer
+        : GameplayCursorContainer,
+            IKeyBindingHandler<SpaceAction>
     {
         public new SpaceCursor ActiveCursor => (SpaceCursor)base.ActiveCursor;
 
@@ -27,6 +29,7 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
         private SpacePlayfield playfield { get; set; }
 
         protected override Drawable CreateCursor() => new SpaceCursor();
+
         protected override Container<Drawable> Content => fadeContainer;
 
         private readonly Container<Drawable> fadeContainer;
@@ -43,9 +46,16 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
                 RelativeSizeAxes = Axes.Both,
                 Children =
                 [
-                    cursorTrail = new SkinnableDrawable(new SpaceSkinComponentLookup(SpaceSkinComponents.CursorTrail), _ => new DefaultCursorTrail(), confineMode: ConfineMode.NoScaling),
-                    new SkinnableDrawable(new SpaceSkinComponentLookup(SpaceSkinComponents.CursorParticles), confineMode: ConfineMode.NoScaling),
-                ]
+                    cursorTrail = new SkinnableDrawable(
+                        new SpaceSkinComponentLookup(SpaceSkinComponents.CursorTrail),
+                        _ => new DefaultCursorTrail(),
+                        confineMode: ConfineMode.NoScaling
+                    ),
+                    new SkinnableDrawable(
+                        new SpaceSkinComponentLookup(SpaceSkinComponents.CursorParticles),
+                        confineMode: ConfineMode.NoScaling
+                    ),
+                ],
             };
         }
 
@@ -65,11 +75,14 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
 
             showTrail.BindValueChanged(v => cursorTrail.FadeTo(v.NewValue ? 1 : 0, 200), true);
 
-            ActiveCursor.CursorScale.BindValueChanged(e =>
-            {
-                var newScale = new Vector2(e.NewValue);
-                cursorTrail.Scale = newScale;
-            }, true);
+            ActiveCursor.CursorScale.BindValueChanged(
+                e =>
+                {
+                    var newScale = new Vector2(e.NewValue);
+                    cursorTrail.Scale = newScale;
+                },
+                true
+            );
 
             Show();
         }
@@ -109,14 +122,10 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
 
         public bool OnPressed(KeyBindingPressEvent<SpaceAction> e)
         {
-
             return false;
         }
 
-        public void OnReleased(KeyBindingReleaseEvent<SpaceAction> e)
-        {
-
-        }
+        public void OnReleased(KeyBindingReleaseEvent<SpaceAction> e) { }
 
         public override bool HandlePositionalInput => true; // OverlayContainer will set this false when we go hidden, but we always want to receive input.
 

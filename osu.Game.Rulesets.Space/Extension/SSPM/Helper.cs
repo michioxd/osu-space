@@ -16,21 +16,24 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
             "Medium",
             "Hard",
             "Logic",
-            "Blast off"
+            "Blast off",
         ];
+
         private static string getDiffName(int diff)
         {
             if (diff < 0 || diff >= diff_name.Length)
                 return "Unknown";
             return diff_name[diff];
         }
+
         public static string ReadLine(BinaryReader reader)
         {
             List<byte> bytes = new List<byte>();
             while (true)
             {
                 byte b = reader.ReadByte();
-                if (b == 0x0A) break;
+                if (b == 0x0A)
+                    break;
                 bytes.Add(b);
             }
             return Encoding.UTF8.GetString(bytes.ToArray());
@@ -74,7 +77,8 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
             sb.AppendLine($"BeatmapSetID:-1");
             sb.AppendLine();
             sb.AppendLine("[Events]");
-            int lastTime = 0, noteIndex = 0;
+            int lastTime = 0,
+                noteIndex = 0;
             foreach (var note in notes.OrderBy(n => n.time))
             {
                 noteIndex++;
@@ -140,8 +144,19 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                         entryStream.Write(coverData, 0, coverData.Length);
                 }
 
-                string osuContent = GenerateOsuFile(id, name, artist, creator, difficulty, audioFilename, bgFilename, notes);
-                var osuEntry = zip.CreateEntry($"{creator} - {name} ({creator}) [{difficulty}].osu");
+                string osuContent = GenerateOsuFile(
+                    id,
+                    name,
+                    artist,
+                    creator,
+                    difficulty,
+                    audioFilename,
+                    bgFilename,
+                    notes
+                );
+                var osuEntry = zip.CreateEntry(
+                    $"{creator} - {name} ({creator}) [{difficulty}].osu"
+                );
                 using (var writer = new StreamWriter(osuEntry.Open()))
                 {
                     writer.Write(osuContent);

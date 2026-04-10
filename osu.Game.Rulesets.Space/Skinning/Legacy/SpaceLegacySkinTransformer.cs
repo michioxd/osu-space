@@ -6,21 +6,21 @@ using System.Linq;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Textures;
-using osu.Game.Rulesets.Space.Objects;
+using osu.Game.Rulesets.Osu.Skinning;
 using osu.Game.Rulesets.Scoring;
+using osu.Game.Rulesets.Space.Objects;
 using osu.Game.Screens.Play.HUD;
 using osu.Game.Skinning;
 using osuTK;
-using osu.Game.Rulesets.Osu.Skinning;
 
 namespace osu.Game.Rulesets.Space.Skinning.Legacy
 {
     public class SpaceLegacySkinTransformer : LegacySkinTransformer
     {
-        public override bool IsProvidingLegacyResources => base.IsProvidingLegacyResources || hasHitCircle.Value;
+        public override bool IsProvidingLegacyResources =>
+            base.IsProvidingLegacyResources || hasHitCircle.Value;
 
         private readonly Lazy<bool> hasHitCircle;
-
 
         public SpaceLegacySkinTransformer(ISkin skin)
             : base(skin)
@@ -47,7 +47,9 @@ namespace osu.Game.Rulesets.Space.Skinning.Legacy
                         case GlobalSkinnableContainers.MainHUDComponents:
                             return new DefaultSkinComponentsContainer(container =>
                             {
-                                var keyCounter = container.OfType<LegacyKeyCounterDisplay>().FirstOrDefault();
+                                var keyCounter = container
+                                    .OfType<LegacyKeyCounterDisplay>()
+                                    .FirstOrDefault();
 
                                 if (keyCounter != null)
                                 {
@@ -57,9 +59,15 @@ namespace osu.Game.Rulesets.Space.Skinning.Legacy
                                     keyCounter.Position = new Vector2(0, -40) * 1.6f;
                                 }
 
-                                var combo = container.OfType<LegacyDefaultComboCounter>().FirstOrDefault();
-                                var spectatorList = container.OfType<SpectatorList>().FirstOrDefault();
-                                var leaderboard = container.OfType<DrawableGameplayLeaderboard>().FirstOrDefault();
+                                var combo = container
+                                    .OfType<LegacyDefaultComboCounter>()
+                                    .FirstOrDefault();
+                                var spectatorList = container
+                                    .OfType<SpectatorList>()
+                                    .FirstOrDefault();
+                                var leaderboard = container
+                                    .OfType<DrawableGameplayLeaderboard>()
+                                    .FirstOrDefault();
 
                                 Vector2 pos = new Vector2();
 
@@ -69,7 +77,10 @@ namespace osu.Game.Rulesets.Space.Skinning.Legacy
                                     combo.Origin = Anchor.BottomLeft;
                                     combo.Scale = new Vector2(1.28f);
 
-                                    pos += new Vector2(10, -(combo.DrawHeight * 1.56f + 20) * combo.Scale.X);
+                                    pos += new Vector2(
+                                        10,
+                                        -(combo.DrawHeight * 1.56f + 20) * combo.Scale.X
+                                    );
                                 }
 
                                 if (spectatorList != null)
@@ -96,7 +107,7 @@ namespace osu.Game.Rulesets.Space.Skinning.Legacy
                                     new LegacyKeyCounterDisplay(),
                                     new SpectatorList(),
                                     new DrawableGameplayLeaderboard(),
-                                }
+                                },
                             };
                     }
 
@@ -109,9 +120,13 @@ namespace osu.Game.Rulesets.Space.Skinning.Legacy
                         case HitResult.SliderTailHit:
                         case HitResult.LargeTickMiss:
                         case HitResult.IgnoreMiss:
-                            if (getSliderPointTexture(resultComponent.Component == HitResult.LargeTickMiss
-                                    ? HitResult.LargeTickHit
-                                    : HitResult.SliderTailHit) != null)
+                            if (
+                                getSliderPointTexture(
+                                    resultComponent.Component == HitResult.LargeTickMiss
+                                        ? HitResult.LargeTickHit
+                                        : HitResult.SliderTailHit
+                                ) != null
+                            )
                                 return base.GetDrawableComponent(lookup) ?? Drawable.Empty();
 
                             break;
@@ -122,9 +137,15 @@ namespace osu.Game.Rulesets.Space.Skinning.Legacy
                     Texture? getSliderPointTexture(HitResult result)
                     {
                         // https://github.com/peppy/osu-stable-reference/blob/0e91e49bc83fe8b21c3ba5f1eb2d5d06456eae84/osu!/GameModes/Play/Rulesets/Ruleset.cs#L799
-                        if (GetConfig<SkinConfiguration.LegacySetting, decimal>(SkinConfiguration.LegacySetting.Version)?.Value < 2m)
+                        if (
+                            GetConfig<SkinConfiguration.LegacySetting, decimal>(
+                                SkinConfiguration.LegacySetting.Version
+                            )?.Value < 2m
+                        )
                             // Note that osu!stable used sliderpoint30 for heads and repeats, and sliderpoint10 for ticks, but the mapping is intentionally changed here so that each texture represents one type of HitResult.
-                            return GetTexture(result == HitResult.LargeTickHit ? "sliderpoint30" : "sliderpoint10");
+                            return GetTexture(
+                                result == HitResult.LargeTickHit ? "sliderpoint30" : "sliderpoint10"
+                            );
 
                         return null;
                     }
@@ -132,7 +153,6 @@ namespace osu.Game.Rulesets.Space.Skinning.Legacy
                 case SpaceSkinComponentLookup osuComponent:
                     switch (osuComponent.Component)
                     {
-
                         case SpaceSkinComponents.Cursor:
                             if (GetTexture("cursor") != null)
                                 return new LegacyCursor(this);
@@ -159,17 +179,22 @@ namespace osu.Game.Rulesets.Space.Skinning.Legacy
             switch (lookup)
             {
                 case SpaceSkinColour colour:
-                    return base.GetConfig<SkinCustomColourLookup, TValue>(new SkinCustomColourLookup(colour));
+                    return base.GetConfig<SkinCustomColourLookup, TValue>(
+                        new SkinCustomColourLookup(colour)
+                    );
 
                 case SpaceSkinConfiguration osuLookup:
                     switch (osuLookup)
                     {
-
                         case SpaceSkinConfiguration.HitCircleOverlayAboveNumber:
                             // See https://osu.ppy.sh/help/wiki/Skinning/skin.ini#%5Bgeneral%5D
                             // HitCircleOverlayAboveNumer (with typo) should still be supported for now.
-                            return base.GetConfig<SpaceSkinConfiguration, TValue>(SpaceSkinConfiguration.HitCircleOverlayAboveNumber) ??
-                                   base.GetConfig<SpaceSkinConfiguration, TValue>(SpaceSkinConfiguration.HitCircleOverlayAboveNumer);
+                            return base.GetConfig<SpaceSkinConfiguration, TValue>(
+                                    SpaceSkinConfiguration.HitCircleOverlayAboveNumber
+                                )
+                                ?? base.GetConfig<SpaceSkinConfiguration, TValue>(
+                                    SpaceSkinConfiguration.HitCircleOverlayAboveNumer
+                                );
                     }
 
                     break;

@@ -1,29 +1,29 @@
 #nullable enable
 
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
+using osu.Framework.Graphics.Sprites;
+using osu.Framework.Logging;
+using osu.Framework.Platform;
 using osu.Framework.Screens;
+using osu.Game.Beatmaps;
+using osu.Game.Database;
 using osu.Game.Graphics;
+using osu.Game.Graphics.Sprites;
 using osu.Game.Graphics.UserInterfaceV2;
 using osu.Game.Overlays;
-using osu.Game.Screens;
-using osuTK;
-using osu.Framework.Platform;
-using osu.Game.Overlays.Notifications;
-using osu.Game.Graphics.Sprites;
-using osu.Framework.Graphics.Sprites;
-using System.Threading.Tasks;
-using osu.Game.Beatmaps;
-using System;
 using osu.Game.Overlays.Dialog;
-using osu.Game.Database;
-using System.Linq;
+using osu.Game.Overlays.Notifications;
+using osu.Game.Screens;
 using osu.Game.Screens.OnlinePlay.Match.Components;
-using System.IO;
-using osu.Framework.Logging;
 using osu.Game.Screens.Select;
+using osuTK;
 
 namespace osu.Game.Rulesets.Space.Extension.SSPM
 {
@@ -33,7 +33,9 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
         public override bool HideOverlaysOnEnter => true;
 
         [Cached]
-        private OverlayColourProvider colourProvider = new OverlayColourProvider(OverlayColourScheme.Blue);
+        private OverlayColourProvider colourProvider = new OverlayColourProvider(
+            OverlayColourScheme.Blue
+        );
 
         [Resolved]
         private OsuColour? colours { get; set; }
@@ -64,17 +66,19 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
         [BackgroundDependencyLoader]
         private void load()
         {
-
             realm.Write(r =>
             {
-                var badRulesets = r.All<RulesetInfo>().Where(rs => rs.ShortName == "osuspaceruleset" && rs.OnlineID != 727);
+                var badRulesets = r.All<RulesetInfo>()
+                    .Where(rs => rs.ShortName == "osuspaceruleset" && rs.OnlineID != 727);
                 if (badRulesets.Any())
                 {
                     r.RemoveRange(badRulesets);
-                    dialogOverlay?.Push(new ConfirmRebootToApply(() =>
-                    {
-                        this.Exit();
-                    }));
+                    dialogOverlay?.Push(
+                        new ConfirmRebootToApply(() =>
+                        {
+                            this.Exit();
+                        })
+                    );
                 }
             });
 
@@ -90,11 +94,7 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                     Size = new Vector2(0.5f, 0.8f),
                     Children = new Drawable[]
                     {
-                        new Box
-                        {
-                            Colour = colours.GreySeaFoamDark,
-                            RelativeSizeAxes = Axes.Both,
-                        },
+                        new Box { Colour = colours.GreySeaFoamDark, RelativeSizeAxes = Axes.Both },
                         new GridContainer
                         {
                             RelativeSizeAxes = Axes.Both,
@@ -113,7 +113,7 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                                         Anchor = Anchor.Centre,
                                         Origin = Anchor.Centre,
                                         Text = "Please select a folder containing .sspm files",
-                                        Font = OsuFont.Default.With(size: 20)
+                                        Font = OsuFont.Default.With(size: 20),
                                     },
                                 },
                                 new Drawable[]
@@ -121,7 +121,7 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                                     directorySelector = new OsuDirectorySelector
                                     {
                                         RelativeSizeAxes = Axes.Both,
-                                    }
+                                    },
                                 },
                                 new Drawable[]
                                 {
@@ -139,7 +139,7 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                                                 Origin = Anchor.Centre,
                                                 Width = 150,
                                                 Text = "Import",
-                                                Action = import
+                                                Action = import,
                                             },
                                             new PurpleRoundedButton
                                             {
@@ -147,15 +147,15 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                                                 Origin = Anchor.Centre,
                                                 Width = 300,
                                                 Text = "Try to locate the Rhythia (SSP) folder",
-                                                Action = scanAndImportFromSSP
+                                                Action = scanAndImportFromSSP,
                                             },
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                                        },
+                                    },
+                                },
+                            },
+                        },
                     },
-                }
+                },
             ];
         }
 
@@ -164,27 +164,34 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
         private void scanAndImportFromSSP()
         {
             string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string localAppData = Environment.GetFolderPath(
+                Environment.SpecialFolder.LocalApplicationData
+            );
             string[] candidatePaths =
             [
                 Path.Combine(appData, "SoundSpacePlus", "maps"),
-                Path.Combine(localAppData, "SoundSpacePlus", "maps")
+                Path.Combine(localAppData, "SoundSpacePlus", "maps"),
             ];
 
             foreach (string path in candidatePaths)
             {
                 if (tryCheckThePath(path))
                 {
-                    dialogOverlay?.Push(new ImportConfirmationDialog(path, () => startImport(path), () => { }));
+                    dialogOverlay?.Push(
+                        new ImportConfirmationDialog(path, () => startImport(path), () => { })
+                    );
                     return;
                 }
             }
 
-            notifications?.Post(new SimpleNotification
-            {
-                Text = "No Sound Space Plus maps folder was detected, or no .sspm files were found inside that. Please select the folder manually.",
-                Icon = FontAwesome.Solid.ExclamationTriangle,
-            });
+            notifications?.Post(
+                new SimpleNotification
+                {
+                    Text =
+                        "No Sound Space Plus maps folder was detected, or no .sspm files were found inside that. Please select the folder manually.",
+                    Icon = FontAwesome.Solid.ExclamationTriangle,
+                }
+            );
         }
 
         private bool tryCheckThePath(string path)
@@ -205,21 +212,26 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
             {
                 if (string.IsNullOrEmpty(path) || !Directory.Exists(path))
                 {
-                    notifications?.Post(new SimpleNotification
-                    {
-                        Text = "Please select a valid directory.",
-                        Icon = FontAwesome.Solid.ExclamationTriangle,
-                    });
+                    notifications?.Post(
+                        new SimpleNotification
+                        {
+                            Text = "Please select a valid directory.",
+                            Icon = FontAwesome.Solid.ExclamationTriangle,
+                        }
+                    );
                     return;
                 }
 
                 if (!tryCheckThePath(path))
                 {
-                    notifications?.Post(new SimpleNotification
-                    {
-                        Text = "No .sspm files found in the selected directory. Please select a different folder.",
-                        Icon = FontAwesome.Solid.ExclamationTriangle,
-                    });
+                    notifications?.Post(
+                        new SimpleNotification
+                        {
+                            Text =
+                                "No .sspm files found in the selected directory. Please select a different folder.",
+                            Icon = FontAwesome.Solid.ExclamationTriangle,
+                        }
+                    );
                     return;
                 }
 
@@ -238,32 +250,37 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                             screen.Push(new SoloSongSelect());
                         });
                         return true;
-                    }
+                    },
                 };
                 notifications?.Post(notification);
 
                 Task.Run(() =>
                 {
                     var importer = new SSPMConverter(beatmapManager!, rulesets!);
-                    importer.ImportFromDirectory(path, notification.CancellationToken, (current, total, failed, done, noFile) =>
-                    {
-                        if (notification.State == ProgressNotificationState.Cancelled)
-                            return;
-
-                        if (noFile)
+                    importer.ImportFromDirectory(
+                        path,
+                        notification.CancellationToken,
+                        (current, total, failed, done, noFile) =>
                         {
-                            notification.State = ProgressNotificationState.Cancelled;
-                            notification.Text = "No .sspm files found to import.";
-                            return;
-                        }
+                            if (notification.State == ProgressNotificationState.Cancelled)
+                                return;
 
-                        notification.Text = $"Importing Sound Space Plus map files ({current}/{total})...";
-                        notification.Progress = (float)current / total;
-                        if (done)
-                        {
-                            notification.State = ProgressNotificationState.Completed;
+                            if (noFile)
+                            {
+                                notification.State = ProgressNotificationState.Cancelled;
+                                notification.Text = "No .sspm files found to import.";
+                                return;
+                            }
+
+                            notification.Text =
+                                $"Importing Sound Space Plus map files ({current}/{total})...";
+                            notification.Progress = (float)current / total;
+                            if (done)
+                            {
+                                notification.State = ProgressNotificationState.Completed;
+                            }
                         }
-                    });
+                    );
                 });
 
                 this.Exit();
@@ -271,11 +288,13 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
             catch (Exception ex)
             {
                 Logger.Error(ex, "Failed to import SSPM files.", LoggingTarget.Runtime);
-                notifications?.Post(new SimpleNotification
-                {
-                    Text = "An error occurred while importing .sspm files. Please try again.",
-                    Icon = FontAwesome.Solid.ExclamationTriangle,
-                });
+                notifications?.Post(
+                    new SimpleNotification
+                    {
+                        Text = "An error occurred while importing .sspm files. Please try again.",
+                        Icon = FontAwesome.Solid.ExclamationTriangle,
+                    }
+                );
             }
         }
 
@@ -288,16 +307,12 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                 Icon = FontAwesome.Solid.QuestionCircle;
                 Buttons =
                 [
-                    new PopupDialogOkButton
-                    {
-                        Text = "Yes, import these maps",
-                        Action = onConfirm
-                    },
+                    new PopupDialogOkButton { Text = "Yes, import these maps", Action = onConfirm },
                     new PopupDialogCancelButton
                     {
                         Text = "No, I'll select manually",
-                        Action = onCancel
-                    }
+                        Action = onCancel,
+                    },
                 ];
             }
         }
@@ -307,22 +322,20 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
             public ConfirmRebootToApply(Action onCancel)
             {
                 HeaderText = "osu!space need you to restart the game";
-                BodyText = "Since you have previously installed an earlier version of osu!space (below 2025.1214.0), and this update includes breaking changes. To use this feature, a game restart is required to apply the fixes. Please restart the game to ensure everything works correctly.";
+                BodyText =
+                    "Since you have previously installed an earlier version of osu!space (below 2025.1214.0), and this update includes breaking changes. To use this feature, a game restart is required to apply the fixes. Please restart the game to ensure everything works correctly.";
                 Icon = FontAwesome.Solid.ExclamationTriangle;
                 Buttons =
                 [
                     new PopupDialogOkButton
                     {
                         Text = "Restart now (quit the game)",
-                        Action = () => {
+                        Action = () =>
+                        {
                             Environment.Exit(0);
-                        }
+                        },
                     },
-                    new PopupDialogCancelButton
-                    {
-                        Text = "Later",
-                        Action = onCancel
-                    }
+                    new PopupDialogCancelButton { Text = "Later", Action = onCancel },
                 ];
             }
         }

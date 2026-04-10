@@ -35,8 +35,14 @@ namespace osu.Game.Rulesets.Space.Skinning.Legacy
         [BackgroundDependencyLoader]
         private void load(SpaceRulesetConfigManager config, ISkinSource skinSource)
         {
-            cursorSize = config.GetBindable<float>(SpaceRulesetSetting.GameplayCursorSize).GetBoundCopy();
-            AllowPartRotation = skin.GetConfig<SpaceSkinConfiguration, bool>(SpaceSkinConfiguration.CursorTrailRotate)?.Value ?? true;
+            cursorSize = config
+                .GetBindable<float>(SpaceRulesetSetting.GameplayCursorSize)
+                .GetBoundCopy();
+            AllowPartRotation =
+                skin.GetConfig<SpaceSkinConfiguration, bool>(
+                    SpaceSkinConfiguration.CursorTrailRotate
+                )?.Value
+                ?? true;
 
             Texture = skin.GetTexture("cursortrail");
 
@@ -48,7 +54,11 @@ namespace osu.Game.Rulesets.Space.Skinning.Legacy
 
             if (DisjointTrail)
             {
-                bool centre = skin.GetConfig<SpaceSkinConfiguration, bool>(SpaceSkinConfiguration.CursorCentre)?.Value ?? true;
+                bool centre =
+                    skin.GetConfig<SpaceSkinConfiguration, bool>(
+                        SpaceSkinConfiguration.CursorCentre
+                    )?.Value
+                    ?? true;
 
                 TrailOrigin = centre ? Anchor.Centre : Anchor.TopLeft;
                 Blending = BlendingParameters.Inherit;

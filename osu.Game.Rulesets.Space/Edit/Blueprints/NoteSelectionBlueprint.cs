@@ -7,9 +7,7 @@ namespace osu.Game.Rulesets.Space.Edit.Blueprints
     public partial class NoteSelectionBlueprint : HitObjectSelectionBlueprint<Note>
     {
         public NoteSelectionBlueprint(Note hitObject)
-            : base(hitObject)
-        {
-        }
+            : base(hitObject) { }
 
         protected override void Update()
         {

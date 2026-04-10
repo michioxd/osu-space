@@ -5,9 +5,7 @@ namespace osu.Game.Rulesets.Space.Scoring
 {
     public partial class SpaceHealthProcessor : HealthProcessor
     {
-        public SpaceHealthProcessor()
-        {
-        }
+        public SpaceHealthProcessor() { }
 
         protected override void Reset(bool storeResults)
         {

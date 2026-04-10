@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using osu.Framework.Allocation;
 using osu.Framework.Bindables;
+using osu.Framework.Extensions.Color4Extensions;
+using osu.Framework.Extensions.PolygonExtensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
+using osu.Framework.Graphics.Primitives;
 using osu.Framework.Graphics.Shapes;
 using osu.Game.Audio;
 using osu.Game.Rulesets.Objects.Drawables;
@@ -12,9 +15,6 @@ using osu.Game.Rulesets.Space.UI;
 using osu.Game.Skinning;
 using osuTK;
 using osuTK.Graphics;
-using osu.Framework.Extensions.Color4Extensions;
-using osu.Framework.Graphics.Primitives;
-using osu.Framework.Extensions.PolygonExtensions;
 
 namespace osu.Game.Rulesets.Space.Objects.Drawables
 {
@@ -127,36 +127,45 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             config?.BindWith(SpaceRulesetSetting.GlowStrength, glowStrength);
             config?.BindWith(SpaceRulesetSetting.HitWindow, hitWindow);
 
-            AddInternal(hitSound = new PausableSkinnableSound(new HitSampleInfo(HitSampleInfo.HIT_NORMAL)));
+            AddInternal(
+                hitSound = new PausableSkinnableSound(new HitSampleInfo(HitSampleInfo.HIT_NORMAL))
+            );
 
-            AddInternal(glowPiece = new NoteGlowPiece
-            {
-                RelativeSizeAxes = Axes.Both,
-                Anchor = Anchor.Centre,
-                Origin = Anchor.Centre,
-                Alpha = 0,
-            });
-
-            AddInternal(content = new Container
-            {
-                RelativeSizeAxes = Axes.Both,
-                Masking = true,
-                CornerRadius = cell_size / 3f,
-                BorderThickness = cell_size / 5.5f,
-                BorderColour = Color4.White,
-                Child = new Box
+            AddInternal(
+                glowPiece = new NoteGlowPiece
                 {
                     RelativeSizeAxes = Axes.Both,
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
                     Alpha = 0,
-                    AlwaysPresent = true,
                 }
-            });
+            );
 
-            palette.BindValueChanged(_ =>
-            {
-                updateColor();
-                updateGlow();
-            }, true);
+            AddInternal(
+                content = new Container
+                {
+                    RelativeSizeAxes = Axes.Both,
+                    Masking = true,
+                    CornerRadius = cell_size / 3f,
+                    BorderThickness = cell_size / 5.5f,
+                    BorderColour = Color4.White,
+                    Child = new Box
+                    {
+                        RelativeSizeAxes = Axes.Both,
+                        Alpha = 0,
+                        AlwaysPresent = true,
+                    },
+                }
+            );
+
+            palette.BindValueChanged(
+                _ =>
+                {
+                    updateColor();
+                    updateGlow();
+                },
+                true
+            );
             glow.BindValueChanged(_ => updateGlow(), true);
             glowStrength.BindValueChanged(_ => updateGlow(), true);
 
@@ -176,7 +185,8 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
 
         private void updateContentShape()
         {
-            if (lastBaseSize <= 0) return;
+            if (lastBaseSize <= 0)
+                return;
 
             float unit = lastBaseSize * inv3;
             content.BorderThickness = unit / (10f - noteThickness.Value);
@@ -184,14 +194,10 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             updateGlowCornerRadius();
         }
 
-        public override IEnumerable<HitSampleInfo> GetSamples() => new[]
-        {
-            new HitSampleInfo(HitSampleInfo.HIT_NORMAL)
-        };
+        public override IEnumerable<HitSampleInfo> GetSamples() =>
+            new[] { new HitSampleInfo(HitSampleInfo.HIT_NORMAL) };
 
-        protected override void LoadSamples()
-        {
-        }
+        protected override void LoadSamples() { }
 
         public override void PlaySamples()
         {
@@ -200,7 +206,8 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
 
         private void updateColor()
         {
-            if (HitObject == null) return;
+            if (HitObject == null)
+                return;
 
             var colors = SpacePaletteHelper.GetColors(palette.Value);
             content.Colour = colors[HitObject.Index % colors.Length];
@@ -230,8 +237,10 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
 
         private void updateGlowCornerRadius()
         {
-            if (glowPiece == null || lastBaseSize <= 0 || cachedSizeMultiplier <= 0) return;
-            glowPiece.GlowCornerRadius = 2f * content.CornerRadius / (lastBaseSize * cachedSizeMultiplier);
+            if (glowPiece == null || lastBaseSize <= 0 || cachedSizeMultiplier <= 0)
+                return;
+            glowPiece.GlowCornerRadius =
+                2f * content.CornerRadius / (lastBaseSize * cachedSizeMultiplier);
         }
 
         protected override void Update()
@@ -239,11 +248,14 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             base.Update();
 
             cachedPlayfield ??= (SpacePlayfield)ruleset.Playfield;
-            float currentOX = HitObject.oX, currentOY = HitObject.oY;
+            float currentOX = HitObject.oX,
+                currentOY = HitObject.oY;
             float expectedRelX = (currentOX + 0.5f) * inv3;
 
-            if (Math.Abs(expectedRelX - cachedTargetRelX) > 0.001f ||
-                Math.Abs((currentOY + 0.5f) * inv3 - cachedTargetRelY) > 0.001f)
+            if (
+                Math.Abs(expectedRelX - cachedTargetRelX) > 0.001f
+                || Math.Abs((currentOY + 0.5f) * inv3 - cachedTargetRelY) > 0.001f
+            )
             {
                 cacheHitObjectGeometry(HitObject);
             }
@@ -308,7 +320,10 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
                 const float fade_out_base = 0.8f;
 
                 float fadeOutProgress = (currentDist - fadeOutEnd) / (fadeOutStart - fadeOutEnd);
-                float fadeOutAlpha = 1f - fade_out_base + MathF.Pow(Math.Clamp(fadeOutProgress, 0f, 1f), 1.3f) * fade_out_base;
+                float fadeOutAlpha =
+                    1f
+                    - fade_out_base
+                    + MathF.Pow(Math.Clamp(fadeOutProgress, 0f, 1f), 1.3f) * fade_out_base;
 
                 if (fadeOutAlpha < alpha)
                     alpha = fadeOutAlpha;
@@ -316,8 +331,10 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
 
             alpha *= cachedNoteOpacity;
 
-            if ((rawScale >= 2f && currentOX >= 1f && currentOX <= 1.5f) ||
-                (rawScale >= 1f && HitObject.IsHitOk))
+            if (
+                (rawScale >= 2f && currentOX >= 1f && currentOX <= 1.5f)
+                || (rawScale >= 1f && HitObject.IsHitOk)
+            )
             {
                 Alpha = 0;
                 Scale = new Vector2(2f);
@@ -329,7 +346,8 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
 
         protected override void CheckForResult(bool userTriggered, double timeOffset)
         {
-            if (Judged) return;
+            if (Judged)
+                return;
 
             if (!HitObject.HitWindows.CanBeHit(timeOffset) || timeOffset > cachedHitWindow)
             {
@@ -348,10 +366,18 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             if (cursor == null)
                 return;
 
-            Vector2 tl = cachedPlayfield.GamefieldToScreenSpace(new Vector2(cachedCellLeft, cachedCellTop));
-            Vector2 tr = cachedPlayfield.GamefieldToScreenSpace(new Vector2(cachedCellRight, cachedCellTop));
-            Vector2 bl = cachedPlayfield.GamefieldToScreenSpace(new Vector2(cachedCellLeft, cachedCellBottom));
-            Vector2 br = cachedPlayfield.GamefieldToScreenSpace(new Vector2(cachedCellRight, cachedCellBottom));
+            Vector2 tl = cachedPlayfield.GamefieldToScreenSpace(
+                new Vector2(cachedCellLeft, cachedCellTop)
+            );
+            Vector2 tr = cachedPlayfield.GamefieldToScreenSpace(
+                new Vector2(cachedCellRight, cachedCellTop)
+            );
+            Vector2 bl = cachedPlayfield.GamefieldToScreenSpace(
+                new Vector2(cachedCellLeft, cachedCellBottom)
+            );
+            Vector2 br = cachedPlayfield.GamefieldToScreenSpace(
+                new Vector2(cachedCellRight, cachedCellBottom)
+            );
 
             if (new Quad(tl, tr, bl, br).Intersects(cursor.ScreenSpaceDrawQuad))
             {

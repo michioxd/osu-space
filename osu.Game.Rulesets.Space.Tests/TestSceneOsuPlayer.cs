@@ -1,4 +1,3 @@
-
 using NUnit.Framework;
 using osu.Game.Tests.Visual;
 

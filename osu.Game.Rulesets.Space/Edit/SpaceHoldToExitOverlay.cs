@@ -8,20 +8,22 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Input.Bindings;
 using osu.Framework.Input.Events;
-using osu.Game.Graphics.Containers;
-using osu.Game.Graphics.Sprites;
-using osu.Game.Graphics;
-using osu.Game.Input.Bindings;
-using osu.Game.Screens.Edit;
+using osu.Framework.Logging;
 using osu.Framework.Screens;
 using osu.Framework.Utils;
+using osu.Game.Graphics;
+using osu.Game.Graphics.Containers;
+using osu.Game.Graphics.Sprites;
+using osu.Game.Input.Bindings;
+using osu.Game.Screens.Edit;
 using osuTK;
 using osuTK.Graphics;
-using osu.Framework.Logging;
 
 namespace osu.Game.Rulesets.Space.Edit
 {
-    public partial class SpaceHoldToExitOverlay : HoldToConfirmContainer, IKeyBindingHandler<GlobalAction>
+    public partial class SpaceHoldToExitOverlay
+        : HoldToConfirmContainer,
+            IKeyBindingHandler<GlobalAction>
     {
         private const double hold_duration = 2000;
 
@@ -45,9 +47,7 @@ namespace osu.Game.Rulesets.Space.Edit
         private Editor editor { get; set; }
 
         public SpaceHoldToExitOverlay()
-            : base(isDangerousAction: true)
-        {
-        }
+            : base(isDangerousAction: true) { }
 
         [BackgroundDependencyLoader]
         private void load()
@@ -85,7 +85,7 @@ namespace osu.Game.Rulesets.Space.Edit
                                 RelativeSizeAxes = Axes.Both,
                                 Colour = Color4.Black,
                                 Alpha = 0.6f,
-                            }
+                            },
                         },
                         new FillFlowContainer
                         {
@@ -106,11 +106,14 @@ namespace osu.Game.Rulesets.Space.Edit
                                         {
                                             Anchor = Anchor.Centre,
                                             Origin = Anchor.Centre,
-                                            Font = OsuFont.Torus.With(size: 28, weight: FontWeight.Bold),
+                                            Font = OsuFont.Torus.With(
+                                                size: 28,
+                                                weight: FontWeight.Bold
+                                            ),
                                             Colour = Color4.White,
-                                            Text = "Hold to exit"
-                                        }
-                                    }
+                                            Text = "Hold to exit",
+                                        },
+                                    },
                                 },
                                 new Container
                                 {
@@ -134,13 +137,13 @@ namespace osu.Game.Rulesets.Space.Edit
                                             RelativeSizeAxes = Axes.Both,
                                             Colour = Color4.White,
                                             Width = 0,
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
             };
 
             Progress.ValueChanged += p =>
@@ -161,7 +164,8 @@ namespace osu.Game.Rulesets.Space.Edit
 
                 if (p.NewValue > 0 && p.NewValue < 1)
                 {
-                    int secondsLeft = (int)Math.Ceiling(hold_duration / 1000.0 * (1.0 - p.NewValue));
+                    int secondsLeft = (int)
+                        Math.Ceiling(hold_duration / 1000.0 * (1.0 - p.NewValue));
                     secondsLeft = Math.Max(secondsLeft, 0);
 
                     progressBarFill.ResizeWidthTo((float)p.NewValue, 100, Easing.OutQuint);
@@ -169,12 +173,11 @@ namespace osu.Game.Rulesets.Space.Edit
                     if (p.NewValue > 0.2)
                     {
                         float t = (float)((p.NewValue - 0.2) / 0.8);
-                        progressBarFill.FadeColour(new Color4(
-                            1f,
-                            1f - t * 0.7f,
-                            1f - t * 0.7f,
-                            1f
-                        ), 100, Easing.OutQuint);
+                        progressBarFill.FadeColour(
+                            new Color4(1f, 1f - t * 0.7f, 1f - t * 0.7f, 1f),
+                            100,
+                            Easing.OutQuint
+                        );
                     }
                     else
                         progressBarFill.FadeColour(Color4.White, 100, Easing.OutQuint);
@@ -185,10 +188,14 @@ namespace osu.Game.Rulesets.Space.Edit
                     {
                         float shakeIntensity = (float)((p.NewValue - 0.6) / 0.4);
                         float amplitude = 8 * shakeIntensity;
-                        textContainer.MoveTo(new Vector2(
-                            RNG.NextSingle(-amplitude, amplitude),
-                            RNG.NextSingle(-amplitude, amplitude)
-                        ), 30, Easing.OutQuint);
+                        textContainer.MoveTo(
+                            new Vector2(
+                                RNG.NextSingle(-amplitude, amplitude),
+                                RNG.NextSingle(-amplitude, amplitude)
+                            ),
+                            30,
+                            Easing.OutQuint
+                        );
                     }
                     else
                         textContainer.MoveTo(Vector2.Zero, 100, Easing.OutQuint);

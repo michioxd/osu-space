@@ -11,10 +11,12 @@ namespace osu.Game.Rulesets.Space.Configuration
 {
     public class SpaceRulesetConfigManager : RulesetConfigManager<SpaceRulesetSetting>
     {
-        public SpaceRulesetConfigManager(SettingsStore? settings, RulesetInfo ruleset, int? variant = null)
-            : base(settings, ruleset, variant)
-        {
-        }
+        public SpaceRulesetConfigManager(
+            SettingsStore? settings,
+            RulesetInfo ruleset,
+            int? variant = null
+        )
+            : base(settings, ruleset, variant) { }
 
         protected override void InitialiseDefaults()
         {
@@ -65,6 +67,6 @@ namespace osu.Game.Rulesets.Space.Configuration
         GlowStrength,
         HitWindow,
         TouchInputType,
-        TouchSensitivity
+        TouchSensitivity,
     }
 }

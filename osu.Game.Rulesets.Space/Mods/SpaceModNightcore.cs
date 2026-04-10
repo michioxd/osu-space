@@ -6,7 +6,5 @@ using osu.Game.Rulesets.Space.Objects;
 
 namespace osu.Game.Rulesets.Space.Mods
 {
-    public class SpaceModNightcore : ModNightcore<SpaceHitObject>
-    {
-    }
+    public class SpaceModNightcore : ModNightcore<SpaceHitObject> { }
 }

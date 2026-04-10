@@ -1,8 +1,8 @@
 using osu.Framework.Graphics;
-using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Containers;
-using osuTK.Graphics;
+using osu.Framework.Graphics.Shapes;
 using osuTK;
+using osuTK.Graphics;
 
 namespace osu.Game.Rulesets.Space.UI
 {
@@ -19,10 +19,34 @@ namespace osu.Game.Rulesets.Space.UI
             AddInternal(new DashedLine(Axes.X) { RelativePositionAxes = Axes.Both, Y = 1f / 3f });
             AddInternal(new DashedLine(Axes.X) { RelativePositionAxes = Axes.Both, Y = 2f / 3f });
 
-            AddInternal(new GridIntersection { RelativePositionAxes = Axes.Both, Position = new Vector2(1f / 3f, 1f / 3f) });
-            AddInternal(new GridIntersection { RelativePositionAxes = Axes.Both, Position = new Vector2(2f / 3f, 1f / 3f) });
-            AddInternal(new GridIntersection { RelativePositionAxes = Axes.Both, Position = new Vector2(1f / 3f, 2f / 3f) });
-            AddInternal(new GridIntersection { RelativePositionAxes = Axes.Both, Position = new Vector2(2f / 3f, 2f / 3f) });
+            AddInternal(
+                new GridIntersection
+                {
+                    RelativePositionAxes = Axes.Both,
+                    Position = new Vector2(1f / 3f, 1f / 3f),
+                }
+            );
+            AddInternal(
+                new GridIntersection
+                {
+                    RelativePositionAxes = Axes.Both,
+                    Position = new Vector2(2f / 3f, 1f / 3f),
+                }
+            );
+            AddInternal(
+                new GridIntersection
+                {
+                    RelativePositionAxes = Axes.Both,
+                    Position = new Vector2(1f / 3f, 2f / 3f),
+                }
+            );
+            AddInternal(
+                new GridIntersection
+                {
+                    RelativePositionAxes = Axes.Both,
+                    Position = new Vector2(2f / 3f, 2f / 3f),
+                }
+            );
         }
     }
 
@@ -42,8 +66,8 @@ namespace osu.Game.Rulesets.Space.UI
                     Origin = Anchor.Centre,
                     Scale = new Vector2(0.5f),
                     Colour = Color4.White,
-                    Alpha = 0.8f
-                }
+                    Alpha = 0.8f,
+                },
             };
         }
     }
@@ -79,13 +103,18 @@ namespace osu.Game.Rulesets.Space.UI
 
             for (int i = 0; i < 60; i++)
             {
-                flow.Add(new Circle
-                {
-                    RelativeSizeAxes = axis == Axes.Y ? Axes.X : Axes.Y,
-                    Size = new Vector2(axis == Axes.Y ? 1 : dashLength, axis == Axes.Y ? dashLength : 1),
-                    Colour = Color4.White,
-                    Alpha = 0.6f
-                });
+                flow.Add(
+                    new Circle
+                    {
+                        RelativeSizeAxes = axis == Axes.Y ? Axes.X : Axes.Y,
+                        Size = new Vector2(
+                            axis == Axes.Y ? 1 : dashLength,
+                            axis == Axes.Y ? dashLength : 1
+                        ),
+                        Colour = Color4.White,
+                        Alpha = 0.6f,
+                    }
+                );
             }
 
             InternalChild = flow;

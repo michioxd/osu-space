@@ -29,8 +29,11 @@ namespace osu.Game.Rulesets.Space.Edit
         private readonly Action onDirectSaveRequested;
 
         protected override bool DimMainContent => false;
+
         [Cached]
-        private OverlayColourProvider colourProvider = new OverlayColourProvider(OverlayColourScheme.Blue);
+        private OverlayColourProvider colourProvider = new OverlayColourProvider(
+            OverlayColourScheme.Blue
+        );
         private Container contentContainer = null!;
         private Container selectorHost = null!;
         private Container loadingContainer = null!;
@@ -45,7 +48,13 @@ namespace osu.Game.Rulesets.Space.Edit
         private OsuFileSelector fileSelector;
         private bool selectorLoadRequested;
 
-        public SpaceSaveFilePickerScreen(Action<string> onPathSelected, Func<string> defaultFileNameProvider, bool isImport = false, Func<bool> showDirectSaveButtonProvider = null, Action onDirectSaveRequested = null)
+        public SpaceSaveFilePickerScreen(
+            Action<string> onPathSelected,
+            Func<string> defaultFileNameProvider,
+            bool isImport = false,
+            Func<bool> showDirectSaveButtonProvider = null,
+            Action onDirectSaveRequested = null
+        )
         {
             this.onPathSelected = onPathSelected;
             this.defaultFileNameProvider = defaultFileNameProvider;
@@ -76,65 +85,64 @@ namespace osu.Game.Rulesets.Space.Edit
                     Origin = Anchor.Centre,
                     Size = new Vector2(0.6f, 0.9f),
                     Children = new Drawable[]
+                    {
+                        new Box
                         {
-                            new Box
+                            Colour = colourProvider.Background5,
+                            RelativeSizeAxes = Axes.Both,
+                        },
+                        new GridContainer
+                        {
+                            RelativeSizeAxes = Axes.Both,
+                            Padding = new MarginPadding(0),
+                            RowDimensions = new[]
                             {
-                                Colour = colourProvider.Background5,
-                                RelativeSizeAxes = Axes.Both,
+                                new Dimension(GridSizeMode.AutoSize),
+                                new Dimension(GridSizeMode.Relative, 0.68f),
+                                new Dimension(GridSizeMode.AutoSize),
                             },
-                            new GridContainer
+                            Content = new[]
                             {
-                                RelativeSizeAxes = Axes.Both,
-                                Padding = new MarginPadding(0),
-                                RowDimensions = new[]
+                                new Drawable[]
                                 {
-                                    new Dimension(GridSizeMode.AutoSize),
-                                    new Dimension(GridSizeMode.Relative, 0.68f),
-                                    new Dimension(GridSizeMode.AutoSize),
-                                },
-                                Content = new[]
-                                {
-                                    new Drawable[]
+                                    new OsuSpriteText
                                     {
-                                        new OsuSpriteText
+                                        Padding = new MarginPadding(20),
+                                        Anchor = Anchor.Centre,
+                                        Origin = Anchor.Centre,
+                                        Text = isImport
+                                            ? "Please select a beatmap file to import:"
+                                            : "Please select where to save this beatmap:",
+                                        Font = OsuFont.Default.With(size: 20),
+                                    },
+                                },
+                                new Drawable[]
+                                {
+                                    selectorHost = new Container
+                                    {
+                                        RelativeSizeAxes = Axes.Both,
+                                        Children = new Drawable[]
                                         {
-                                            Padding = new MarginPadding(20),
-                                            Anchor = Anchor.Centre,
-                                            Origin = Anchor.Centre,
-                                            Text = isImport ? "Please select a beatmap file to import:" : "Please select where to save this beatmap:",
-                                            Font = OsuFont.Default.With(size: 20)
+                                            loadingContainer = new Container
+                                            {
+                                                RelativeSizeAxes = Axes.Both,
+                                                Children = new Drawable[]
+                                                {
+                                                    loadingSpinner = new LoadingSpinner
+                                                    {
+                                                        Anchor = Anchor.Centre,
+                                                        Origin = Anchor.Centre,
+                                                    },
+                                                },
+                                            },
                                         },
                                     },
-                                    new Drawable[]
-                                    {
-                                        selectorHost = new Container
-                                        {
-                                            RelativeSizeAxes = Axes.Both,
-                                            Children = new Drawable[]
-                                            {
-                                                loadingContainer = new Container
-                                                {
-                                                    RelativeSizeAxes = Axes.Both,
-                                                    Children = new Drawable[]
-                                                    {
-                                                        loadingSpinner = new LoadingSpinner
-                                                        {
-                                                            Anchor = Anchor.Centre,
-                                                            Origin = Anchor.Centre,
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
-                                    new Drawable[]
-                                    {
-                                        createFooter()
-                                    }
-                                }
-                            }
+                                },
+                                new Drawable[] { createFooter() },
+                            },
                         },
-                }
+                    },
+                },
             };
 
             loadingSpinner.Show();
@@ -212,25 +220,31 @@ namespace osu.Game.Rulesets.Space.Edit
 
             if (!isImport)
             {
-                children.Add(new SettingsItemV2(fileNameTxt = new FormTextBox
-                {
-                    Caption = "File name",
-                    RelativeSizeAxes = Axes.X,
-                    Anchor = Anchor.Centre,
-                    Origin = Anchor.Centre,
-                }));
+                children.Add(
+                    new SettingsItemV2(
+                        fileNameTxt = new FormTextBox
+                        {
+                            Caption = "File name",
+                            RelativeSizeAxes = Axes.X,
+                            Anchor = Anchor.Centre,
+                            Origin = Anchor.Centre,
+                        }
+                    )
+                );
             }
 
             List<Drawable> actionButtons = new List<Drawable>();
 
-            actionButtons.Add(new PurpleRoundedButton
-            {
-                Anchor = Anchor.Centre,
-                Origin = Anchor.Centre,
-                Width = 80,
-                Text = "Cancel",
-                Action = Hide,
-            });
+            actionButtons.Add(
+                new PurpleRoundedButton
+                {
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
+                    Width = 80,
+                    Text = "Cancel",
+                    Action = Hide,
+                }
+            );
 
             saveButton = new RoundedButton
             {
@@ -245,28 +259,32 @@ namespace osu.Game.Rulesets.Space.Edit
 
             if (!isImport && (showDirectSaveButtonProvider?.Invoke() ?? false))
             {
-                actionButtons.Add(new PurpleRoundedButton
-                {
-                    Anchor = Anchor.Centre,
-                    Origin = Anchor.Centre,
-                    Width = 240,
-                    Text = "Save directly (NOT RECOMMENDED)",
-                    Action = () =>
+                actionButtons.Add(
+                    new PurpleRoundedButton
                     {
-                        Hide();
-                        onDirectSaveRequested?.Invoke();
+                        Anchor = Anchor.Centre,
+                        Origin = Anchor.Centre,
+                        Width = 240,
+                        Text = "Save directly (NOT RECOMMENDED)",
+                        Action = () =>
+                        {
+                            Hide();
+                            onDirectSaveRequested?.Invoke();
+                        },
                     }
-                });
+                );
             }
 
-            children.Add(new FillFlowContainer
-            {
-                AutoSizeAxes = Axes.Y,
-                Direction = FillDirection.Horizontal,
-                RelativeSizeAxes = Axes.X,
-                Spacing = new Vector2(10),
-                Children = actionButtons.ToArray(),
-            });
+            children.Add(
+                new FillFlowContainer
+                {
+                    AutoSizeAxes = Axes.Y,
+                    Direction = FillDirection.Horizontal,
+                    RelativeSizeAxes = Axes.X,
+                    Spacing = new Vector2(10),
+                    Children = actionButtons.ToArray(),
+                }
+            );
 
             return new FillFlowContainer
             {
@@ -295,22 +313,25 @@ namespace osu.Game.Rulesets.Space.Edit
 
             saveButton.Enabled.Value = false;
 
-            LoadComponentAsync(new OsuDirectorySelector
-            {
-                RelativeSizeAxes = Axes.Both,
-            }, selector =>
-            {
-                Schedule(() =>
+            LoadComponentAsync(
+                new OsuDirectorySelector { RelativeSizeAxes = Axes.Both },
+                selector =>
                 {
-                    if (IsDisposed)
-                        return;
+                    Schedule(() =>
+                    {
+                        if (IsDisposed)
+                            return;
 
-                    selectorHost.Child = directorySelector = selector;
-                    directorySelector.CurrentPath.BindValueChanged(_ => updateActionButtonState(), true);
-                    loadingContainer.Hide();
-                    updateActionButtonState();
-                });
-            });
+                        selectorHost.Child = directorySelector = selector;
+                        directorySelector.CurrentPath.BindValueChanged(
+                            _ => updateActionButtonState(),
+                            true
+                        );
+                        loadingContainer.Hide();
+                        updateActionButtonState();
+                    });
+                }
+            );
         }
 
         private void loadFileSelector()
@@ -320,22 +341,28 @@ namespace osu.Game.Rulesets.Space.Edit
 
             saveButton.Enabled.Value = false;
 
-            LoadComponentAsync(new OsuFileSelector(validFileExtensions: import_file_extensions)
-            {
-                RelativeSizeAxes = Axes.Both,
-            }, selector =>
-            {
-                Schedule(() =>
+            LoadComponentAsync(
+                new OsuFileSelector(validFileExtensions: import_file_extensions)
                 {
-                    if (IsDisposed)
-                        return;
+                    RelativeSizeAxes = Axes.Both,
+                },
+                selector =>
+                {
+                    Schedule(() =>
+                    {
+                        if (IsDisposed)
+                            return;
 
-                    selectorHost.Child = fileSelector = selector;
-                    fileSelector.CurrentFile.BindValueChanged(_ => updateActionButtonState(), true);
-                    loadingContainer.Hide();
-                    updateActionButtonState();
-                });
-            });
+                        selectorHost.Child = fileSelector = selector;
+                        fileSelector.CurrentFile.BindValueChanged(
+                            _ => updateActionButtonState(),
+                            true
+                        );
+                        loadingContainer.Hide();
+                        updateActionButtonState();
+                    });
+                }
+            );
         }
 
         private void updateActionButtonState()
@@ -349,7 +376,9 @@ namespace osu.Game.Rulesets.Space.Edit
                 return;
             }
 
-            saveButton.Enabled.Value = directorySelector?.CurrentPath.Value != null && !string.IsNullOrWhiteSpace(fileNameTxt?.Current.Value);
+            saveButton.Enabled.Value =
+                directorySelector?.CurrentPath.Value != null
+                && !string.IsNullOrWhiteSpace(fileNameTxt?.Current.Value);
         }
 
         public override bool OnPressed(KeyBindingPressEvent<GlobalAction> e)

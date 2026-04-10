@@ -16,20 +16,19 @@ namespace osu.Game.Rulesets.Space.Edit
     {
         public readonly Container contentContainer;
 
-        protected override GameplayCursorContainer CreateCursor() => new SpaceEditorCursorContainer
-        {
-            RelativeSizeAxes = Axes.Both
-        };
+        protected override GameplayCursorContainer CreateCursor() =>
+            new SpaceEditorCursorContainer { RelativeSizeAxes = Axes.Both };
 
         private partial class SpaceEditorCursorContainer : GameplayCursorContainer
         {
-            protected override Drawable CreateCursor() => new Circle
-            {
-                Size = new Vector2(40),
-                Origin = Anchor.Centre,
-                Colour = Color4.White,
-                Alpha = 0.4f
-            };
+            protected override Drawable CreateCursor() =>
+                new Circle
+                {
+                    Size = new Vector2(40),
+                    Origin = Anchor.Centre,
+                    Colour = Color4.White,
+                    Alpha = 0.4f,
+                };
         }
 
         [BackgroundDependencyLoader]
@@ -38,8 +37,8 @@ namespace osu.Game.Rulesets.Space.Edit
             RegisterPool<Note, DrawableSpaceEditorHitObject>(10, 100);
         }
 
-        protected override HitObjectLifetimeEntry CreateLifetimeEntry(HitObject hitObject)
-            => new SpaceEditorHitObjectLifetimeEntry(hitObject);
+        protected override HitObjectLifetimeEntry CreateLifetimeEntry(HitObject hitObject) =>
+            new SpaceEditorHitObjectLifetimeEntry(hitObject);
 
         public SpaceEditorPlayfield()
         {
@@ -52,9 +51,7 @@ namespace osu.Game.Rulesets.Space.Edit
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
                     Masking = false,
-                    Size = new Vector2(
-                        0.6f
-                    ),
+                    Size = new Vector2(0.6f),
                     FillMode = FillMode.Fit,
                     FillAspectRatio = 1,
                     Children =
@@ -66,24 +63,29 @@ namespace osu.Game.Rulesets.Space.Edit
                             [
                                 new Dimension(GridSizeMode.Relative, 1f / 3f),
                                 new Dimension(GridSizeMode.Relative, 1f / 3f),
-                                new Dimension(GridSizeMode.Relative, 1f / 3f)
+                                new Dimension(GridSizeMode.Relative, 1f / 3f),
                             ],
                             ColumnDimensions =
                             [
                                 new Dimension(GridSizeMode.Relative, 1f / 3f),
                                 new Dimension(GridSizeMode.Relative, 1f / 3f),
-                                new Dimension(GridSizeMode.Relative, 1f / 3f)
+                                new Dimension(GridSizeMode.Relative, 1f / 3f),
                             ],
                             Content = new[]
                             {
                                 [createGridBox(), createGridBox(), createGridBox()],
                                 [createGridBox(), createGridBox(), createGridBox()],
-                                new Drawable[] { createGridBox(), createGridBox(), createGridBox() },
-                            }
+                                new Drawable[]
+                                {
+                                    createGridBox(),
+                                    createGridBox(),
+                                    createGridBox(),
+                                },
+                            },
                         },
                         HitObjectContainer,
-                    ]
-                }
+                    ],
+                },
             ];
         }
 
@@ -106,21 +108,27 @@ namespace osu.Game.Rulesets.Space.Edit
                         RelativeSizeAxes = Axes.Both,
                         Colour = Color4.Black,
                         Alpha = 1f,
-                    }
-                }
+                    },
+                },
             };
         }
 
         public new Vector2 GamefieldToScreenSpace(Vector2 point)
         {
-            Vector2 normalized = new Vector2(point.X / SpacePlayfield.BASE_SIZE, point.Y / SpacePlayfield.BASE_SIZE);
+            Vector2 normalized = new Vector2(
+                point.X / SpacePlayfield.BASE_SIZE,
+                point.Y / SpacePlayfield.BASE_SIZE
+            );
             return HitObjectContainer.ToScreenSpace(normalized * HitObjectContainer.DrawSize);
         }
 
         public new Vector2 ScreenSpaceToGamefield(Vector2 screenSpacePosition)
         {
             Vector2 local = HitObjectContainer.ToLocalSpace(screenSpacePosition);
-            Vector2 normalized = new Vector2(local.X / HitObjectContainer.DrawSize.X, local.Y / HitObjectContainer.DrawSize.Y);
+            Vector2 normalized = new Vector2(
+                local.X / HitObjectContainer.DrawSize.X,
+                local.Y / HitObjectContainer.DrawSize.Y
+            );
             return normalized * SpacePlayfield.BASE_SIZE;
         }
 

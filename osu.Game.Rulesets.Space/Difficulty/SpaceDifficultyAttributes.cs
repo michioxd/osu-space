@@ -11,9 +11,7 @@ namespace osu.Game.Rulesets.Space.Difficulty
         public double ReadingDifficulty;
 
         public SpaceDifficultyAttributes(Mod[] mods, double starRating)
-            : base(mods, starRating)
-        {
-        }
+            : base(mods, starRating) { }
 
         public override IEnumerable<(int attributeId, object value)> ToDatabaseAttributes()
         {
@@ -24,7 +22,10 @@ namespace osu.Game.Rulesets.Space.Difficulty
             yield return (13, ReadingDifficulty);
         }
 
-        public override void FromDatabaseAttributes(IReadOnlyDictionary<int, double> values, IBeatmapOnlineInfo onlineInfo)
+        public override void FromDatabaseAttributes(
+            IReadOnlyDictionary<int, double> values,
+            IBeatmapOnlineInfo onlineInfo
+        )
         {
             base.FromDatabaseAttributes(values, onlineInfo);
 

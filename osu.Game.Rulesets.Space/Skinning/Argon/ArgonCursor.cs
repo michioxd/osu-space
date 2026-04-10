@@ -31,7 +31,10 @@ namespace osu.Game.Rulesets.Space.Skinning.Argon
                     RelativeSizeAxes = Axes.Both,
                     Masking = true,
                     BorderThickness = 6,
-                    BorderColour = ColourInfo.GradientVertical(Colour4.FromHex("FC618F"), Colour4.FromHex("BB1A41")),
+                    BorderColour = ColourInfo.GradientVertical(
+                        Colour4.FromHex("FC618F"),
+                        Colour4.FromHex("BB1A41")
+                    ),
                     Children = new Drawable[]
                     {
                         new Box

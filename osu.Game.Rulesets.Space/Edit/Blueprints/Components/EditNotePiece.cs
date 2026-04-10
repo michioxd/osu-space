@@ -49,7 +49,6 @@ namespace osu.Game.Rulesets.Space.Edit.Blueprints.Components
         protected override void Update()
         {
             base.Update();
-
         }
     }
 }

@@ -5,7 +5,5 @@ using osu.Game.Rulesets.Mods;
 
 namespace osu.Game.Rulesets.Space.Mods
 {
-    public class SpaceModPerfect : ModPerfect
-    {
-    }
+    public class SpaceModPerfect : ModPerfect { }
 }

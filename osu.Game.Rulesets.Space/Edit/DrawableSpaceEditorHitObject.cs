@@ -1,13 +1,13 @@
+using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
+using osu.Game.Graphics;
+using osu.Game.Graphics.Sprites;
 using osu.Game.Rulesets.Objects.Drawables;
 using osu.Game.Rulesets.Space.Objects;
 using osuTK;
 using osuTK.Graphics;
-using osu.Framework.Allocation;
-using osu.Game.Graphics.Sprites;
-using osu.Game.Graphics;
 
 namespace osu.Game.Rulesets.Space.Edit
 {
@@ -42,64 +42,67 @@ namespace osu.Game.Rulesets.Space.Edit
 
             Size = new Vector2(0.8f / 3f);
 
-            AddInternal(content = new Container
-            {
-                RelativeSizeAxes = Axes.Both,
-                Padding = new MarginPadding(6),
-                Children =
-                [
-                    borderContainer = new Container
-                    {
-                        RelativeSizeAxes = Axes.Both,
-                        Masking = true,
-                        CornerRadius = 6,
-                        BorderColour = Color4.LightPink,
-                        BorderThickness = 2,
-                        Alpha = 0.8f,
-                        Children = new Drawable[]
-                        {
-                            innerBox = new Box
-                            {
-                                RelativeSizeAxes = Axes.Both,
-                                Alpha = 0.3f,
-                                Colour = Color4.Pink
-                            },
-                            indexText = new OsuSpriteText
-                            {
-                                Anchor = Anchor.Centre,
-                                Origin = Anchor.Centre,
-                                Font = OsuFont.TorusAlternate.With(size: 17, weight: FontWeight.SemiBold),
-                                Colour = Color4.White
-                            }
-                        }
-                    },
-                    approachSquare = new Container
-                    {
-                        Origin = Anchor.Centre,
-                        Anchor = Anchor.Centre,
-                        RelativeSizeAxes = Axes.Both,
-                        Masking = true,
-                        CornerRadius = 6,
-                        BorderThickness = 3,
-                        Alpha = 0,
-                        Child = new Box
+            AddInternal(
+                content = new Container
+                {
+                    RelativeSizeAxes = Axes.Both,
+                    Padding = new MarginPadding(6),
+                    Children =
+                    [
+                        borderContainer = new Container
                         {
                             RelativeSizeAxes = Axes.Both,
+                            Masking = true,
+                            CornerRadius = 6,
+                            BorderColour = Color4.LightPink,
+                            BorderThickness = 2,
+                            Alpha = 0.8f,
+                            Children = new Drawable[]
+                            {
+                                innerBox = new Box
+                                {
+                                    RelativeSizeAxes = Axes.Both,
+                                    Alpha = 0.3f,
+                                    Colour = Color4.Pink,
+                                },
+                                indexText = new OsuSpriteText
+                                {
+                                    Anchor = Anchor.Centre,
+                                    Origin = Anchor.Centre,
+                                    Font = OsuFont.TorusAlternate.With(
+                                        size: 17,
+                                        weight: FontWeight.SemiBold
+                                    ),
+                                    Colour = Color4.White,
+                                },
+                            },
+                        },
+                        approachSquare = new Container
+                        {
+                            Origin = Anchor.Centre,
+                            Anchor = Anchor.Centre,
+                            RelativeSizeAxes = Axes.Both,
+                            Masking = true,
+                            CornerRadius = 6,
+                            BorderThickness = 3,
                             Alpha = 0,
-                            AlwaysPresent = true
-                        }
-                    }
-                ]
-            });
+                            Child = new Box
+                            {
+                                RelativeSizeAxes = Axes.Both,
+                                Alpha = 0,
+                                AlwaysPresent = true,
+                            },
+                        },
+                    ],
+                }
+            );
         }
 
         private int? lastCellIndex;
         private int? lastIndex;
 
         [BackgroundDependencyLoader]
-        private void load()
-        {
-        }
+        private void load() { }
 
         protected override void OnApply()
         {

@@ -13,7 +13,14 @@ namespace osu.Game.Rulesets.Space.Difficulty.Preprocessing
 
         public double? Angle { get; private set; }
 
-        public SpaceDifficultyHitObject(SpaceHitObject hitObject, SpaceHitObject lastObject, SpaceHitObject lastLastObject, double clockRate, System.Collections.Generic.List<DifficultyHitObject> objects, int index)
+        public SpaceDifficultyHitObject(
+            SpaceHitObject hitObject,
+            SpaceHitObject lastObject,
+            SpaceHitObject lastLastObject,
+            double clockRate,
+            System.Collections.Generic.List<DifficultyHitObject> objects,
+            int index
+        )
             : base(hitObject, lastObject, clockRate, objects, index)
         {
             JumpDistance = Vector2.Distance(hitObject.Position, lastObject.Position);

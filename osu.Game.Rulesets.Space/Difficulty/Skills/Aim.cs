@@ -14,9 +14,7 @@ namespace osu.Game.Rulesets.Space.Difficulty.Skills
         private double currentStrain;
 
         public Aim(Mod[] mods)
-            : base(mods)
-        {
-        }
+            : base(mods) { }
 
         protected override double StrainValueAt(DifficultyHitObject current)
         {

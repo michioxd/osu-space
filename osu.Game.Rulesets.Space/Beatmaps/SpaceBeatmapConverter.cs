@@ -1,26 +1,27 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using osu.Game.Beatmaps;
-using osu.Game.Rulesets.Space.Objects;
 using osu.Game.Rulesets.Objects;
 using osu.Game.Rulesets.Objects.Types;
+using osu.Game.Rulesets.Space.Objects;
 using osu.Game.Rulesets.Space.UI;
 using osuTK;
-using System.Linq;
 
 namespace osu.Game.Rulesets.Space.Beatmaps
 {
     public class SpaceBeatmapConverter : BeatmapConverter<SpaceHitObject>
     {
         public SpaceBeatmapConverter(IBeatmap beatmap, Ruleset ruleset)
-            : base(beatmap, ruleset)
-        {
-        }
+            : base(beatmap, ruleset) { }
 
         protected override Beatmap<SpaceHitObject> CreateBeatmap() => new SpaceBeatmap();
 
-        public override bool CanConvert() => Beatmap.HitObjects.All(h => h is SpaceHitObject || (h is IHasXPosition && h is IHasYPosition));
+        public override bool CanConvert() =>
+            Beatmap.HitObjects.All(h =>
+                h is SpaceHitObject || (h is IHasXPosition && h is IHasYPosition)
+            );
 
         #region Tuning constants
 
@@ -96,7 +97,10 @@ namespace osu.Game.Rulesets.Space.Beatmaps
 
         #endregion
 
-        protected override Beatmap<SpaceHitObject> ConvertBeatmap(IBeatmap original, CancellationToken cancellationToken)
+        protected override Beatmap<SpaceHitObject> ConvertBeatmap(
+            IBeatmap original,
+            CancellationToken cancellationToken
+        )
         {
             var beatmap = base.ConvertBeatmap(original, cancellationToken);
 
@@ -133,7 +137,11 @@ namespace osu.Game.Rulesets.Space.Beatmaps
             return beatmap;
         }
 
-        protected override IEnumerable<SpaceHitObject> ConvertHitObject(HitObject original, IBeatmap beatmap, CancellationToken cancellationToken)
+        protected override IEnumerable<SpaceHitObject> ConvertHitObject(
+            HitObject original,
+            IBeatmap beatmap,
+            CancellationToken cancellationToken
+        )
         {
             var osuPos = (original as IHasPosition)?.Position ?? Vector2.Zero;
             double time = original.StartTime;
@@ -155,7 +163,14 @@ namespace osu.Game.Rulesets.Space.Beatmaps
                 }
             }
 
-            yield return createConvertedNote(original, time, osuPos, original.Samples, resetFromOriginal: true, stateEndPos: osuPos);
+            yield return createConvertedNote(
+                original,
+                time,
+                osuPos,
+                original.Samples,
+                resetFromOriginal: true,
+                stateEndPos: osuPos
+            );
 
             if (original is IHasPath sliderPath && original is IHasDuration sliderDuration)
             {
@@ -171,9 +186,12 @@ namespace osu.Game.Rulesets.Space.Beatmaps
                             original,
                             time + spanDuration.Value * i,
                             reversePos,
-                            i < repeatsObj.NodeSamples.Count ? repeatsObj.NodeSamples[i] : original.Samples,
+                            i < repeatsObj.NodeSamples.Count
+                                ? repeatsObj.NodeSamples[i]
+                                : original.Samples,
                             resetFromOriginal: false,
-                            stateEndPos: reversePos);
+                            stateEndPos: reversePos
+                        );
                     }
                 }
 
@@ -183,17 +201,26 @@ namespace osu.Game.Rulesets.Space.Beatmaps
                     original,
                     time + sliderDuration.Duration,
                     effectiveEndPos,
-                    original is IHasRepeats tailRepeats && tailNodeIndex < tailRepeats.NodeSamples.Count
+                    original is IHasRepeats tailRepeats
+                    && tailNodeIndex < tailRepeats.NodeSamples.Count
                         ? tailRepeats.NodeSamples[tailNodeIndex]
                         : original.Samples,
                     resetFromOriginal: false,
-                    stateEndPos: effectiveEndPos);
+                    stateEndPos: effectiveEndPos
+                );
             }
             else
                 prevOsuEndPos = effectiveEndPos;
         }
 
-        private Note createConvertedNote(HitObject original, double time, Vector2 osuPos, IList<osu.Game.Audio.HitSampleInfo> samples, bool resetFromOriginal, Vector2 stateEndPos)
+        private Note createConvertedNote(
+            HitObject original,
+            double time,
+            Vector2 osuPos,
+            IList<osu.Game.Audio.HitSampleInfo> samples,
+            bool resetFromOriginal,
+            Vector2 stateEndPos
+        )
         {
             int targetCol;
             int targetRow;
@@ -201,7 +228,9 @@ namespace osu.Game.Rulesets.Space.Beatmaps
 
             if (prevOsuPos == null || dt > gap_threshold_ms)
             {
-                var initPos = resetFromOriginal ? mapOsuPositionToGrid(original) : mapOsuPositionToGrid(osuPos);
+                var initPos = resetFromOriginal
+                    ? mapOsuPositionToGrid(original)
+                    : mapOsuPositionToGrid(osuPos);
                 targetCol = initPos.col;
                 targetRow = initPos.row;
                 resetHistory();
@@ -224,7 +253,7 @@ namespace osu.Game.Rulesets.Space.Beatmaps
                 X = (targetCol + 0.5f) * (SpacePlayfield.BASE_SIZE / 3f),
                 Y = (targetRow + 0.5f) * (SpacePlayfield.BASE_SIZE / 3f),
                 oX = targetCol,
-                oY = targetRow
+                oY = targetRow,
             };
         }
 
@@ -264,9 +293,18 @@ namespace osu.Game.Rulesets.Space.Beatmaps
                 for (int r = 0; r <= 2; r++)
                 {
                     double score = scoreCandidate(
-                        c, r, prev, prevPrev,
-                        moveAngle, dist, targetGridDist,
-                        isStream, isBurst, time, dt);
+                        c,
+                        r,
+                        prev,
+                        prevPrev,
+                        moveAngle,
+                        dist,
+                        targetGridDist,
+                        isStream,
+                        isBurst,
+                        time,
+                        dt
+                    );
 
                     if (score > bestScore)
                     {
@@ -281,11 +319,18 @@ namespace osu.Game.Rulesets.Space.Beatmaps
         }
 
         private double scoreCandidate(
-            int c, int r,
+            int c,
+            int r,
             (int col, int row) prev,
             (int col, int row) prevPrev,
-            float moveAngle, float dist, float targetGridDist,
-            bool isStream, bool isBurst, double time, double dt)
+            float moveAngle,
+            float dist,
+            float targetGridDist,
+            bool isStream,
+            bool isBurst,
+            double time,
+            double dt
+        )
         {
             double score = 0;
 
@@ -297,7 +342,14 @@ namespace osu.Game.Rulesets.Space.Beatmaps
 
             float distError = Math.Abs(gridDist - targetGridDist);
             score += w_distance * Math.Max(0, 1.0 - distError / 2.0);
-            score += getPatternPreferenceScore(candidateType, dist, dt, targetGridDist, isStream, isBurst);
+            score += getPatternPreferenceScore(
+                candidateType,
+                dist,
+                dt,
+                targetGridDist,
+                isStream,
+                isBurst
+            );
 
             if (dist > 8 && chebyshev > 0)
             {
@@ -353,7 +405,10 @@ namespace osu.Game.Rulesets.Space.Beatmaps
 
                 if (candidateType == previousPattern.Value)
                 {
-                    double repeatPenalty = candidateType == PatternType.Stream ? w_stream_repeat_penalty : w_pattern_repeat_penalty;
+                    double repeatPenalty =
+                        candidateType == PatternType.Stream
+                            ? w_stream_repeat_penalty
+                            : w_pattern_repeat_penalty;
                     score += repeatPenalty * Math.Min(streak, 3);
                 }
                 else if (streak >= 2)
@@ -378,11 +433,19 @@ namespace osu.Game.Rulesets.Space.Beatmaps
             return PatternType.Jump;
         }
 
-        private double getPatternPreferenceScore(PatternType patternType, float dist, double dt, float targetGridDist, bool isStream, bool isBurst)
+        private double getPatternPreferenceScore(
+            PatternType patternType,
+            float dist,
+            double dt,
+            float targetGridDist,
+            bool isStream,
+            bool isBurst
+        )
         {
             double jackIntent = Math.Max(
                 Math.Clamp(1.0 - dist / 42f, 0, 1),
-                Math.Clamp((0.6f - targetGridDist) / 0.6f, 0, 1));
+                Math.Clamp((0.6f - targetGridDist) / 0.6f, 0, 1)
+            );
 
             double streamIntent = Math.Clamp(1.0 - Math.Abs(targetGridDist - 1f), 0, 1) * 0.75;
 
@@ -394,7 +457,8 @@ namespace osu.Game.Rulesets.Space.Beatmaps
 
             double jumpIntent = Math.Max(
                 Math.Clamp((targetGridDist - 0.9f) / 0.7f, 0, 1),
-                Math.Clamp((dist - 60f) / 120f, 0, 1));
+                Math.Clamp((dist - 60f) / 120f, 0, 1)
+            );
 
             jumpIntent = Math.Max(jumpIntent, Math.Clamp((dt - 120) / 160.0, 0, 1));
 
@@ -446,8 +510,10 @@ namespace osu.Game.Rulesets.Space.Beatmaps
         {
             angle %= (2 * MathF.PI);
 
-            if (angle > MathF.PI) angle -= 2 * MathF.PI;
-            else if (angle < -MathF.PI) angle += 2 * MathF.PI;
+            if (angle > MathF.PI)
+                angle -= 2 * MathF.PI;
+            else if (angle < -MathF.PI)
+                angle += 2 * MathF.PI;
 
             return Math.Abs(angle);
         }
@@ -458,10 +524,7 @@ namespace osu.Game.Rulesets.Space.Beatmaps
             float y = ((IHasYPosition)hitObject).Y;
             float cellSize = SpacePlayfield.BASE_SIZE / 3f;
 
-            return (
-                (int)Math.Clamp(x / cellSize, 0, 2),
-                (int)Math.Clamp(y / cellSize, 0, 2)
-            );
+            return ((int)Math.Clamp(x / cellSize, 0, 2), (int)Math.Clamp(y / cellSize, 0, 2));
         }
 
         private static (int col, int row) mapOsuPositionToGrid(Vector2 position)

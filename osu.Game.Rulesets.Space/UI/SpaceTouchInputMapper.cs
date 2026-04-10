@@ -96,8 +96,10 @@ namespace osu.Game.Rulesets.Space.UI
 
         private void applyCursorPosition(Vector2 screenSpacePosition)
         {
-            new MousePositionAbsoluteInput { Position = screenSpacePosition }
-                .Apply(spaceInputManager.CurrentState, spaceInputManager);
+            new MousePositionAbsoluteInput { Position = screenSpacePosition }.Apply(
+                spaceInputManager.CurrentState,
+                spaceInputManager
+            );
         }
     }
 }

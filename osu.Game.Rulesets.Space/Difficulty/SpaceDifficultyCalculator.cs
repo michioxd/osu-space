@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using osu.Game.Beatmaps;
@@ -17,11 +16,14 @@ namespace osu.Game.Rulesets.Space
     public class SpaceDifficultyCalculator : DifficultyCalculator
     {
         public SpaceDifficultyCalculator(IRulesetInfo ruleset, IWorkingBeatmap beatmap)
-            : base(ruleset, beatmap)
-        {
-        }
+            : base(ruleset, beatmap) { }
 
-        protected override DifficultyAttributes CreateDifficultyAttributes(IBeatmap beatmap, Mod[] mods, Skill[] skills, double clockRate)
+        protected override DifficultyAttributes CreateDifficultyAttributes(
+            IBeatmap beatmap,
+            Mod[] mods,
+            Skill[] skills,
+            double clockRate
+        )
         {
             if (beatmap.HitObjects.Count == 0)
                 return new SpaceDifficultyAttributes(mods, 0);
@@ -30,8 +32,7 @@ namespace osu.Game.Rulesets.Space
             double readingRating = Math.Sqrt(skills[1].DifficultyValue()) * 0.0675;
 
             double baseRating = Math.Pow(
-                Math.Pow(aimRating, 1.1) +
-                Math.Pow(readingRating, 1.1),
+                Math.Pow(aimRating, 1.1) + Math.Pow(readingRating, 1.1),
                 1.0 / 1.1
             );
 
@@ -41,15 +42,21 @@ namespace osu.Game.Rulesets.Space
             {
                 AimDifficulty = aimRating,
                 ReadingDifficulty = readingRating,
-                MaxCombo = beatmap.HitObjects.Count
+                MaxCombo = beatmap.HitObjects.Count,
             };
 
             return attributes;
         }
 
-        protected override IEnumerable<DifficultyHitObject> CreateDifficultyHitObjects(IBeatmap beatmap, double clockRate)
+        protected override IEnumerable<DifficultyHitObject> CreateDifficultyHitObjects(
+            IBeatmap beatmap,
+            double clockRate
+        )
         {
-            var sortedObjects = beatmap.HitObjects.OfType<SpaceHitObject>().OrderBy(h => h.StartTime).ToList();
+            var sortedObjects = beatmap
+                .HitObjects.OfType<SpaceHitObject>()
+                .OrderBy(h => h.StartTime)
+                .ToList();
             var difficultyObjects = new List<DifficultyHitObject>();
 
             for (int i = 1; i < sortedObjects.Count; i++)
@@ -58,7 +65,14 @@ namespace osu.Game.Rulesets.Space
                 var last = sortedObjects[i - 1];
                 var current = sortedObjects[i];
 
-                var difficultyObject = new SpaceDifficultyHitObject(current, last, lastLast, clockRate, difficultyObjects, difficultyObjects.Count);
+                var difficultyObject = new SpaceDifficultyHitObject(
+                    current,
+                    last,
+                    lastLast,
+                    clockRate,
+                    difficultyObjects,
+                    difficultyObjects.Count
+                );
                 difficultyObjects.Add(difficultyObject);
             }
 
@@ -67,11 +81,7 @@ namespace osu.Game.Rulesets.Space
 
         protected override Skill[] CreateSkills(IBeatmap beatmap, Mod[] mods, double clockRate)
         {
-            return
-            [
-                new Aim(mods),
-                new Reading(mods),
-            ];
+            return [new Aim(mods), new Reading(mods)];
         }
     }
 }

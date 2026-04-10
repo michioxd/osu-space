@@ -8,10 +8,9 @@ namespace osu.Game.Rulesets.Space.Edit
     public class NoteCompositionTool : CompositionTool
     {
         public NoteCompositionTool()
-            : base(nameof(Note))
-        {
-        }
+            : base(nameof(Note)) { }
 
-        public override PlacementBlueprint CreatePlacementBlueprint() => new NotePlacementBlueprint();
+        public override PlacementBlueprint CreatePlacementBlueprint() =>
+            new NotePlacementBlueprint();
     }
 }

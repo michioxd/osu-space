@@ -4,10 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using osu.Framework.Logging;
-using osu.Game.Database;
 using System.Threading;
+using osu.Framework.Logging;
 using osu.Game.Beatmaps;
+using osu.Game.Database;
 
 namespace osu.Game.Rulesets.Space.Extension.SSPM
 {
@@ -22,7 +22,11 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
             this.rulesetStore = rulesetStore;
         }
 
-        public void ImportFromDirectory(string directory, CancellationToken cancellationToken, Action<int, int, int, bool, bool>? onProgress = null)
+        public void ImportFromDirectory(
+            string directory,
+            CancellationToken cancellationToken,
+            Action<int, int, int, bool, bool>? onProgress = null
+        )
         {
             if (!Directory.Exists(directory))
             {
@@ -38,7 +42,8 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
             }
 
             string[] files = Directory.GetFiles(directory, "*.sspm");
-            int total = files.Length, failed = 0;
+            int total = files.Length,
+                failed = 0;
             if (total == 0)
             {
                 onProgress?.Invoke(0, 0, 0, false, true);
@@ -205,12 +210,24 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                 {
                     switch (type)
                     {
-                        case 0x01: reader.ReadByte(); break;
-                        case 0x02: reader.ReadInt16(); break;
-                        case 0x03: reader.ReadInt32(); break;
-                        case 0x04: reader.ReadInt64(); break;
-                        case 0x05: reader.ReadSingle(); break;
-                        case 0x06: reader.ReadDouble(); break;
+                        case 0x01:
+                            reader.ReadByte();
+                            break;
+                        case 0x02:
+                            reader.ReadInt16();
+                            break;
+                        case 0x03:
+                            reader.ReadInt32();
+                            break;
+                        case 0x04:
+                            reader.ReadInt64();
+                            break;
+                        case 0x05:
+                            reader.ReadSingle();
+                            break;
+                        case 0x06:
+                            reader.ReadDouble();
+                            break;
                         case 0x07:
                             byte posType = reader.ReadByte();
                             if (posType == 0)
@@ -255,7 +272,17 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                 }
             }
 
-            return SSPMHelper.CreateOSZ(originalPath, id, name, artist, creator, difficulty, musicData, coverData, notes);
+            return SSPMHelper.CreateOSZ(
+                originalPath,
+                id,
+                name,
+                artist,
+                creator,
+                difficulty,
+                musicData,
+                coverData,
+                notes
+            );
         }
 
         private string readString16(BinaryReader reader)
@@ -313,7 +340,8 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
             {
                 int time = reader.ReadInt32();
                 byte type = reader.ReadByte();
-                float x, y;
+                float x,
+                    y;
                 if (type == 1)
                 {
                     x = reader.ReadSingle();
@@ -327,7 +355,17 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                 notes.Add((time, x, y));
             }
 
-            return SSPMHelper.CreateOSZ(originalPath, id, name, artist, creator, difficulty, musicData, coverData, notes);
+            return SSPMHelper.CreateOSZ(
+                originalPath,
+                id,
+                name,
+                artist,
+                creator,
+                difficulty,
+                musicData,
+                coverData,
+                notes
+            );
         }
     }
 

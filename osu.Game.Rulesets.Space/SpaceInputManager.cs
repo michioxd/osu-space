@@ -9,9 +9,7 @@ namespace osu.Game.Rulesets.Space
     public partial class SpaceInputManager : RulesetInputManager<SpaceAction>
     {
         public SpaceInputManager(RulesetInfo ruleset)
-            : base(ruleset, 0, SimultaneousBindingMode.Unique)
-        {
-        }
+            : base(ruleset, 0, SimultaneousBindingMode.Unique) { }
 
         [BackgroundDependencyLoader]
         private void load()
@@ -20,7 +18,5 @@ namespace osu.Game.Rulesets.Space
         }
     }
 
-    public enum SpaceAction
-    {
-    }
+    public enum SpaceAction { }
 }

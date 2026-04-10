@@ -5,7 +5,5 @@ using osu.Game.Rulesets.Mods;
 
 namespace osu.Game.Rulesets.Space.Mods
 {
-    public class SpaceModDoubleTime : ModDoubleTime
-    {
-    }
+    public class SpaceModDoubleTime : ModDoubleTime { }
 }

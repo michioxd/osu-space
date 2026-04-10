@@ -12,18 +12,22 @@ namespace osu.Game.Rulesets.Space
     public class SpacePerformanceCalculator : PerformanceCalculator
     {
         public SpacePerformanceCalculator()
-            : base(new SpaceRuleset())
-        {
-        }
+            : base(new SpaceRuleset()) { }
 
-        protected override PerformanceAttributes CreatePerformanceAttributes(ScoreInfo score, DifficultyAttributes attributes)
+        protected override PerformanceAttributes CreatePerformanceAttributes(
+            ScoreInfo score,
+            DifficultyAttributes attributes
+        )
         {
             var spaceAttributes = (SpaceDifficultyAttributes)attributes;
 
             double multiplier = 1.12;
 
             if (score.Mods.Any(m => m is SpaceModNoFail))
-                multiplier *= Math.Max(0.90, 1.0 - 0.02 * score.Statistics.GetValueOrDefault(HitResult.Miss));
+                multiplier *= Math.Max(
+                    0.90,
+                    1.0 - 0.02 * score.Statistics.GetValueOrDefault(HitResult.Miss)
+                );
 
             if (score.Mods.Any(m => m is SpaceModAutoplay))
                 multiplier = 1.0;
@@ -34,16 +38,13 @@ namespace osu.Game.Rulesets.Space
 
             double totalValue =
                 Math.Pow(
-                    Math.Pow(aimValue, 1.1) +
-                    Math.Pow(readingValue, 1.1) +
-                    Math.Pow(accuracyValue, 1.1),
+                    Math.Pow(aimValue, 1.1)
+                        + Math.Pow(readingValue, 1.1)
+                        + Math.Pow(accuracyValue, 1.1),
                     1.0 / 1.1
                 ) * multiplier;
 
-            return new PerformanceAttributes
-            {
-                Total = totalValue
-            };
+            return new PerformanceAttributes { Total = totalValue };
         }
 
         private double computeAimValue(ScoreInfo score, SpaceDifficultyAttributes attributes)
@@ -51,7 +52,10 @@ namespace osu.Game.Rulesets.Space
             double aimValue = Math.Pow(attributes.AimDifficulty, 2.5) * 1.5;
 
             if (attributes.MaxCombo > 0)
-                aimValue *= Math.Min(Math.Pow(score.MaxCombo / (double)attributes.MaxCombo, 0.8), 1.0);
+                aimValue *= Math.Min(
+                    Math.Pow(score.MaxCombo / (double)attributes.MaxCombo, 0.8),
+                    1.0
+                );
 
             if (score.Statistics.TryGetValue(HitResult.Miss, out int missCount) && missCount > 0)
                 aimValue *= 0.95 * Math.Pow(0.90, missCount - 1);
@@ -64,7 +68,10 @@ namespace osu.Game.Rulesets.Space
             double readingValue = Math.Pow(attributes.ReadingDifficulty, 2.5) * 1.5;
 
             if (attributes.MaxCombo > 0)
-                readingValue *= Math.Min(Math.Pow(score.MaxCombo / (double)attributes.MaxCombo, 0.8), 1.0);
+                readingValue *= Math.Min(
+                    Math.Pow(score.MaxCombo / (double)attributes.MaxCombo, 0.8),
+                    1.0
+                );
 
             if (score.Statistics.TryGetValue(HitResult.Miss, out int missCount) && missCount > 0)
                 readingValue *= 0.95 * Math.Pow(0.90, missCount - 1);

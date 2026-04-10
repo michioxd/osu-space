@@ -78,7 +78,9 @@ namespace osu.Game.Rulesets.Space.Edit
                 EditorBeatmap.BeginChange();
             }
 
-            var selectedObjects = EditorBeatmap.SelectedHitObjects.OfType<SpaceHitObject>().ToArray();
+            var selectedObjects = EditorBeatmap
+                .SelectedHitObjects.OfType<SpaceHitObject>()
+                .ToArray();
 
             if (selectedObjects.Length == 0)
                 return false;
@@ -111,7 +113,8 @@ namespace osu.Game.Rulesets.Space.Edit
         {
             var editorPlayfield = ((SpaceHitObjectComposer)composer).EditorPlayfield;
 
-            var screenPos = moveEvent.Blueprint.ScreenSpaceSelectionPoint + moveEvent.ScreenSpaceDelta;
+            var screenPos =
+                moveEvent.Blueprint.ScreenSpaceSelectionPoint + moveEvent.ScreenSpaceDelta;
             var gamefieldPos = editorPlayfield.ScreenSpaceToGamefield(screenPos);
             float cellSize = UI.SpacePlayfield.BASE_SIZE / 3f;
 
@@ -133,7 +136,9 @@ namespace osu.Game.Rulesets.Space.Edit
             if (deltaCol == 0 && deltaRow == 0)
                 return true;
 
-            var selectedObjects = EditorBeatmap.SelectedHitObjects.OfType<SpaceHitObject>().ToArray();
+            var selectedObjects = EditorBeatmap
+                .SelectedHitObjects.OfType<SpaceHitObject>()
+                .ToArray();
 
             int minCol = selectedObjects.Min(o => (int)Math.Round(o.oX));
             int maxCol = selectedObjects.Max(o => (int)Math.Round(o.oX));
@@ -190,7 +195,11 @@ namespace osu.Game.Rulesets.Space.Edit
                     return true;
 
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(direction), direction, "Cannot flip over the supplied direction.");
+                    throw new ArgumentOutOfRangeException(
+                        nameof(direction),
+                        direction,
+                        "Cannot flip over the supplied direction."
+                    );
             }
         }
 
@@ -200,10 +209,10 @@ namespace osu.Game.Rulesets.Space.Edit
 
         public override bool HandleReverse()
         {
-            var hitObjects = EditorBeatmap.SelectedHitObjects
-                                          .OfType<SpaceHitObject>()
-                                          .OrderBy(obj => obj.StartTime)
-                                          .ToList();
+            var hitObjects = EditorBeatmap
+                .SelectedHitObjects.OfType<SpaceHitObject>()
+                .OrderBy(obj => obj.StartTime)
+                .ToList();
 
             if (hitObjects.Count < 2)
                 return false;
@@ -221,11 +230,11 @@ namespace osu.Game.Rulesets.Space.Edit
 
         #region Helpers
 
-        private static bool canFlipX(SpaceHitObject[] selectedObjects)
-            => selectedObjects.Select(o => Math.Round(o.oX)).Distinct().Count() > 1;
+        private static bool canFlipX(SpaceHitObject[] selectedObjects) =>
+            selectedObjects.Select(o => Math.Round(o.oX)).Distinct().Count() > 1;
 
-        private static bool canFlipY(SpaceHitObject[] selectedObjects)
-            => selectedObjects.Select(o => Math.Round(o.oY)).Distinct().Count() > 1;
+        private static bool canFlipY(SpaceHitObject[] selectedObjects) =>
+            selectedObjects.Select(o => Math.Round(o.oY)).Distinct().Count() > 1;
 
         #endregion
     }

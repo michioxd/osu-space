@@ -20,7 +20,8 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             get => innerPortion;
             set
             {
-                if (innerPortion == value) return;
+                if (innerPortion == value)
+                    return;
                 innerPortion = value;
                 Invalidate(Invalidation.DrawNode);
             }
@@ -33,7 +34,8 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             get => glowCornerRadius;
             set
             {
-                if (glowCornerRadius == value) return;
+                if (glowCornerRadius == value)
+                    return;
                 glowCornerRadius = value;
                 Invalidate(Invalidation.DrawNode);
             }
@@ -64,9 +66,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             private ColourInfo drawColour;
 
             public NoteGlowDrawNode(NoteGlowPiece source)
-                : base(source)
-            {
-            }
+                : base(source) { }
 
             public override void ApplyState()
             {

@@ -16,11 +16,8 @@ namespace osu.Game.Rulesets.Space.Mods
     {
         public override LocalisableString Description => "Where's the cursor?";
 
-        public override BindableInt HiddenComboCount { get; } = new BindableInt(10)
-        {
-            MinValue = 0,
-            MaxValue = 50,
-        };
+        public override BindableInt HiddenComboCount { get; } =
+            new BindableInt(10) { MinValue = 0, MaxValue = 50 };
 
         public void Update(Playfield playfield)
         {
@@ -29,7 +26,12 @@ namespace osu.Game.Rulesets.Space.Mods
 
             bool shouldAlwaysShowCursor = IsBreakTime.Value;
             float targetAlpha = shouldAlwaysShowCursor ? 1 : ComboBasedAlpha;
-            float currentAlpha = (float)Interpolation.Lerp(spacePlayfield.Cursor.Alpha, targetAlpha, Math.Clamp(spacePlayfield.Time.Elapsed / TRANSITION_DURATION, 0, 1));
+            float currentAlpha = (float)
+                Interpolation.Lerp(
+                    spacePlayfield.Cursor.Alpha,
+                    targetAlpha,
+                    Math.Clamp(spacePlayfield.Time.Elapsed / TRANSITION_DURATION, 0, 1)
+                );
 
             spacePlayfield.Cursor.Alpha = currentAlpha;
         }

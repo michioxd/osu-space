@@ -11,7 +11,10 @@ namespace osu.Game.Rulesets.Space.Mods
 {
     public class SpaceModCinema : ModCinema<SpaceHitObject>
     {
-        public override ModReplayData CreateReplayData(IBeatmap beatmap, IReadOnlyList<Mod> mods)
-            => new(new SpaceAutoGenerator(beatmap, mods).Generate(), new ModCreatedUser { Username = "Autoplay" });
+        public override ModReplayData CreateReplayData(IBeatmap beatmap, IReadOnlyList<Mod> mods) =>
+            new(
+                new SpaceAutoGenerator(beatmap, mods).Generate(),
+                new ModCreatedUser { Username = "Autoplay" }
+            );
     }
 }

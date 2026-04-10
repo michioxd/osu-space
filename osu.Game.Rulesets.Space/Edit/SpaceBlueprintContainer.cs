@@ -17,13 +17,14 @@ namespace osu.Game.Rulesets.Space.Edit
         private EditorBeatmap editorBeatmap { get; set; }
 
         public SpaceBlueprintContainer(SpaceHitObjectComposer composer)
-            : base(composer)
-        {
-        }
+            : base(composer) { }
 
-        protected override SelectionHandler<HitObject> CreateSelectionHandler() => new SpaceSelectionHandler();
+        protected override SelectionHandler<HitObject> CreateSelectionHandler() =>
+            new SpaceSelectionHandler();
 
-        public override HitObjectSelectionBlueprint? CreateHitObjectBlueprintFor(HitObject hitObject)
+        public override HitObjectSelectionBlueprint? CreateHitObjectBlueprintFor(
+            HitObject hitObject
+        )
         {
             switch (hitObject)
             {
@@ -40,10 +41,13 @@ namespace osu.Game.Rulesets.Space.Edit
 
             foreach (var blueprint in SelectionBlueprints)
             {
-                bool shouldBeSelected = selectionBeforeDrag.Contains(blueprint.Item)
-                                        || (blueprint.IsSelectable
-                                            && isWithinVisibleRange(blueprint.Item)
-                                            && quad.Contains(blueprint.ScreenSpaceSelectionPoint));
+                bool shouldBeSelected =
+                    selectionBeforeDrag.Contains(blueprint.Item)
+                    || (
+                        blueprint.IsSelectable
+                        && isWithinVisibleRange(blueprint.Item)
+                        && quad.Contains(blueprint.ScreenSpaceSelectionPoint)
+                    );
 
                 if (blueprint.IsSelected)
                 {
@@ -57,11 +61,19 @@ namespace osu.Game.Rulesets.Space.Edit
             }
         }
 
-        protected override bool TryMoveBlueprints(DragEvent e, IList<(SelectionBlueprint<HitObject> blueprint, Vector2[] originalSnapPositions)> blueprints)
+        protected override bool TryMoveBlueprints(
+            DragEvent e,
+            IList<(
+                SelectionBlueprint<HitObject> blueprint,
+                Vector2[] originalSnapPositions
+            )> blueprints
+        )
         {
             var playfield = ((SpaceHitObjectComposer)Composer).EditorPlayfield;
 
-            Vector2 targetGamefieldPos = playfield.ScreenSpaceToGamefield(e.ScreenSpaceMousePosition);
+            Vector2 targetGamefieldPos = playfield.ScreenSpaceToGamefield(
+                e.ScreenSpaceMousePosition
+            );
             bool snapToGrid = !e.ShiftPressed;
             float cellSize = UI.SpacePlayfield.BASE_SIZE / 3f;
 
@@ -86,7 +98,9 @@ namespace osu.Game.Rulesets.Space.Edit
             if (blueprints.Count > 0)
             {
                 var firstOriginalScreen = blueprints[0].originalSnapPositions[0];
-                Vector2 firstOriginalGamefield = playfield.ScreenSpaceToGamefield(firstOriginalScreen);
+                Vector2 firstOriginalGamefield = playfield.ScreenSpaceToGamefield(
+                    firstOriginalScreen
+                );
                 Vector2 originalGrid = new Vector2(
                     (firstOriginalGamefield.X / cellSize) - 0.5f,
                     (firstOriginalGamefield.Y / cellSize) - 0.5f
@@ -98,7 +112,9 @@ namespace osu.Game.Rulesets.Space.Edit
                 {
                     if (b.blueprint.Item is SpaceHitObject spaceObject)
                     {
-                        Vector2 originalGamefield = playfield.ScreenSpaceToGamefield(b.originalSnapPositions[0]);
+                        Vector2 originalGamefield = playfield.ScreenSpaceToGamefield(
+                            b.originalSnapPositions[0]
+                        );
                         Vector2 objOriginalGrid = new Vector2(
                             (originalGamefield.X / cellSize) - 0.5f,
                             (originalGamefield.Y / cellSize) - 0.5f

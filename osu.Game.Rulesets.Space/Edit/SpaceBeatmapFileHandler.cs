@@ -25,7 +25,12 @@ namespace osu.Game.Rulesets.Space.Edit
             string difficultyName = sanitiseFileNamePart(editorBeatmap.BeatmapInfo?.DifficultyName);
             string mapper = sanitiseFileNamePart(editorBeatmap.Metadata?.Author?.Username);
 
-            if (string.IsNullOrWhiteSpace(artist) || string.IsNullOrWhiteSpace(title) || string.IsNullOrWhiteSpace(difficultyName) || string.IsNullOrWhiteSpace(mapper))
+            if (
+                string.IsNullOrWhiteSpace(artist)
+                || string.IsNullOrWhiteSpace(title)
+                || string.IsNullOrWhiteSpace(difficultyName)
+                || string.IsNullOrWhiteSpace(mapper)
+            )
                 return "beatmap.osu";
 
             return $"{artist} - {title} ({mapper}) [{difficultyName}].osu";
@@ -45,10 +50,16 @@ namespace osu.Game.Rulesets.Space.Edit
             new SpaceLegacyBeatmapEncoder(editorBeatmap).Encode(writer);
         }
 
-        public static void DirectSaveToRealm(EditorBeatmap editorBeatmap, RealmAccess realm, Storage storage)
+        public static void DirectSaveToRealm(
+            EditorBeatmap editorBeatmap,
+            RealmAccess realm,
+            Storage storage
+        )
         {
             if (editorBeatmap == null || realm == null || storage == null)
-                throw new InvalidOperationException("Required dependencies are unavailable for direct realm save.");
+                throw new InvalidOperationException(
+                    "Required dependencies are unavailable for direct realm save."
+                );
 
             using var stream = new MemoryStream();
 
@@ -62,16 +73,30 @@ namespace osu.Game.Rulesets.Space.Edit
 
             realm.Write(r =>
             {
-                var targetBeatmap = r.Find<BeatmapInfo>(editorBeatmap.BeatmapInfo.ID)
-                                    ?? throw new InvalidOperationException("Current beatmap could not be found in realm.");
+                var targetBeatmap =
+                    r.Find<BeatmapInfo>(editorBeatmap.BeatmapInfo.ID)
+                    ?? throw new InvalidOperationException(
+                        "Current beatmap could not be found in realm."
+                    );
 
-                var setInfo = targetBeatmap.BeatmapSet
-                              ?? throw new InvalidOperationException("Current beatmap set could not be found in realm.");
+                var setInfo =
+                    targetBeatmap.BeatmapSet
+                    ?? throw new InvalidOperationException(
+                        "Current beatmap set could not be found in realm."
+                    );
 
-                if (setInfo.Beatmaps.Any(b => b.ID != targetBeatmap.ID && string.Equals(b.Path, targetFilename, StringComparison.OrdinalIgnoreCase)))
-                    throw new InvalidOperationException($"{setInfo.GetDisplayString()} already has a difficulty with the name '{targetBeatmap.DifficultyName}'.");
+                if (
+                    setInfo.Beatmaps.Any(b =>
+                        b.ID != targetBeatmap.ID
+                        && string.Equals(b.Path, targetFilename, StringComparison.OrdinalIgnoreCase)
+                    )
+                )
+                    throw new InvalidOperationException(
+                        $"{setInfo.GetDisplayString()} already has a difficulty with the name '{targetBeatmap.DifficultyName}'."
+                    );
 
-                var existingFileInfo = targetBeatmap.Path != null ? setInfo.GetFile(targetBeatmap.Path) : null;
+                var existingFileInfo =
+                    targetBeatmap.Path != null ? setInfo.GetFile(targetBeatmap.Path) : null;
 
                 if (existingFileInfo != null)
                     setInfo.Files.Remove(existingFileInfo);
@@ -86,7 +111,9 @@ namespace osu.Game.Rulesets.Space.Edit
                 stream.Seek(0, SeekOrigin.Begin);
 
                 var realmFile = realmFileStore.Add(stream, r);
-                setInfo.Files.Add(new RealmNamedFileUsage(realmFile, targetFilename.ToStandardisedPath()));
+                setInfo.Files.Add(
+                    new RealmNamedFileUsage(realmFile, targetFilename.ToStandardisedPath())
+                );
 
                 setInfo.Hash = computeBeatmapSetHash(setInfo, realmFileStore);
                 setInfo.Status = BeatmapOnlineStatus.LocallyModified;
@@ -102,11 +129,20 @@ namespace osu.Game.Rulesets.Space.Edit
             return $"{metadata.Artist} - {metadata.Title} ({metadata.Author?.Username}) [{beatmapInfo.DifficultyName}].osu".GetValidFilename();
         }
 
-        private static string computeBeatmapSetHash(BeatmapSetInfo setInfo, RealmFileStore fileStore)
+        private static string computeBeatmapSetHash(
+            BeatmapSetInfo setInfo,
+            RealmFileStore fileStore
+        )
         {
             using var hashable = new MemoryStream();
 
-            foreach (var file in setInfo.Files.Where(f => f.Filename.EndsWith(".osu", StringComparison.OrdinalIgnoreCase)).OrderBy(f => f.Filename))
+            foreach (
+                var file in setInfo
+                    .Files.Where(f =>
+                        f.Filename.EndsWith(".osu", StringComparison.OrdinalIgnoreCase)
+                    )
+                    .OrderBy(f => f.Filename)
+            )
             {
                 using Stream fileStream = fileStore.Store.GetStream(file.File.GetStoragePath());
                 fileStream?.CopyTo(hashable);

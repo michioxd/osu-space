@@ -10,9 +10,7 @@ namespace osu.Game.Rulesets.Space.Skinning.Argon
     public class SpaceArgonSkinTransformer : SkinTransformer
     {
         public SpaceArgonSkinTransformer(ISkin skin)
-            : base(skin)
-        {
-        }
+            : base(skin) { }
 
         public override Drawable? GetDrawableComponent(ISkinComponentLookup lookup)
         {

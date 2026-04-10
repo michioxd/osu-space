@@ -239,9 +239,7 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
             private IVertexBatch<TexturedTrailVertex> vertexBatch;
 
             public TrailDrawNode(CursorTrail source)
-                : base(source)
-            {
-            }
+                : base(source) { }
 
             public override void ApplyState()
             {
@@ -280,7 +278,7 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
                 cursorTrailParameters.Data = cursorTrailParameters.Data with
                 {
                     FadeClock = time,
-                    FadeExponent = fadeExponent
+                    FadeExponent = fadeExponent,
                 };
 
                 shader.Bind();
@@ -303,49 +301,97 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
                     if (time - part.Time >= 1)
                         continue;
 
-                    vertexBatch.Add(new TexturedTrailVertex
-                    {
-                        Position = rotateAround(
-                            new Vector2(part.Position.X - texture.DisplayWidth * originPosition.X * part.Scale.X, part.Position.Y + texture.DisplayHeight * (1 - originPosition.Y) * part.Scale.Y),
-                            part.Position, sin, cos),
-                        TexturePosition = textureRect.BottomLeft,
-                        TextureRect = new Vector4(0, 0, 1, 1),
-                        Colour = DrawColourInfo.Colour.BottomLeft.Linear,
-                        Time = part.Time
-                    });
+                    vertexBatch.Add(
+                        new TexturedTrailVertex
+                        {
+                            Position = rotateAround(
+                                new Vector2(
+                                    part.Position.X
+                                        - texture.DisplayWidth * originPosition.X * part.Scale.X,
+                                    part.Position.Y
+                                        + texture.DisplayHeight
+                                            * (1 - originPosition.Y)
+                                            * part.Scale.Y
+                                ),
+                                part.Position,
+                                sin,
+                                cos
+                            ),
+                            TexturePosition = textureRect.BottomLeft,
+                            TextureRect = new Vector4(0, 0, 1, 1),
+                            Colour = DrawColourInfo.Colour.BottomLeft.Linear,
+                            Time = part.Time,
+                        }
+                    );
 
-                    vertexBatch.Add(new TexturedTrailVertex
-                    {
-                        Position = rotateAround(
-                            new Vector2(part.Position.X + texture.DisplayWidth * (1 - originPosition.X) * part.Scale.X,
-                                part.Position.Y + texture.DisplayHeight * (1 - originPosition.Y) * part.Scale.Y), part.Position, sin, cos),
-                        TexturePosition = textureRect.BottomRight,
-                        TextureRect = new Vector4(0, 0, 1, 1),
-                        Colour = DrawColourInfo.Colour.BottomRight.Linear,
-                        Time = part.Time
-                    });
+                    vertexBatch.Add(
+                        new TexturedTrailVertex
+                        {
+                            Position = rotateAround(
+                                new Vector2(
+                                    part.Position.X
+                                        + texture.DisplayWidth
+                                            * (1 - originPosition.X)
+                                            * part.Scale.X,
+                                    part.Position.Y
+                                        + texture.DisplayHeight
+                                            * (1 - originPosition.Y)
+                                            * part.Scale.Y
+                                ),
+                                part.Position,
+                                sin,
+                                cos
+                            ),
+                            TexturePosition = textureRect.BottomRight,
+                            TextureRect = new Vector4(0, 0, 1, 1),
+                            Colour = DrawColourInfo.Colour.BottomRight.Linear,
+                            Time = part.Time,
+                        }
+                    );
 
-                    vertexBatch.Add(new TexturedTrailVertex
-                    {
-                        Position = rotateAround(
-                            new Vector2(part.Position.X + texture.DisplayWidth * (1 - originPosition.X) * part.Scale.X, part.Position.Y - texture.DisplayHeight * originPosition.Y * part.Scale.Y),
-                            part.Position, sin, cos),
-                        TexturePosition = textureRect.TopRight,
-                        TextureRect = new Vector4(0, 0, 1, 1),
-                        Colour = DrawColourInfo.Colour.TopRight.Linear,
-                        Time = part.Time
-                    });
+                    vertexBatch.Add(
+                        new TexturedTrailVertex
+                        {
+                            Position = rotateAround(
+                                new Vector2(
+                                    part.Position.X
+                                        + texture.DisplayWidth
+                                            * (1 - originPosition.X)
+                                            * part.Scale.X,
+                                    part.Position.Y
+                                        - texture.DisplayHeight * originPosition.Y * part.Scale.Y
+                                ),
+                                part.Position,
+                                sin,
+                                cos
+                            ),
+                            TexturePosition = textureRect.TopRight,
+                            TextureRect = new Vector4(0, 0, 1, 1),
+                            Colour = DrawColourInfo.Colour.TopRight.Linear,
+                            Time = part.Time,
+                        }
+                    );
 
-                    vertexBatch.Add(new TexturedTrailVertex
-                    {
-                        Position = rotateAround(
-                            new Vector2(part.Position.X - texture.DisplayWidth * originPosition.X * part.Scale.X, part.Position.Y - texture.DisplayHeight * originPosition.Y * part.Scale.Y),
-                            part.Position, sin, cos),
-                        TexturePosition = textureRect.TopLeft,
-                        TextureRect = new Vector4(0, 0, 1, 1),
-                        Colour = DrawColourInfo.Colour.TopLeft.Linear,
-                        Time = part.Time
-                    });
+                    vertexBatch.Add(
+                        new TexturedTrailVertex
+                        {
+                            Position = rotateAround(
+                                new Vector2(
+                                    part.Position.X
+                                        - texture.DisplayWidth * originPosition.X * part.Scale.X,
+                                    part.Position.Y
+                                        - texture.DisplayHeight * originPosition.Y * part.Scale.Y
+                                ),
+                                part.Position,
+                                sin,
+                                cos
+                            ),
+                            TexturePosition = textureRect.TopLeft,
+                            TextureRect = new Vector4(0, 0, 1, 1),
+                            Colour = DrawColourInfo.Colour.TopLeft.Linear,
+                            Time = part.Time,
+                        }
+                    );
                 }
 
                 renderer.PopLocalMatrix();
@@ -359,7 +405,10 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
                 float xTranslated = input.X - origin.X;
                 float yTranslated = input.Y - origin.Y;
 
-                return new Vector2(xTranslated * cos - yTranslated * sin, xTranslated * sin + yTranslated * cos) + origin;
+                return new Vector2(
+                        xTranslated * cos - yTranslated * sin,
+                        xTranslated * sin + yTranslated * cos
+                    ) + origin;
             }
 
             protected override void Dispose(bool isDisposing)
@@ -400,9 +449,9 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
             public bool Equals(TexturedTrailVertex other)
             {
                 return Position.Equals(other.Position)
-                       && TexturePosition.Equals(other.TexturePosition)
-                       && Colour.Equals(other.Colour)
-                       && Time.Equals(other.Time);
+                    && TexturePosition.Equals(other.TexturePosition)
+                    && Colour.Equals(other.Colour)
+                    && Time.Equals(other.Time);
             }
         }
     }

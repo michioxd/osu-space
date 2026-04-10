@@ -8,8 +8,6 @@ namespace osu.Game.Rulesets.Space
     public class SpaceSkinComponentLookup : SkinComponentLookup<SpaceSkinComponents>
     {
         public SpaceSkinComponentLookup(SpaceSkinComponents component)
-            : base(component)
-        {
-        }
+            : base(component) { }
     }
 }
