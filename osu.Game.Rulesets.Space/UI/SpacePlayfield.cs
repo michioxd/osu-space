@@ -1,4 +1,5 @@
 ﻿#nullable enable
+using System;
 using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
@@ -70,6 +71,8 @@ namespace osu.Game.Rulesets.Space.UI
 
             if (Cursor?.ActiveCursor != null)
             {
+                Cursor.ActiveCursor.Position = ClampCursorPosition(Cursor.ActiveCursor.Position);
+
                 Vector2 cursorPosition = ToLocalSpace(
                     Cursor.ActiveCursor.ScreenSpaceDrawQuad.Centre
                 );
@@ -78,6 +81,20 @@ namespace osu.Game.Rulesets.Space.UI
 
                 contentContainer.Position = -offset;
             }
+        }
+
+        public Vector2 ClampCursorPosition(Vector2 position)
+        {
+            float side = Math.Min(contentContainer.DrawSize.X, contentContainer.DrawSize.Y);
+            Vector2 center = DrawSize / 2;
+            Vector2 halfSize = new Vector2(side / 2);
+            float parallaxMultiplier = 1 + 0.025f * parallaxStrength.Value;
+
+            return Vector2.Clamp(
+                position,
+                center - halfSize / parallaxMultiplier,
+                center + halfSize / parallaxMultiplier
+            );
         }
 
         [BackgroundDependencyLoader]

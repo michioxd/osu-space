@@ -95,10 +95,15 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
         {
             base.Update();
 
+            bool wasClamped = clampCursorToPlayfield();
+
             if (cursorTrail.Drawable is CursorTrail trail)
             {
                 trail.NewPartScale = ActiveCursor.CurrentExpandedScale;
                 trail.PartRotation = ActiveCursor.CurrentRotation;
+
+                if (wasClamped)
+                    trail.HandlePosition(ActiveCursor.ScreenSpaceDrawQuad.Centre);
             }
         }
 
@@ -107,19 +112,26 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
             base.OnMouseMove(e);
             if (ActiveCursor != null)
             {
-                Vector2 availableSize = playfield.contentContainer.DrawSize;
-                float side = Math.Min(availableSize.X, availableSize.Y);
-                Vector2 actualSize = new Vector2(side);
-
-                Vector2 minBound = (DrawSize - actualSize) / 2;
-                Vector2 maxBound = minBound + actualSize;
-
-                ActiveCursor.Position = Vector2.Clamp(ActiveCursor.Position, minBound, maxBound);
+                clampCursorToPlayfield();
 
                 if (cursorTrail.Drawable is CursorTrail trail)
                     trail.HandlePosition(ActiveCursor.ScreenSpaceDrawQuad.Centre);
             }
             return false;
+        }
+
+        private bool clampCursorToPlayfield()
+        {
+            if (ActiveCursor == null)
+                return false;
+
+            Vector2 clampedPosition = playfield.ClampCursorPosition(ActiveCursor.Position);
+
+            if (ActiveCursor.Position == clampedPosition)
+                return false;
+
+            ActiveCursor.Position = clampedPosition;
+            return true;
         }
 
         public bool OnPressed(KeyBindingPressEvent<SpaceAction> e)
