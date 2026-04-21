@@ -15,7 +15,7 @@ Please note that breaking changes may occur in the future as I continue to learn
 |---|---|
 | ![](https://github.com/user-attachments/assets/22e24ad0-c870-432e-883a-8e2e844c6bc1) ![](https://github.com/user-attachments/assets/12fe79b0-092a-4e37-ab2b-d55c3907c79b) | ![](https://github.com/user-attachments/assets/6a384060-5290-4219-b712-d041ddfff09b) |
 
-https://github.com/user-attachments/assets/7eb79bfb-90f1-409a-8aa0-f08481fa6481
+https://github.com/user-attachments/assets/bec16d24-b145-4135-b8fc-2cd7471b9ac2
 
 ## Features
 
