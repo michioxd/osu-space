@@ -17,6 +17,8 @@ Please note that breaking changes may occur in the future as I continue to learn
 
 https://github.com/user-attachments/assets/bec16d24-b145-4135-b8fc-2cd7471b9ac2
 
+*track name: GHOST by かめりあ (Camellia)*
+
 ## Features
 
 - Unique hit objects and gameplay mechanics inspired by Sound Space.
