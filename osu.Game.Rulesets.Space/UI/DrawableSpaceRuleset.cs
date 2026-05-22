@@ -8,7 +8,6 @@ using osu.Game.Replays;
 using osu.Game.Rulesets.Mods;
 using osu.Game.Rulesets.Objects.Drawables;
 using osu.Game.Rulesets.Space.Objects;
-using osu.Game.Rulesets.Space.Objects.Drawables;
 using osu.Game.Rulesets.Space.Replays;
 using osu.Game.Rulesets.UI;
 using osu.Game.Screens.Play;
