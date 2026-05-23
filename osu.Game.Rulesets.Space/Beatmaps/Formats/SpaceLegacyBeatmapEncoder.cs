@@ -203,9 +203,6 @@ namespace osu.Rulesets.Space.Beatmaps.Formats
 
             foreach (var b in beatmap.Breaks)
                 writer.WriteLine(FormattableString.Invariant($"2,{b.StartTime},{b.EndTime}"));
-
-            foreach (string l in beatmap.UnhandledEventLines)
-                writer.WriteLine(l);
         }
 
         private void handleControlPoints(TextWriter writer)

@@ -26,7 +26,12 @@ public class SpaceLegacyBeatmapDecoder : LegacyBeatmapDecoder
     public SpaceLegacyBeatmapDecoder(int version = LATEST_VERSION)
         : base(version) { }
 
-    protected override void ParseLine(Beatmap beatmap, Section section, string line)
+    protected override void ParseLine(
+        Beatmap beatmap,
+        Section section,
+        string line,
+        bool isPrimaryStream
+    )
     {
         switch (section)
         {
@@ -41,7 +46,7 @@ public class SpaceLegacyBeatmapDecoder : LegacyBeatmapDecoder
                     }
 
                     shouldParse = false;
-                    base.ParseLine(beatmap, section, line);
+                    base.ParseLine(beatmap, section, line, isPrimaryStream);
                     return;
                 }
                 break;
@@ -101,6 +106,6 @@ public class SpaceLegacyBeatmapDecoder : LegacyBeatmapDecoder
                 break;
         }
 
-        base.ParseLine(beatmap, section, line);
+        base.ParseLine(beatmap, section, line, isPrimaryStream);
     }
 }
