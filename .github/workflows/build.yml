@@ -1,0 +1,29 @@
+name: build
+
+on:
+  push:
+    paths:
+      - 'osu.Game.Rulesets.Space/**'
+  pull_request:
+    paths:
+      - 'osu.Game.Rulesets.Space/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore osu.Game.Rulesets.Space.sln
+
+      - name: Build
+        run: dotnet build osu.Game.Rulesets.Space.sln --configuration Release --no-restore
