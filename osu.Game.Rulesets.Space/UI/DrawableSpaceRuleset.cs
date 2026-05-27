@@ -10,6 +10,7 @@ using osu.Game.Rulesets.Objects.Drawables;
 using osu.Game.Rulesets.Space.Objects;
 using osu.Game.Rulesets.Space.Replays;
 using osu.Game.Rulesets.UI;
+using osu.Game.Scoring;
 using osu.Game.Screens.Play;
 
 namespace osu.Game.Rulesets.Space.UI
@@ -54,6 +55,9 @@ namespace osu.Game.Rulesets.Space.UI
                         spacePlayfield.GamefieldToScreenSpace;
             }
         }
+
+        protected override ReplayRecorder CreateReplayRecorder(Score score) =>
+            new SpaceReplayRecorder(score);
 
         protected override ResumeOverlay CreateResumeOverlay() => new DelayedResumeOverlay();
     }

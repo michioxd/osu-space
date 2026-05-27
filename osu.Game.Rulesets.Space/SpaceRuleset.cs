@@ -9,12 +9,14 @@ using osu.Game.Rulesets.Configuration;
 using osu.Game.Rulesets.Difficulty;
 using osu.Game.Rulesets.Edit;
 using osu.Game.Rulesets.Mods;
+using osu.Game.Rulesets.Replays.Types;
 using osu.Game.Rulesets.Scoring;
 using osu.Game.Rulesets.Space.Beatmaps;
 using osu.Game.Rulesets.Space.Beatmaps.Formats;
 using osu.Game.Rulesets.Space.Configuration;
 using osu.Game.Rulesets.Space.Edit;
 using osu.Game.Rulesets.Space.Mods;
+using osu.Game.Rulesets.Space.Replays;
 using osu.Game.Rulesets.Space.Scoring;
 using osu.Game.Rulesets.Space.Skinning.Argon;
 using osu.Game.Rulesets.Space.Skinning.Legacy;
@@ -68,6 +70,9 @@ namespace osu.Game.Rulesets.Space
 
         public override IEnumerable<Drawable> CreateEditorSetupSections() =>
             [new MetadataSection(), new ResourcesSection()];
+
+        public override IConvertibleReplayFrame CreateConvertibleReplayFrame() =>
+            new SpaceReplayFrame();
 
         public override IEnumerable<HitResult> GetValidHitResults()
         {
