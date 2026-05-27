@@ -11,6 +11,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit" Version="4.6.1" />
-    <PackageReference Include="ppy.osu.Game" Version="2026.522.0" />
+    <PackageReference Include="ppy.osu.Game" Version="2026.527.0" />
   </ItemGroup>
 </Project>
