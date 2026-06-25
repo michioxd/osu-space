@@ -31,7 +31,7 @@ namespace osu.Game.Rulesets.Space
     {
         public override string Description => "osu!space";
         public override string ShortName => "osuspaceruleset";
-        public const string VERSION_STRING = "2026.523.0";
+        public const string VERSION_STRING = "2026.625.0";
         public static readonly int RULESET_ID = 727;
 
         public SpaceRuleset()
