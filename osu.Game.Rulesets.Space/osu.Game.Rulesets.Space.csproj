@@ -5,6 +5,7 @@
     <OutputType>Library</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <RootNamespace>osu.Game.Rulesets.Space</RootNamespace>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\**" />

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="all_contributors" xml:space="preserve">
+    <value>all contributors</value>
+  </data>
+  <data name="github_repository" xml:space="preserve">
+    <value>GitHub Repository</value>
+  </data>
+  <data name="check_for_updates" xml:space="preserve">
+    <value>Check for Updates</value>
+  </data>
+  <data name="checking" xml:space="preserve">
+    <value>Checking...</value>
+  </data>
+  <data name="import_sspm_map" xml:space="preserve">
+    <value>Import Sound Space Plus map (.sspm) (WIP)</value>
+  </data>
+  <data name="delete_all_beatmaps" xml:space="preserve">
+    <value>Delete all osu!space beatmaps</value>
+  </data>
+  <data name="header_playfield" xml:space="preserve">
+    <value>Playfield</value>
+  </data>
+  <data name="header_notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="header_gameplay" xml:space="preserve">
+    <value>Gameplay</value>
+  </data>
+  <data name="enable_grid" xml:space="preserve">
+    <value>Enable Grid</value>
+  </data>
+  <data name="playfield_scale" xml:space="preserve">
+    <value>Playfield Scale</value>
+  </data>
+  <data name="playfield_scale_tooltip" xml:space="preserve">
+    <value>Scale of the playfield (higher values = larger playfield)</value>
+  </data>
+  <data name="show_cursor_trail" xml:space="preserve">
+    <value>Show Cursor Trail</value>
+  </data>
+  <data name="touch_input_type" xml:space="preserve">
+    <value>Touch Input Type</value>
+  </data>
+  <data name="touch_input_type_tooltip" xml:space="preserve">
+    <value>Only for touch devices. Relative: Touch input moves the cursor relative to its current position. Absolute: Touch input sets the cursor position directly to the touched position.</value>
+  </data>
+  <data name="touch_sensitivity" xml:space="preserve">
+    <value>Touch Sensitivity</value>
+  </data>
+  <data name="touch_sensitivity_tooltip" xml:space="preserve">
+    <value>Only for touch devices and Touch Input Type is set to Relative. Sensitivity of touch input (higher values = more sensitive).</value>
+  </data>
+  <data name="note_color_palette" xml:space="preserve">
+    <value>Note Color Palette</value>
+  </data>
+  <data name="note_color_palette_tooltip" xml:space="preserve">
+    <value>Changes the colors of the notes. Some colors extracted from Sound Space Plus (Rhythia)</value>
+  </data>
+  <data name="note_thickness" xml:space="preserve">
+    <value>Note Thickness</value>
+  </data>
+  <data name="note_thickness_tooltip" xml:space="preserve">
+    <value>Thickness of the notes&#x27; borders</value>
+  </data>
+  <data name="note_corner_radius" xml:space="preserve">
+    <value>Note Corner Radius</value>
+  </data>
+  <data name="note_corner_radius_tooltip" xml:space="preserve">
+    <value>Roundness of the notes&#x27; corners</value>
+  </data>
+  <data name="note_opacity" xml:space="preserve">
+    <value>Note Opacity</value>
+  </data>
+  <data name="note_opacity_tooltip" xml:space="preserve">
+    <value>How opaque/transparent/visible the note appears</value>
+  </data>
+  <data name="note_scale" xml:space="preserve">
+    <value>Note Scale</value>
+  </data>
+  <data name="note_scale_tooltip" xml:space="preserve">
+    <value>The visual size of the notes (doesn&#x27;t affect hitboxes)</value>
+  </data>
+  <data name="note_glow" xml:space="preserve">
+    <value>Note Glow</value>
+  </data>
+  <data name="note_glow_tooltip" xml:space="preserve">
+    <value>Enables a glow effect on notes. Best used with 100% background dim and light note colors.</value>
+  </data>
+  <data name="glow_strength" xml:space="preserve">
+    <value>Glow Strength</value>
+  </data>
+  <data name="glow_strength_tooltip" xml:space="preserve">
+    <value>Strength of the glow effect on notes</value>
+  </data>
+  <data name="approach_rate" xml:space="preserve">
+    <value>Approach Rate</value>
+  </data>
+  <data name="approach_rate_tooltip" xml:space="preserve">
+    <value>The speed that note move toward the grid (m/s)</value>
+  </data>
+  <data name="spawn_distance" xml:space="preserve">
+    <value>Spawn Distance</value>
+  </data>
+  <data name="spawn_distance_tooltip" xml:space="preserve">
+    <value>Distance from the grid that note spawn (m)</value>
+  </data>
+  <data name="fade_length" xml:space="preserve">
+    <value>Fade Length</value>
+  </data>
+  <data name="fade_length_tooltip" xml:space="preserve">
+    <value>Percentage of the spawn distance that notes take to fade from invisible to fully opaque</value>
+  </data>
+  <data name="do_not_push_back" xml:space="preserve">
+    <value>Do not push back</value>
+  </data>
+  <data name="do_not_push_back_tooltip" xml:space="preserve">
+    <value>While enabled, notes will go past the grid when you miss, instead of always vanishing 0.2 units past the grid</value>
+  </data>
+  <data name="half_ghost" xml:space="preserve">
+    <value>Half ghost</value>
+  </data>
+  <data name="half_ghost_tooltip" xml:space="preserve">
+    <value>Useful for patterns that fill the whole screen</value>
+  </data>
+  <data name="parallax_strength" xml:space="preserve">
+    <value>Parallax Strength</value>
+  </data>
+  <data name="parallax_strength_tooltip" xml:space="preserve">
+    <value>Strength of the parallax effect on the playfield (higher values = stronger effect, 0 = disable)</value>
+  </data>
+  <data name="hit_window" xml:space="preserve">
+    <value>Hit Window</value>
+  </data>
+  <data name="hit_window_tooltip" xml:space="preserve">
+    <value>The length of time notes can be hit after reaching the grid (default 25ms, rhythia def 55ms)</value>
+  </data>
+  <data name="latest_version_notification" xml:space="preserve">
+    <value>You are running the latest version of osu!space!</value>
+  </data>
+  <data name="update_check_failed_connection" xml:space="preserve">
+    <value>Failed to check for updates. Please check your internet connection.</value>
+  </data>
+  <data name="update_check_failed" xml:space="preserve">
+    <value>Failed to check for updates.</value>
+  </data>
+  <data name="deletion_queued" xml:space="preserve">
+    <value>All osu!space beatmaps added to deletion queue.</value>
+  </data>
+  <data name="update_available_header" xml:space="preserve">
+    <value>New version of osu!space are available!</value>
+  </data>
+  <data name="update_available_body" xml:space="preserve">
+    <value>Your current version is {0} and the latest version is {1}. Do you want to download it or visit the release page of this version?</value>
+  </data>
+  <data name="view_release" xml:space="preserve">
+    <value>View Release</value>
+  </data>
+  <data name="download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="delete_all_header" xml:space="preserve">
+    <value>Delete all osu!space beatmaps?</value>
+  </data>
+  <data name="delete_all_body" xml:space="preserve">
+    <value>Are you sure you want to delete all osu!space beatmaps? This action cannot be undone.</value>
+  </data>
+  <data name="delete_all_confirm" xml:space="preserve">
+    <value>Delete All Beatmaps</value>
+  </data>
+  <data name="delete_all_cancel" xml:space="preserve">
+    <value>Lemme think again...</value>
+  </data>
+</root>

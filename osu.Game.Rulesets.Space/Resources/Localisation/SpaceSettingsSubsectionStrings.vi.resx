@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="all_contributors" xml:space="preserve">
+    <value>tất cả người đóng góp</value>
+  </data>
+  <data name="github_repository" xml:space="preserve">
+    <value>Kho lưu trữ GitHub</value>
+  </data>
+  <data name="check_for_updates" xml:space="preserve">
+    <value>Kiểm tra cập nhật</value>
+  </data>
+  <data name="checking" xml:space="preserve">
+    <value>Đang kiểm tra...</value>
+  </data>
+  <data name="import_sspm_map" xml:space="preserve">
+    <value>Nhập beatmap Sound Space Plus (.sspm) (Đang phát triển)</value>
+  </data>
+  <data name="delete_all_beatmaps" xml:space="preserve">
+    <value>Xóa tất cả beatmap osu!space</value>
+  </data>
+  <data name="header_playfield" xml:space="preserve">
+    <value>Sân chơi</value>
+  </data>
+  <data name="header_notes" xml:space="preserve">
+    <value>Nốt</value>
+  </data>
+  <data name="header_gameplay" xml:space="preserve">
+    <value>Lối chơi</value>
+  </data>
+  <data name="enable_grid" xml:space="preserve">
+    <value>Bật lưới</value>
+  </data>
+  <data name="playfield_scale" xml:space="preserve">
+    <value>Tỉ lệ sân chơi</value>
+  </data>
+  <data name="playfield_scale_tooltip" xml:space="preserve">
+    <value>Tỉ lệ của sân chơi (giá trị lớn hơn = sân chơi lớn hơn)</value>
+  </data>
+  <data name="show_cursor_trail" xml:space="preserve">
+    <value>Hiện vệt con trỏ</value>
+  </data>
+  <data name="touch_input_type" xml:space="preserve">
+    <value>Kiểu nhập cảm ứng</value>
+  </data>
+  <data name="touch_input_type_tooltip" xml:space="preserve">
+    <value>Chỉ dành cho thiết bị cảm ứng. Tương đối: Cảm ứng di chuyển con trỏ tương đối so với vị trí hiện tại. Tuyệt đối: Cảm ứng đặt con trỏ trực tiếp tại vị trí chạm.</value>
+  </data>
+  <data name="touch_sensitivity" xml:space="preserve">
+    <value>Độ nhạy cảm ứng</value>
+  </data>
+  <data name="touch_sensitivity_tooltip" xml:space="preserve">
+    <value>Chỉ dành cho thiết bị cảm ứng khi Kiểu nhập cảm ứng đặt ở Tương đối. Độ nhạy của cảm ứng (giá trị lớn hơn = nhạy hơn).</value>
+  </data>
+  <data name="note_color_palette" xml:space="preserve">
+    <value>Bảng màu nốt</value>
+  </data>
+  <data name="note_color_palette_tooltip" xml:space="preserve">
+    <value>Thay đổi màu sắc của nốt. Một số màu được trích từ Sound Space Plus (Rhythia)</value>
+  </data>
+  <data name="note_thickness" xml:space="preserve">
+    <value>Độ dày nốt</value>
+  </data>
+  <data name="note_thickness_tooltip" xml:space="preserve">
+    <value>Độ dày viền của nốt</value>
+  </data>
+  <data name="note_corner_radius" xml:space="preserve">
+    <value>Bo góc nốt</value>
+  </data>
+  <data name="note_corner_radius_tooltip" xml:space="preserve">
+    <value>Độ bo tròn góc của nốt</value>
+  </data>
+  <data name="note_opacity" xml:space="preserve">
+    <value>Độ mờ nốt</value>
+  </data>
+  <data name="note_opacity_tooltip" xml:space="preserve">
+    <value>Mức độ đục/trong suốt/hiển thị của nốt</value>
+  </data>
+  <data name="note_scale" xml:space="preserve">
+    <value>Kích thước nốt</value>
+  </data>
+  <data name="note_scale_tooltip" xml:space="preserve">
+    <value>Kích thước hiển thị của nốt (không ảnh hưởng đến vùng chạm)</value>
+  </data>
+  <data name="note_glow" xml:space="preserve">
+    <value>Phát sáng nốt</value>
+  </data>
+  <data name="note_glow_tooltip" xml:space="preserve">
+    <value>Bật hiệu ứng phát sáng cho nốt. Dùng tốt nhất với độ mờ nền 100% và màu nốt sáng.</value>
+  </data>
+  <data name="glow_strength" xml:space="preserve">
+    <value>Cường độ phát sáng</value>
+  </data>
+  <data name="glow_strength_tooltip" xml:space="preserve">
+    <value>Cường độ hiệu ứng phát sáng của nốt</value>
+  </data>
+  <data name="approach_rate" xml:space="preserve">
+    <value>Tốc độ tiếp cận</value>
+  </data>
+  <data name="approach_rate_tooltip" xml:space="preserve">
+    <value>Tốc độ nốt di chuyển về phía lưới (m/s)</value>
+  </data>
+  <data name="spawn_distance" xml:space="preserve">
+    <value>Khoảng cách sinh</value>
+  </data>
+  <data name="spawn_distance_tooltip" xml:space="preserve">
+    <value>Khoảng cách từ lưới mà nốt xuất hiện (m)</value>
+  </data>
+  <data name="fade_length" xml:space="preserve">
+    <value>Độ dài mờ dần</value>
+  </data>
+  <data name="fade_length_tooltip" xml:space="preserve">
+    <value>Phần trăm khoảng cách sinh mà nốt chuyển từ vô hình sang hiện rõ hoàn toàn</value>
+  </data>
+  <data name="do_not_push_back" xml:space="preserve">
+    <value>Không đẩy lùi</value>
+  </data>
+  <data name="do_not_push_back_tooltip" xml:space="preserve">
+    <value>Khi bật, nốt sẽ vượt qua lưới khi bạn trượt, thay vì luôn biến mất 0.2 đơn vị sau lưới</value>
+  </data>
+  <data name="half_ghost" xml:space="preserve">
+    <value>Bán ẩn</value>
+  </data>
+  <data name="half_ghost_tooltip" xml:space="preserve">
+    <value>Hữu ích cho các mẫu lấp đầy toàn màn hình</value>
+  </data>
+  <data name="parallax_strength" xml:space="preserve">
+    <value>Cường độ thị sai</value>
+  </data>
+  <data name="parallax_strength_tooltip" xml:space="preserve">
+    <value>Cường độ hiệu ứng thị sai trên sân chơi (giá trị lớn hơn = mạnh hơn, 0 = tắt)</value>
+  </data>
+  <data name="hit_window" xml:space="preserve">
+    <value>Cửa sổ trúng</value>
+  </data>
+  <data name="hit_window_tooltip" xml:space="preserve">
+    <value>Khoảng thời gian nốt có thể được đánh sau khi chạm lưới (mặc định 25ms, rhythia mặc định 55ms)</value>
+  </data>
+  <data name="latest_version_notification" xml:space="preserve">
+    <value>Bạn đang dùng phiên bản osu!space mới nhất!</value>
+  </data>
+  <data name="update_check_failed_connection" xml:space="preserve">
+    <value>Không thể kiểm tra cập nhật. Vui lòng kiểm tra kết nối internet của bạn.</value>
+  </data>
+  <data name="update_check_failed" xml:space="preserve">
+    <value>Không thể kiểm tra cập nhật.</value>
+  </data>
+  <data name="deletion_queued" xml:space="preserve">
+    <value>Đã thêm tất cả beatmap osu!space vào hàng đợi xóa.</value>
+  </data>
+  <data name="update_available_header" xml:space="preserve">
+    <value>Đã có phiên bản osu!space mới!</value>
+  </data>
+  <data name="update_available_body" xml:space="preserve">
+    <value>Phiên bản hiện tại của bạn là {0} và phiên bản mới nhất là {1}. Bạn muốn tải xuống hay xem trang phát hành của phiên bản này?</value>
+  </data>
+  <data name="view_release" xml:space="preserve">
+    <value>Xem bản phát hành</value>
+  </data>
+  <data name="download" xml:space="preserve">
+    <value>Tải xuống</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="delete_all_header" xml:space="preserve">
+    <value>Xóa tất cả beatmap osu!space?</value>
+  </data>
+  <data name="delete_all_body" xml:space="preserve">
+    <value>Bạn có chắc muốn xóa tất cả beatmap osu!space không? Hành động này không thể hoàn tác.</value>
+  </data>
+  <data name="delete_all_confirm" xml:space="preserve">
+    <value>Xóa tất cả beatmap</value>
+  </data>
+  <data name="delete_all_cancel" xml:space="preserve">
+    <value>Để tôi nghĩ lại đã...</value>
+  </data>
+</root>
