@@ -10,6 +10,12 @@ namespace osu.Game.Rulesets.Space.Localisation
         private const string prefix =
             @"osu.Game.Rulesets.Space.Resources.Localisation.SpaceSettingsSubsectionStrings";
 
+        // Header sentence ("by {author} .... Thanks to {contributors}.")
+        public static LocalisableString HeaderBy =>
+            new TranslatableString(getKey(@"header_by"), @"by ");
+        public static LocalisableString HeaderThanksTo =>
+            new TranslatableString(getKey(@"header_thanks_to"), @". Thanks to ");
+
         // Header links / action buttons
         public static LocalisableString AllContributors =>
             new TranslatableString(getKey(@"all_contributors"), @"all contributors");

@@ -89,7 +89,7 @@ namespace osu.Game.Rulesets.Space
                 Padding = new MarginPadding { Horizontal = 13, Vertical = 6 },
             };
 
-            header.AddText("by ");
+            header.AddText(SpaceSettingsSubsectionStrings.HeaderBy);
             header.AddLink(
                 "michioxd",
                 () => userProfile?.ShowUser(new APIUser { Id = 16149043 }),
@@ -100,7 +100,7 @@ namespace osu.Game.Rulesets.Space
                 "v" + SpaceRuleset.VERSION_STRING,
                 "https://github.com/michioxd/osu-space/releases/tag/" + SpaceRuleset.VERSION_STRING
             );
-            header.AddText(". Thanks to ");
+            header.AddText(SpaceSettingsSubsectionStrings.HeaderThanksTo);
             header.AddLink(
                 SpaceSettingsSubsectionStrings.AllContributors,
                 "https://github.com/michioxd/osu-space/graphs/contributors"
