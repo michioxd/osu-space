@@ -7,6 +7,7 @@ using osu.Framework.Bindables;
 using osu.Framework.Localisation;
 using osu.Framework.Utils;
 using osu.Game.Rulesets.Mods;
+using osu.Game.Rulesets.Space.Localisation.Mods;
 using osu.Game.Rulesets.Space.UI;
 using osu.Game.Rulesets.UI;
 
@@ -14,7 +15,7 @@ namespace osu.Game.Rulesets.Space.Mods
 {
     public class SpaceModNoScope : ModNoScope, IUpdatableByPlayfield
     {
-        public override LocalisableString Description => "Where's the cursor?";
+        public override LocalisableString Description => SpaceModNoScopeStrings.ModDescription;
 
         public override BindableInt HiddenComboCount { get; } =
             new BindableInt(10) { MinValue = 0, MaxValue = 50 };
