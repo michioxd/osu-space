@@ -21,8 +21,7 @@ namespace osu.Game.Rulesets.Space
         protected override DifficultyAttributes CreateDifficultyAttributes(
             IBeatmap beatmap,
             Mod[] mods,
-            Skill[] skills,
-            double clockRate
+            Skill[] skills
         )
         {
             if (beatmap.HitObjects.Count == 0)
@@ -50,9 +49,12 @@ namespace osu.Game.Rulesets.Space
 
         protected override IEnumerable<DifficultyHitObject> CreateDifficultyHitObjects(
             IBeatmap beatmap,
-            double clockRate
+            Mod[] mods
         )
         {
+            double clockRate = mods.OfType<IApplicableToRate>()
+                .Aggregate(1.0, (rate, mod) => mod.ApplyToRate(0, rate));
+
             var sortedObjects = beatmap
                 .HitObjects.OfType<SpaceHitObject>()
                 .OrderBy(h => h.StartTime)
@@ -79,7 +81,7 @@ namespace osu.Game.Rulesets.Space
             return difficultyObjects;
         }
 
-        protected override Skill[] CreateSkills(IBeatmap beatmap, Mod[] mods, double clockRate)
+        protected override Skill[] CreateSkills(IBeatmap beatmap, Mod[] mods)
         {
             return [new Aim(mods), new Reading(mods)];
         }
