@@ -5,10 +5,12 @@
     <OutputType>Library</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <RootNamespace>osu.Game.Rulesets.Space</RootNamespace>
-    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\**" />
+    <EmbeddedResource Update="Localisation\Translations\**\*.resx">
+      <DependentUpon>$([System.String]::Copy('%(Filename)').Split('.')[0]).resx</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ppy.osu.Game" Version="2026.621.0" />
