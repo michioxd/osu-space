@@ -1,11 +1,12 @@
 using osu.Game.Rulesets.Edit;
 using osu.Game.Rulesets.Edit.Tools;
+using osu.Game.Rulesets.Space;
 using osu.Game.Rulesets.Space.Edit.Blueprints;
 using osu.Game.Rulesets.Space.Objects;
 
 namespace osu.Game.Rulesets.Space.Edit
 {
-    public class NoteCompositionTool : CompositionTool
+    public class NoteCompositionTool : CompositionTool<SpaceAction>
     {
         public NoteCompositionTool()
             : base(nameof(Note)) { }

@@ -1,12 +1,16 @@
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using osu.Framework.Allocation;
+using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Input.Events;
 using osu.Framework.Logging;
 using osu.Framework.Platform;
 using osu.Game.Beatmaps;
 using osu.Game.Database;
+using osu.Game.Graphics.UserInterface;
 using osu.Game.Overlays;
 using osu.Game.Overlays.Dialog;
 using osu.Game.Overlays.Notifications;
@@ -23,31 +27,33 @@ using osuTK.Input;
 namespace osu.Game.Rulesets.Space.Edit
 {
     [Cached]
-    public partial class SpaceHitObjectComposer : HitObjectComposer<SpaceHitObject>
+    public partial class SpaceHitObjectComposer : HitObjectComposer<SpaceHitObject, SpaceAction>
     {
         private DrawableSpaceEditorRuleset drawableRuleset = null!;
         private SpaceSaveFilePickerScreen saveFilePickerOverlay = null!;
 
+        public override Bindable<TernaryState>? SelectionNewComboState => null;
+
         [Resolved(CanBeNull = true)]
-        private EditorBeatmap editorBeatmap { get; set; }
+        private EditorBeatmap? editorBeatmap { get; set; }
 
         public SpaceHitObjectComposer(SpaceRuleset ruleset)
             : base(ruleset) { }
 
         [Resolved(CanBeNull = true)]
-        private INotificationOverlay notifications { get; set; }
+        private INotificationOverlay? notifications { get; set; }
 
         [Resolved(CanBeNull = true)]
-        private IDialogOverlay dialogOverlay { get; set; }
+        private IDialogOverlay? dialogOverlay { get; set; }
 
         [Resolved(CanBeNull = true)]
-        private BeatmapManager beatmapManager { get; set; }
+        private BeatmapManager? beatmapManager { get; set; }
 
         [Resolved(CanBeNull = true)]
-        private RealmAccess realm { get; set; }
+        private RealmAccess? realm { get; set; }
 
         [Resolved(CanBeNull = true)]
-        private Storage storage { get; set; }
+        private Storage? storage { get; set; }
 
         [BackgroundDependencyLoader]
         private void load()
@@ -122,7 +128,7 @@ namespace osu.Game.Rulesets.Space.Edit
             }
         }
 
-        protected override IReadOnlyList<CompositionTool> CompositionTools =>
+        protected override IReadOnlyList<CompositionTool<SpaceAction>> CompositionTools =>
             [new NoteCompositionTool()];
 
         protected override Drawable CreateHitObjectInspector() => new SpaceHitObjectInspector();

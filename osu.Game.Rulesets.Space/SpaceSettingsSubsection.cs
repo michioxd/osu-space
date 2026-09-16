@@ -39,8 +39,6 @@ namespace osu.Game.Rulesets.Space
 {
     public partial class SpaceSettingsSubsection : RulesetSettingsSubsection
     {
-        protected override LocalisableString Header => "osu!space";
-
         public SpaceSettingsSubsection(SpaceRuleset ruleset)
             : base(ruleset) { }
 
