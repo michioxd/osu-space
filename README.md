@@ -3,7 +3,7 @@
 [![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/michioxd/osu-space/total?sort=date&logo=github)](https://github.com/michioxd/osu-space/releases/latest)
 [![GitHub release](https://img.shields.io/github/release/michioxd/osu-space.svg)](https://github.com/michioxd/osu-space/releases/latest) [![Build Status](https://github.com/michioxd/osu-space/actions/workflows/build.yml/badge.svg)](https://github.com/michioxd/osu-space/actions/workflows/build.yml)
 
-A custom game mode for [osu!(lazer)](https://github.com/ppy/osu) based on [Sound Space (Roblox)](https://www.roblox.com/games/2677609345/Sound-Space-Rhythm-Game) and [Sound Space Plus (a.k.a Rhythia)](https://github.com/Rhythia/sound-space-plus).
+A custom game mode for [osu!(lazer)](https://github.com/ppy/osu) based on [Sound Space (Roblox)](https://www.roblox.com/games/2677609345/Sound-Space-Rhythm-Game) and [Rhythia (formerly *Sound Space Plus*)](https://github.com/Rhythia/sound-space-plus).
 
 This project is currently **in early development**. While some features have been implemented, you may encounter many bugs. Please feel free to open an issue if you find any.
 
