@@ -2,12 +2,16 @@
 
 using System;
 using System.Globalization;
+using System.Resources;
 using osu.Framework.Localisation;
 
 namespace osu.Game.Rulesets.Space.Localisation
 {
-    public static partial class SpaceStrings
+    public static class SpaceStrings
     {
+        private static readonly ResourceManager vietnamese = new ResourceManager("osu.Game.Rulesets.Space.Localisation.SpaceStrings.vi", typeof(SpaceStrings).Assembly);
+        private static readonly ResourceManager japanese = new ResourceManager("osu.Game.Rulesets.Space.Localisation.SpaceStrings.ja", typeof(SpaceStrings).Assembly);
+
         public static LocalisableString Get(string english) =>
             new LocalisableString(new SpaceString(english));
 
@@ -42,14 +46,12 @@ namespace osu.Game.Rulesets.Space.Localisation
             public SpaceString(string english) => this.english = english;
 
             public string GetLocalised(LocalisationParameters parameters) =>
-                parameters.Store?.EffectiveCulture.TwoLetterISOLanguageName switch
+                (parameters.Store?.EffectiveCulture.TwoLetterISOLanguageName switch
                 {
-                    "vi" when vietnamese.TryGetValue(english, out string? viTranslation) =>
-                        viTranslation,
-                    "ja" when japanese.TryGetValue(english, out string? jaTranslation) =>
-                        jaTranslation,
-                    _ => english,
-                };
+                    "vi" => vietnamese.GetString(english, CultureInfo.InvariantCulture),
+                    "ja" => japanese.GetString(english, CultureInfo.InvariantCulture),
+                    _ => null,
+                }) ?? english;
 
             public bool Equals(ILocalisableStringData? other) =>
                 other is SpaceString value && english == value.english;
