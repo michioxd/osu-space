@@ -20,6 +20,7 @@ using osu.Game.Graphics.UserInterfaceV2;
 using osu.Game.Overlays;
 using osu.Game.Overlays.Dialog;
 using osu.Game.Overlays.Notifications;
+using osu.Game.Rulesets.Space.Localisation;
 using osu.Game.Screens;
 using osu.Game.Screens.OnlinePlay.Match.Components;
 using osu.Game.Screens.Select;
@@ -117,7 +118,9 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                                     {
                                         Anchor = Anchor.Centre,
                                         Origin = Anchor.Centre,
-                                        Text = "Please select a folder containing .sspm files",
+                                        Text = SpaceStrings.Get(
+                                            "Please select a folder containing .sspm files"
+                                        ),
                                         Font = OsuFont.Default.With(size: 20),
                                     },
                                 },
@@ -143,7 +146,7 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                                                 Anchor = Anchor.Centre,
                                                 Origin = Anchor.Centre,
                                                 Width = 150,
-                                                Text = "Import",
+                                                Text = SpaceStrings.Get("Import"),
                                                 Action = import,
                                             },
                                             new PurpleRoundedButton
@@ -151,7 +154,9 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                                                 Anchor = Anchor.Centre,
                                                 Origin = Anchor.Centre,
                                                 Width = 300,
-                                                Text = "Try to locate the Rhythia (SSP) folder",
+                                                Text = SpaceStrings.Get(
+                                                    "Try to locate the Rhythia (SSP) folder"
+                                                ),
                                                 Action = scanAndImportFromSSP,
                                             },
                                         },
@@ -192,8 +197,9 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
             notifications?.Post(
                 new SimpleNotification
                 {
-                    Text =
-                        "No Sound Space Plus maps folder was detected, or no .sspm files were found inside that. Please select the folder manually.",
+                    Text = SpaceStrings.Get(
+                        "No Sound Space Plus maps folder was detected, or no .sspm files were found inside that. Please select the folder manually."
+                    ),
                     Icon = FontAwesome.Solid.ExclamationTriangle,
                 }
             );
@@ -232,8 +238,9 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                     notifications?.Post(
                         new SimpleNotification
                         {
-                            Text =
-                                "No .sspm files found in the selected directory. Please select a different folder.",
+                            Text = SpaceStrings.Get(
+                                "No .sspm files found in the selected directory. Please select a different folder."
+                            ),
                             Icon = FontAwesome.Solid.ExclamationTriangle,
                         }
                     );
@@ -242,8 +249,8 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
 
                 var notification = new ProgressNotification
                 {
-                    Text = "Importing Sound Space Plus map files...",
-                    CompletionText = "Import Sound Space Plus map complete!",
+                    Text = SpaceStrings.Get("Importing Sound Space Plus map files..."),
+                    CompletionText = SpaceStrings.Get("Import Sound Space Plus map complete!"),
                     State = ProgressNotificationState.Active,
                     CompletionClickAction = () =>
                     {
@@ -273,12 +280,17 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                             if (noFile)
                             {
                                 notification.State = ProgressNotificationState.Cancelled;
-                                notification.Text = "No .sspm files found to import.";
+                                notification.Text = SpaceStrings.Get(
+                                    "No .sspm files found to import."
+                                );
                                 return;
                             }
 
-                            notification.Text =
-                                $"Importing Sound Space Plus map files ({current}/{total})...";
+                            notification.Text = SpaceStrings.Format(
+                                "Importing Sound Space Plus map files ({0}/{1})...",
+                                current,
+                                total
+                            );
                             notification.Progress = (float)current / total;
                             if (done)
                             {
@@ -296,7 +308,9 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
                 notifications?.Post(
                     new SimpleNotification
                     {
-                        Text = "An error occurred while importing .sspm files. Please try again.",
+                        Text = SpaceStrings.Get(
+                            "An error occurred while importing .sspm files. Please try again."
+                        ),
                         Icon = FontAwesome.Solid.ExclamationTriangle,
                     }
                 );
@@ -307,15 +321,22 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
         {
             public ImportConfirmationDialog(string path, Action onConfirm, Action onCancel)
             {
-                HeaderText = "Sound Space Plus maps folder detected";
-                BodyText = $"We found a maps folder at:\n{path}\nDo you want to import from here?";
+                HeaderText = SpaceStrings.Get("Sound Space Plus maps folder detected");
+                BodyText = SpaceStrings.Format(
+                    "We found a maps folder at:\n{0}\nDo you want to import from here?",
+                    path
+                );
                 Icon = FontAwesome.Solid.QuestionCircle;
                 Buttons =
                 [
-                    new PopupDialogOkButton { Text = "Yes, import these maps", Action = onConfirm },
+                    new PopupDialogOkButton
+                    {
+                        Text = SpaceStrings.Get("Yes, import these maps"),
+                        Action = onConfirm,
+                    },
                     new PopupDialogCancelButton
                     {
-                        Text = "No, I'll select manually",
+                        Text = SpaceStrings.Get("No, I'll select manually"),
                         Action = onCancel,
                     },
                 ];
@@ -326,21 +347,26 @@ namespace osu.Game.Rulesets.Space.Extension.SSPM
         {
             public ConfirmRebootToApply(Action onCancel)
             {
-                HeaderText = "osu!space need you to restart the game";
-                BodyText =
-                    "Since you have previously installed an earlier version of osu!space (below 2025.1214.0), and this update includes breaking changes. To use this feature, a game restart is required to apply the fixes. Please restart the game to ensure everything works correctly.";
+                HeaderText = SpaceStrings.Get("osu!space need you to restart the game");
+                BodyText = SpaceStrings.Get(
+                    "Since you have previously installed an earlier version of osu!space (below 2025.1214.0), and this update includes breaking changes. To use this feature, a game restart is required to apply the fixes. Please restart the game to ensure everything works correctly."
+                );
                 Icon = FontAwesome.Solid.ExclamationTriangle;
                 Buttons =
                 [
                     new PopupDialogOkButton
                     {
-                        Text = "Restart now (quit the game)",
+                        Text = SpaceStrings.Get("Restart now (quit the game)"),
                         Action = () =>
                         {
                             Environment.Exit(0);
                         },
                     },
-                    new PopupDialogCancelButton { Text = "Later", Action = onCancel },
+                    new PopupDialogCancelButton
+                    {
+                        Text = SpaceStrings.Get("Later"),
+                        Action = onCancel,
+                    },
                 ];
             }
         }

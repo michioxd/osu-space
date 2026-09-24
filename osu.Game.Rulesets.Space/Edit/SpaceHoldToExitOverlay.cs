@@ -15,6 +15,7 @@ using osu.Game.Graphics;
 using osu.Game.Graphics.Containers;
 using osu.Game.Graphics.Sprites;
 using osu.Game.Input.Bindings;
+using osu.Game.Rulesets.Space.Localisation;
 using osu.Game.Screens.Edit;
 using osuTK;
 using osuTK.Graphics;
@@ -111,7 +112,7 @@ namespace osu.Game.Rulesets.Space.Edit
                                                 weight: FontWeight.Bold
                                             ),
                                             Colour = Color4.White,
-                                            Text = "Hold to exit",
+                                            Text = SpaceStrings.Get("Hold to exit"),
                                         },
                                     },
                                 },

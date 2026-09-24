@@ -18,6 +18,7 @@ using osu.Game.Rulesets.Edit;
 using osu.Game.Rulesets.Edit.Tools;
 using osu.Game.Rulesets.Mods;
 using osu.Game.Rulesets.Space.Edit.Compose.Components;
+using osu.Game.Rulesets.Space.Localisation;
 using osu.Game.Rulesets.Space.Objects;
 using osu.Game.Rulesets.UI;
 using osu.Game.Screens.Edit;
@@ -172,7 +173,10 @@ namespace osu.Game.Rulesets.Space.Edit
                 notifications?.Post(
                     new SimpleNotification
                     {
-                        Text = $"Beatmap saved to {System.IO.Path.GetFileName(path)}",
+                        Text = SpaceStrings.Format(
+                            "Beatmap saved to {0}",
+                            System.IO.Path.GetFileName(path)
+                        ),
                     }
                 );
             }
@@ -180,7 +184,10 @@ namespace osu.Game.Rulesets.Space.Edit
             {
                 Logger.Error(ex, $"Failed to save beatmap to: {path}");
                 notifications?.Post(
-                    new SimpleNotification { Text = $"Failed to save beatmap: {ex.Message}" }
+                    new SimpleNotification
+                    {
+                        Text = SpaceStrings.Format("Failed to save beatmap: {0}", ex.Message),
+                    }
                 );
             }
         }
@@ -206,7 +213,9 @@ namespace osu.Game.Rulesets.Space.Edit
                     notifications?.Post(
                         new SimpleNotification
                         {
-                            Text = "Beatmap was saved directly to local database.",
+                            Text = SpaceStrings.Get(
+                                "Beatmap was saved directly to local database."
+                            ),
                         }
                     );
                 }
@@ -214,7 +223,10 @@ namespace osu.Game.Rulesets.Space.Edit
                 {
                     Logger.Error(ex, "Direct beatmap save to database failed.");
                     notifications?.Post(
-                        new SimpleNotification { Text = $"Direct save failed: {ex.Message}" }
+                        new SimpleNotification
+                        {
+                            Text = SpaceStrings.Format("Direct save failed: {0}", ex.Message),
+                        }
                     );
                 }
             };

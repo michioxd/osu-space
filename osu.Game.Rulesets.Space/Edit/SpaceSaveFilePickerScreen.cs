@@ -14,6 +14,7 @@ using osu.Game.Graphics.UserInterfaceV2;
 using osu.Game.Input.Bindings;
 using osu.Game.Overlays;
 using osu.Game.Overlays.Settings;
+using osu.Game.Rulesets.Space.Localisation;
 using osu.Game.Screens.OnlinePlay.Match.Components;
 using osuTK;
 using osuTK.Input;
@@ -111,8 +112,12 @@ namespace osu.Game.Rulesets.Space.Edit
                                         Anchor = Anchor.Centre,
                                         Origin = Anchor.Centre,
                                         Text = isImport
-                                            ? "Please select a beatmap file to import:"
-                                            : "Please select where to save this beatmap:",
+                                            ? SpaceStrings.Get(
+                                                "Please select a beatmap file to import:"
+                                            )
+                                            : SpaceStrings.Get(
+                                                "Please select where to save this beatmap:"
+                                            ),
                                         Font = OsuFont.Default.With(size: 20),
                                     },
                                 },
@@ -224,7 +229,7 @@ namespace osu.Game.Rulesets.Space.Edit
                     new SettingsItemV2(
                         fileNameTxt = new FormTextBox
                         {
-                            Caption = "File name",
+                            Caption = SpaceStrings.Get("File name"),
                             RelativeSizeAxes = Axes.X,
                             Anchor = Anchor.Centre,
                             Origin = Anchor.Centre,
@@ -241,7 +246,7 @@ namespace osu.Game.Rulesets.Space.Edit
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
                     Width = 80,
-                    Text = "Cancel",
+                    Text = SpaceStrings.Get("Cancel"),
                     Action = Hide,
                 }
             );
@@ -251,7 +256,7 @@ namespace osu.Game.Rulesets.Space.Edit
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
                 Width = 80,
-                Text = isImport ? "Import" : "Save",
+                Text = isImport ? SpaceStrings.Get("Import") : SpaceStrings.Get("Save"),
                 Action = confirmSelection,
                 Enabled = { Value = false },
             };
@@ -265,7 +270,7 @@ namespace osu.Game.Rulesets.Space.Edit
                         Anchor = Anchor.Centre,
                         Origin = Anchor.Centre,
                         Width = 240,
-                        Text = "Save directly (NOT RECOMMENDED)",
+                        Text = SpaceStrings.Get("Save directly (NOT RECOMMENDED)"),
                         Action = () =>
                         {
                             Hide();

@@ -30,6 +30,7 @@ using osu.Game.Overlays.Notifications;
 using osu.Game.Overlays.Settings;
 using osu.Game.Rulesets.Space.Configuration;
 using osu.Game.Rulesets.Space.Extension.SSPM;
+using osu.Game.Rulesets.Space.Localisation;
 using osu.Game.Rulesets.Space.UI;
 using osu.Game.Rulesets.UI;
 using osu.Game.Screens.Menu;
@@ -109,27 +110,27 @@ namespace osu.Game.Rulesets.Space
                 header,
                 new SettingsButtonV2
                 {
-                    Text = "GitHub Repository",
+                    Text = SpaceStrings.Get("GitHub Repository"),
                     Action = () => host.OpenUrlExternally("https://github.com/michioxd/osu-space"),
                     BackgroundColour = colours.YellowDark,
                 },
                 checkForUpdatesButton = new SettingsButtonV2
                 {
-                    Text = "Check for Updates",
+                    Text = SpaceStrings.Get("Check for Updates"),
                     Action = checkRulesetUpdate,
                     BackgroundColour = colours.BlueDark,
                 },
                 new SettingsButtonV2
                 {
-                    Text = "Import Sound Space Plus map (.sspm) (WIP)",
+                    Text = SpaceStrings.Get("Import Sound Space Plus map (.sspm) (WIP)"),
                     Action = importSSPM,
                 },
                 new DangerousSettingsButtonV2
                 {
-                    Text = "Delete all osu!space beatmaps",
+                    Text = SpaceStrings.Get("Delete all osu!space beatmaps"),
                     Action = deleteAllBeatmaps,
                 },
-                new CreateHeader("Playfield"),
+                new CreateHeader(SpaceStrings.Get("Playfield")),
                 new SettingsItemV2(
                     new FormEnumDropdown<PlayfieldBorderStyle>
                     {
@@ -142,15 +143,17 @@ namespace osu.Game.Rulesets.Space
                 new SettingsItemV2(
                     new FormCheckBox
                     {
-                        Caption = "Enable Grid",
+                        Caption = SpaceStrings.Get("Enable Grid"),
                         Current = config.GetBindable<bool>(SpaceRulesetSetting.EnableGrid),
                     }
                 ),
                 new SettingsItemV2(
                     new FormSliderBar<float>
                     {
-                        Caption = "Playfield Scale",
-                        HintText = "Scale of the playfield (higher values = larger playfield)",
+                        Caption = SpaceStrings.Get("Playfield Scale"),
+                        HintText = SpaceStrings.Get(
+                            "Scale of the playfield (higher values = larger playfield)"
+                        ),
                         Current = config.GetBindable<float>(SpaceRulesetSetting.ScalePlayfield),
                         KeyboardStep = 0.05f,
                     }
@@ -166,16 +169,17 @@ namespace osu.Game.Rulesets.Space
                 new SettingsItemV2(
                     new FormCheckBox
                     {
-                        Caption = "Show Cursor Trail",
+                        Caption = SpaceStrings.Get("Show Cursor Trail"),
                         Current = config.GetBindable<bool>(SpaceRulesetSetting.ShowCursorTrail),
                     }
                 ),
                 new SettingsItemV2(
                     new FormEnumDropdown<SpaceTouchInputType>
                     {
-                        Caption = "Touch Input Type",
-                        HintText =
-                            "Only for touch devices. Relative: Touch input moves the cursor relative to its current position. Absolute: Touch input sets the cursor position directly to the touched position.",
+                        Caption = SpaceStrings.Get("Touch Input Type"),
+                        HintText = SpaceStrings.Get(
+                            "Only for touch devices. Relative: Touch input moves the cursor relative to its current position. Absolute: Touch input sets the cursor position directly to the touched position."
+                        ),
                         Current = config.GetBindable<SpaceTouchInputType>(
                             SpaceRulesetSetting.TouchInputType
                         ),
@@ -184,9 +188,10 @@ namespace osu.Game.Rulesets.Space
                 new SettingsItemV2(
                     new FormSliderBar<float>
                     {
-                        Caption = "Touch Sensitivity",
-                        HintText =
-                            "Only for touch devices and Touch Input Type is set to Relative. Sensitivity of touch input (higher values = more sensitive).",
+                        Caption = SpaceStrings.Get("Touch Sensitivity"),
+                        HintText = SpaceStrings.Get(
+                            "Only for touch devices and Touch Input Type is set to Relative. Sensitivity of touch input (higher values = more sensitive)."
+                        ),
                         Current = config.GetBindable<float>(SpaceRulesetSetting.TouchSensitivity),
                         TransferValueOnCommit = true,
                         LabelFormat = v => $@"{v:0.##}x",
@@ -194,13 +199,14 @@ namespace osu.Game.Rulesets.Space
                         TooltipFormat = v => $@"{v:0.##}x",
                     }
                 ),
-                new CreateHeader("Notes"),
+                new CreateHeader(SpaceStrings.Get("Notes")),
                 new SettingsItemV2(
                     new FormEnumDropdown<SpacePalette>
                     {
-                        Caption = "Note Color Palette",
-                        HintText =
-                            "Changes the colors of the notes. Some colors extracted from Sound Space Plus (Rhythia)",
+                        Caption = SpaceStrings.Get("Note Color Palette"),
+                        HintText = SpaceStrings.Get(
+                            "Changes the colors of the notes. Some colors extracted from Sound Space Plus (Rhythia)"
+                        ),
                         Current = config.GetBindable<SpacePalette>(SpaceRulesetSetting.Palette),
                     }
                 ),
@@ -208,8 +214,8 @@ namespace osu.Game.Rulesets.Space
                 new SettingsItemV2(
                     new FormSliderBar<float>
                     {
-                        Caption = "Note Thickness",
-                        HintText = "Thickness of the notes' borders",
+                        Caption = SpaceStrings.Get("Note Thickness"),
+                        HintText = SpaceStrings.Get("Thickness of the notes' borders"),
                         Current = config.GetBindable<float>(SpaceRulesetSetting.NoteThickness),
                         KeyboardStep = 0.5f,
                     }
@@ -217,8 +223,8 @@ namespace osu.Game.Rulesets.Space
                 new SettingsItemV2(
                     new FormSliderBar<float>
                     {
-                        Caption = "Note Corner Radius",
-                        HintText = "Roundness of the notes' corners",
+                        Caption = SpaceStrings.Get("Note Corner Radius"),
+                        HintText = SpaceStrings.Get("Roundness of the notes' corners"),
                         Current = config.GetBindable<float>(SpaceRulesetSetting.NoteCornerRadius),
                         KeyboardStep = 0.5f,
                     }
@@ -226,8 +232,10 @@ namespace osu.Game.Rulesets.Space
                 new SettingsItemV2(
                     new FormSliderBar<float>
                     {
-                        Caption = "Note Opacity",
-                        HintText = "How opaque/transparent/visible the note appears",
+                        Caption = SpaceStrings.Get("Note Opacity"),
+                        HintText = SpaceStrings.Get(
+                            "How opaque/transparent/visible the note appears"
+                        ),
                         Current = config.GetBindable<float>(SpaceRulesetSetting.noteOpacity),
                         KeyboardStep = 0.01f,
                         DisplayAsPercentage = true,
@@ -236,8 +244,10 @@ namespace osu.Game.Rulesets.Space
                 new SettingsItemV2(
                     new FormSliderBar<float>
                     {
-                        Caption = "Note Scale",
-                        HintText = "The visual size of the notes (doesn't affect hitboxes)",
+                        Caption = SpaceStrings.Get("Note Scale"),
+                        HintText = SpaceStrings.Get(
+                            "The visual size of the notes (doesn't affect hitboxes)"
+                        ),
                         Current = config.GetBindable<float>(SpaceRulesetSetting.noteScale),
                         KeyboardStep = 0.05f,
                     }
@@ -245,27 +255,30 @@ namespace osu.Game.Rulesets.Space
                 new SettingsItemV2(
                     new FormCheckBox
                     {
-                        Caption = "Note Glow",
-                        HintText =
-                            "Enables a glow effect on notes. Best used with 100% background dim and light note colors.",
+                        Caption = SpaceStrings.Get("Note Glow"),
+                        HintText = SpaceStrings.Get(
+                            "Enables a glow effect on notes. Best used with 100% background dim and light note colors."
+                        ),
                         Current = config.GetBindable<bool>(SpaceRulesetSetting.Glow),
                     }
                 ),
                 new SettingsItemV2(
                     new FormSliderBar<float>
                     {
-                        Caption = "Glow Strength",
-                        HintText = "Strength of the glow effect on notes",
+                        Caption = SpaceStrings.Get("Glow Strength"),
+                        HintText = SpaceStrings.Get("Strength of the glow effect on notes"),
                         Current = config.GetBindable<float>(SpaceRulesetSetting.GlowStrength),
                         KeyboardStep = 0.01f,
                     }
                 ),
-                new CreateHeader("Gameplay"),
+                new CreateHeader(SpaceStrings.Get("Gameplay")),
                 new SettingsItemV2(
                     new FormSliderBar<float>
                     {
-                        Caption = "Approach Rate",
-                        HintText = "The speed that note move toward the grid (m/s)",
+                        Caption = SpaceStrings.Get("Approach Rate"),
+                        HintText = SpaceStrings.Get(
+                            "The speed that note move toward the grid (m/s)"
+                        ),
                         Current = config.GetBindable<float>(SpaceRulesetSetting.approachRate),
                         KeyboardStep = 1f,
                     }
@@ -273,8 +286,8 @@ namespace osu.Game.Rulesets.Space
                 new SettingsItemV2(
                     new FormSliderBar<float>
                     {
-                        Caption = "Spawn Distance",
-                        HintText = "Distance from the grid that note spawn (m)",
+                        Caption = SpaceStrings.Get("Spawn Distance"),
+                        HintText = SpaceStrings.Get("Distance from the grid that note spawn (m)"),
                         Current = config.GetBindable<float>(SpaceRulesetSetting.spawnDistance),
                         KeyboardStep = 1f,
                     }
@@ -282,9 +295,10 @@ namespace osu.Game.Rulesets.Space
                 new SettingsItemV2(
                     new FormSliderBar<float>
                     {
-                        Caption = "Fade Length",
-                        HintText =
-                            "Percentage of the spawn distance that notes take to fade from invisible to fully opaque",
+                        Caption = SpaceStrings.Get("Fade Length"),
+                        HintText = SpaceStrings.Get(
+                            "Percentage of the spawn distance that notes take to fade from invisible to fully opaque"
+                        ),
                         Current = config.GetBindable<float>(SpaceRulesetSetting.fadeLength),
                         KeyboardStep = 0.01f,
                         DisplayAsPercentage = true,
@@ -293,26 +307,30 @@ namespace osu.Game.Rulesets.Space
                 new SettingsItemV2(
                     new FormCheckBox
                     {
-                        Caption = "Do not push back",
-                        HintText =
-                            "While enabled, notes will go past the grid when you miss, instead of always vanishing 0.2 units past the grid",
+                        Caption = SpaceStrings.Get("Do not push back"),
+                        HintText = SpaceStrings.Get(
+                            "While enabled, notes will go past the grid when you miss, instead of always vanishing 0.2 units past the grid"
+                        ),
                         Current = config.GetBindable<bool>(SpaceRulesetSetting.doNotPushBack),
                     }
                 ),
                 new SettingsItemV2(
                     new FormCheckBox
                     {
-                        Caption = "Half ghost",
-                        HintText = "Useful for patterns that fill the whole screen",
+                        Caption = SpaceStrings.Get("Half ghost"),
+                        HintText = SpaceStrings.Get(
+                            "Useful for patterns that fill the whole screen"
+                        ),
                         Current = config.GetBindable<bool>(SpaceRulesetSetting.halfGhost),
                     }
                 ),
                 new SettingsItemV2(
                     new FormSliderBar<float>
                     {
-                        Caption = "Parallax Strength",
-                        HintText =
-                            "Strength of the parallax effect on the playfield (higher values = stronger effect, 0 = disable)",
+                        Caption = SpaceStrings.Get("Parallax Strength"),
+                        HintText = SpaceStrings.Get(
+                            "Strength of the parallax effect on the playfield (higher values = stronger effect, 0 = disable)"
+                        ),
                         Current = config.GetBindable<float>(SpaceRulesetSetting.Parallax),
                         KeyboardStep = 0.1f,
                     }
@@ -320,9 +338,10 @@ namespace osu.Game.Rulesets.Space
                 new SettingsItemV2(
                     new FormSliderBar<float>
                     {
-                        Caption = "Hit Window",
-                        HintText =
-                            "The length of time notes can be hit after reaching the grid (default 25ms, rhythia def 55ms)",
+                        Caption = SpaceStrings.Get("Hit Window"),
+                        HintText = SpaceStrings.Get(
+                            "The length of time notes can be hit after reaching the grid (default 25ms, rhythia def 55ms)"
+                        ),
                         Current = config.GetBindable<float>(SpaceRulesetSetting.HitWindow),
                         KeyboardStep = 1f,
                     }
@@ -391,7 +410,9 @@ namespace osu.Game.Rulesets.Space
                         notifications?.Post(
                             new SimpleNotification
                             {
-                                Text = "All osu!space beatmaps added to deletion queue.",
+                                Text = SpaceStrings.Get(
+                                    "All osu!space beatmaps added to deletion queue."
+                                ),
                                 Icon = FontAwesome.Solid.Trash,
                             }
                         );
@@ -402,7 +423,7 @@ namespace osu.Game.Rulesets.Space
 
         private new partial class CreateHeader : LinkFlowContainer
         {
-            public CreateHeader(string text)
+            public CreateHeader(LocalisableString text)
                 : base(t => t.Font = OsuFont.GetFont(size: 16))
             {
                 RelativeSizeAxes = Axes.X;
@@ -415,7 +436,7 @@ namespace osu.Game.Rulesets.Space
         private void checkRulesetUpdate()
         {
             checkForUpdatesButton.Enabled.Value = false;
-            checkForUpdatesButton.Text = "Checking...";
+            checkForUpdatesButton.Text = SpaceStrings.Get("Checking...");
             try
             {
                 var req = new JsonWebRequest<JObject>("https://michioxd.ch/osu-space/update.json");
@@ -459,8 +480,9 @@ namespace osu.Game.Rulesets.Space
                                     notifications?.Post(
                                         new SimpleNotification
                                         {
-                                            Text =
-                                                "You are running the latest version of osu!space!",
+                                            Text = SpaceStrings.Get(
+                                                "You are running the latest version of osu!space!"
+                                            ),
                                             Icon = FontAwesome.Solid.CheckCircle,
                                         }
                                     );
@@ -472,8 +494,9 @@ namespace osu.Game.Rulesets.Space
                             notifications?.Post(
                                 new SimpleNotification
                                 {
-                                    Text =
-                                        "Failed to check for updates. Please check your internet connection.",
+                                    Text = SpaceStrings.Get(
+                                        "Failed to check for updates. Please check your internet connection."
+                                    ),
                                     Icon = FontAwesome.Solid.TimesCircle,
                                 }
                             );
@@ -483,7 +506,7 @@ namespace osu.Game.Rulesets.Space
                         finally
                         {
                             checkForUpdatesButton.Enabled.Value = true;
-                            checkForUpdatesButton.Text = "Check for Updates";
+                            checkForUpdatesButton.Text = SpaceStrings.Get("Check for Updates");
                         }
                     });
                 };
@@ -494,13 +517,13 @@ namespace osu.Game.Rulesets.Space
                 notifications?.Post(
                     new SimpleNotification
                     {
-                        Text = "Failed to check for updates.",
+                        Text = SpaceStrings.Get("Failed to check for updates."),
                         Icon = FontAwesome.Solid.TimesCircle,
                     }
                 );
                 Logger.Error(e, "Failed to check for updates", "osu!space");
                 checkForUpdatesButton.Enabled.Value = true;
-                checkForUpdatesButton.Text = "Check for Updates";
+                checkForUpdatesButton.Text = SpaceStrings.Get("Check for Updates");
             }
         }
 
@@ -513,9 +536,12 @@ namespace osu.Game.Rulesets.Space
                 GameHost host
             )
             {
-                HeaderText = $"New version of osu!space are available!";
-                BodyText =
-                    $"Your current version is {SpaceRuleset.VERSION_STRING} and the latest version is {version}. Do you want to download it or visit the release page of this version?";
+                HeaderText = SpaceStrings.Get("New version of osu!space are available!");
+                BodyText = SpaceStrings.Format(
+                    "Your current version is {0} and the latest version is {1}. Do you want to download it or visit the release page of this version?",
+                    SpaceRuleset.VERSION_STRING,
+                    version
+                );
 
                 Icon = FontAwesome.Solid.Download;
 
@@ -523,15 +549,15 @@ namespace osu.Game.Rulesets.Space
                 [
                     new PopupDialogOkButton
                     {
-                        Text = "View Release",
+                        Text = SpaceStrings.Get("View Release"),
                         Action = () => host.OpenUrlExternally(releaseUrl),
                     },
                     new PopupDialogOkButton
                     {
-                        Text = "Download",
+                        Text = SpaceStrings.Get("Download"),
                         Action = () => host.OpenUrlExternally(downloadUrl),
                     },
-                    new PopupDialogCancelButton { Text = "Cancel" },
+                    new PopupDialogCancelButton { Text = SpaceStrings.Get("Cancel") },
                 ];
             }
         }
@@ -540,9 +566,10 @@ namespace osu.Game.Rulesets.Space
         {
             public DeleteAllBeatmapDialog(Action delete)
             {
-                HeaderText = $"Delete all osu!space beatmaps?";
-                BodyText =
-                    $"Are you sure you want to delete all osu!space beatmaps? This action cannot be undone.";
+                HeaderText = SpaceStrings.Get("Delete all osu!space beatmaps?");
+                BodyText = SpaceStrings.Get(
+                    "Are you sure you want to delete all osu!space beatmaps? This action cannot be undone."
+                );
 
                 Icon = FontAwesome.Solid.Trash;
 
@@ -550,10 +577,10 @@ namespace osu.Game.Rulesets.Space
                 [
                     new PopupDialogDangerousButton
                     {
-                        Text = "Delete All Beatmaps",
+                        Text = SpaceStrings.Get("Delete All Beatmaps"),
                         Action = delete,
                     },
-                    new PopupDialogCancelButton { Text = "Lemme think again..." },
+                    new PopupDialogCancelButton { Text = SpaceStrings.Get("Lemme think again...") },
                 ];
             }
         }
