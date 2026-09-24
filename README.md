@@ -69,7 +69,7 @@ Everything fine now but the editor is currently unable to save maps using the of
 
 Contributions are welcome! If you'd like to contribute, please fork the repository and create a pull request.
 
-You can also contribute new color palettes for the game by opening an issue if you prefer not to code.
+You can also help translate osu!space on [Crowdin](https://crowdin.com/project/osu-space).
 
 ## Have fun
 
