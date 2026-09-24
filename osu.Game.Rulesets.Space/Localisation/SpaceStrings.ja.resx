@@ -1,101 +1,297 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
-  <resheader name="version"><value>2.0</value></resheader>
-  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms</value></resheader>
-  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
-  <data name="GitHub Repository"><value>GitHubリポジトリ</value></data>
-  <data name="Check for Updates"><value>アップデートを確認</value></data>
-  <data name="Import Sound Space Plus map (.sspm) (WIP)"><value>Sound Space Plusのマップ（.sspm）をインポート（開発中）</value></data>
-  <data name="Delete all osu!space beatmaps"><value>すべてのosu!spaceビートマップを削除</value></data>
-  <data name="Playfield"><value>プレイフィールド</value></data>
-  <data name="Enable Grid"><value>グリッドを有効にする</value></data>
-  <data name="Playfield Scale"><value>プレイフィールドの拡大率</value></data>
-  <data name="Scale of the playfield (higher values = larger playfield)"><value>プレイフィールドの大きさ（値が大きいほど拡大）</value></data>
-  <data name="Show Cursor Trail"><value>カーソルの軌跡を表示</value></data>
-  <data name="Touch Input Type"><value>タッチ入力方式</value></data>
-  <data name="Only for touch devices. Relative: Touch input moves the cursor relative to its current position. Absolute: Touch input sets the cursor position directly to the touched position."><value>タッチデバイス専用。相対：現在位置からカーソルを移動します。絶対：タッチした位置にカーソルを直接移動します。</value></data>
-  <data name="Touch Sensitivity"><value>タッチ感度</value></data>
-  <data name="Only for touch devices and Touch Input Type is set to Relative. Sensitivity of touch input (higher values = more sensitive)."><value>相対方式のタッチデバイス専用。値が大きいほど感度が高くなります。</value></data>
-  <data name="Notes"><value>ノーツ</value></data>
-  <data name="Note Color Palette"><value>ノーツのカラーパレット</value></data>
-  <data name="Changes the colors of the notes. Some colors extracted from Sound Space Plus (Rhythia)"><value>ノーツの色を変更します。一部の色はSound Space Plus（Rhythia）から取得しています。</value></data>
-  <data name="Note Thickness"><value>ノーツの枠線の太さ</value></data>
-  <data name="Thickness of the notes' borders"><value>ノーツの枠線の太さを変更します。</value></data>
-  <data name="Note Corner Radius"><value>ノーツの角の丸み</value></data>
-  <data name="Roundness of the notes' corners"><value>ノーツの角を丸くします。</value></data>
-  <data name="Note Opacity"><value>ノーツの不透明度</value></data>
-  <data name="How opaque/transparent/visible the note appears"><value>ノーツの見えやすさを変更します。</value></data>
-  <data name="Note Scale"><value>ノーツの大きさ</value></data>
-  <data name="The visual size of the notes (doesn't affect hitboxes)"><value>ノーツの見た目の大きさ（判定範囲には影響しません）</value></data>
-  <data name="Note Glow"><value>ノーツの発光</value></data>
-  <data name="Enables a glow effect on notes. Best used with 100% background dim and light note colors."><value>ノーツの発光を有効にします。背景を100%暗くし、明るいノーツ色を使うと効果的です。</value></data>
-  <data name="Glow Strength"><value>発光の強さ</value></data>
-  <data name="Strength of the glow effect on notes"><value>ノーツの発光効果の強さを変更します。</value></data>
-  <data name="Gameplay"><value>ゲームプレイ</value></data>
-  <data name="Approach Rate"><value>接近速度</value></data>
-  <data name="The speed that note move toward the grid (m/s)"><value>ノーツがグリッドに向かう速度（m/s）</value></data>
-  <data name="Spawn Distance"><value>出現距離</value></data>
-  <data name="Distance from the grid that note spawn (m)"><value>グリッドからノーツの出現位置までの距離（m）</value></data>
-  <data name="Fade Length"><value>フェードイン距離</value></data>
-  <data name="Percentage of the spawn distance that notes take to fade from invisible to fully opaque"><value>ノーツが透明から完全に表示されるまでの、出現距離に対する割合</value></data>
-  <data name="Do not push back"><value>押し戻さない</value></data>
-  <data name="While enabled, notes will go past the grid when you miss, instead of always vanishing 0.2 units past the grid"><value>有効にすると、ミスしたノーツはグリッドの0.2単位先で消えず、そのまま通過します。</value></data>
-  <data name="Half ghost"><value>ハーフゴースト</value></data>
-  <data name="Useful for patterns that fill the whole screen"><value>画面全体を覆う配置に便利です。</value></data>
-  <data name="Parallax Strength"><value>視差効果の強さ</value></data>
-  <data name="Strength of the parallax effect on the playfield (higher values = stronger effect, 0 = disable)"><value>プレイフィールドの視差効果の強さ（値が大きいほど強く、0で無効）</value></data>
-  <data name="Hit Window"><value>判定時間</value></data>
-  <data name="The length of time notes can be hit after reaching the grid (default 25ms, rhythia def 55ms)"><value>ノーツがグリッドに到達してから叩ける時間（既定値25ms、Rhythiaの既定値55ms）</value></data>
-  <data name="Checking..."><value>確認中...</value></data>
-  <data name="You are running the latest version of osu!space!"><value>osu!spaceは最新版です！</value></data>
-  <data name="Failed to check for updates. Please check your internet connection."><value>アップデートを確認できませんでした。インターネット接続を確認してください。</value></data>
-  <data name="Failed to check for updates."><value>アップデートを確認できませんでした。</value></data>
-  <data name="All osu!space beatmaps added to deletion queue."><value>すべてのosu!spaceビートマップを削除キューに追加しました。</value></data>
-  <data name="New version of osu!space are available!"><value>osu!spaceの新しいバージョンがあります！</value></data>
-  <data name="Your current version is {0} and the latest version is {1}. Do you want to download it or visit the release page of this version?"><value>現在のバージョンは{0}、最新バージョンは{1}です。ダウンロードしますか？それともリリースページを開きますか？</value></data>
-  <data name="View Release"><value>リリースページを見る</value></data>
-  <data name="Download"><value>ダウンロード</value></data>
-  <data name="Cancel"><value>キャンセル</value></data>
-  <data name="Delete all osu!space beatmaps?"><value>すべてのosu!spaceビートマップを削除しますか？</value></data>
-  <data name="Are you sure you want to delete all osu!space beatmaps? This action cannot be undone."><value>すべてのosu!spaceビートマップを削除しますか？この操作は元に戻せません。</value></data>
-  <data name="Delete All Beatmaps"><value>すべてのビートマップを削除</value></data>
-  <data name="Lemme think again..."><value>もう一度考える...</value></data>
-  <data name="Please select a folder containing .sspm files"><value>.sspmファイルを含むフォルダーを選択してください</value></data>
-  <data name="Import"><value>インポート</value></data>
-  <data name="Try to locate the Rhythia (SSP) folder"><value>Rhythia（SSP）フォルダーを探す</value></data>
-  <data name="Please select a beatmap file to import:"><value>インポートするビートマップファイルを選択してください：</value></data>
-  <data name="Please select where to save this beatmap:"><value>ビートマップの保存先を選択してください：</value></data>
-  <data name="File name"><value>ファイル名</value></data>
-  <data name="Save"><value>保存</value></data>
-  <data name="Save directly (NOT RECOMMENDED)"><value>直接保存（非推奨）</value></data>
-  <data name="Hold to exit"><value>長押しで終了</value></data>
-  <data name="Where's the cursor?"><value>カーソルはどこ？</value></data>
-  <data name="No objects selected"><value>オブジェクトが選択されていません</value></data>
-  <data name="Selected object is not a Space hit object"><value>選択したオブジェクトはSpaceのノーツではありません</value></data>
-  <data name="Time"><value>時間</value></data>
-  <data name="Position"><value>位置</value></data>
-  <data name="Index"><value>インデックス</value></data>
-  <data name="Selected Objects"><value>選択中のオブジェクト</value></data>
-  <data name="Start Time"><value>開始時間</value></data>
-  <data name="End Time"><value>終了時間</value></data>
-  <data name="No Sound Space Plus maps folder was detected, or no .sspm files were found inside that. Please select the folder manually."><value>Sound Space Plusのマップフォルダー、またはその中の.sspmファイルが見つかりませんでした。フォルダーを手動で選択してください。</value></data>
-  <data name="No .sspm files found in the selected directory. Please select a different folder."><value>選択したフォルダーに.sspmファイルがありません。別のフォルダーを選択してください。</value></data>
-  <data name="Importing Sound Space Plus map files..."><value>Sound Space Plusのマップをインポート中...</value></data>
-  <data name="Import Sound Space Plus map complete!"><value>Sound Space Plusのマップのインポートが完了しました！</value></data>
-  <data name="No .sspm files found to import."><value>インポートする.sspmファイルがありません。</value></data>
-  <data name="Importing Sound Space Plus map files ({0}/{1})..."><value>Sound Space Plusのマップをインポート中（{0}/{1}）...</value></data>
-  <data name="An error occurred while importing .sspm files. Please try again."><value>.sspmファイルのインポート中にエラーが発生しました。もう一度お試しください。</value></data>
-  <data name="Sound Space Plus maps folder detected"><value>Sound Space Plusのマップフォルダーが見つかりました</value></data>
-  <data name="We found a maps folder at:&#10;{0}&#10;Do you want to import from here?"><value>マップフォルダーが見つかりました：&#10;{0}&#10;ここからインポートしますか？</value></data>
-  <data name="Yes, import these maps"><value>はい、マップをインポート</value></data>
-  <data name="No, I'll select manually"><value>いいえ、手動で選択します</value></data>
-  <data name="osu!space need you to restart the game"><value>osu!spaceを使用するにはゲームの再起動が必要です</value></data>
-  <data name="Since you have previously installed an earlier version of osu!space (below 2025.1214.0), and this update includes breaking changes. To use this feature, a game restart is required to apply the fixes. Please restart the game to ensure everything works correctly."><value>以前のosu!space（2025.1214.0より前）をインストールしていたため、この更新の変更を適用するにはゲームの再起動が必要です。正常に動作させるために再起動してください。</value></data>
-  <data name="Restart now (quit the game)"><value>今すぐ再起動（ゲームを終了）</value></data>
-  <data name="Later"><value>後で</value></data>
-  <data name="Beatmap saved to {0}"><value>ビートマップを{0}に保存しました</value></data>
-  <data name="Failed to save beatmap: {0}"><value>ビートマップを保存できませんでした：{0}</value></data>
-  <data name="Beatmap was saved directly to local database."><value>ビートマップをローカルデータベースに直接保存しました。</value></data>
-  <data name="Direct save failed: {0}"><value>直接保存できませんでした：{0}</value></data>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
+  </resheader>
+  <data name="GitHub Repository">
+    <value>GitHubリポジトリ</value>
+  </data>
+  <data name="Check for Updates">
+    <value>アップデートを確認</value>
+  </data>
+  <data name="Import Sound Space Plus map (.sspm) (WIP)">
+    <value>Sound Space Plusのマップ（.sspm）をインポート（開発中）</value>
+  </data>
+  <data name="Delete all osu!space beatmaps">
+    <value>すべてのosu!spaceビートマップを削除</value>
+  </data>
+  <data name="Playfield">
+    <value>プレイフィールド</value>
+  </data>
+  <data name="Enable Grid">
+    <value>グリッドを有効にする</value>
+  </data>
+  <data name="Playfield Scale">
+    <value>プレイフィールドの拡大率</value>
+  </data>
+  <data name="Scale of the playfield (higher values = larger playfield)">
+    <value>プレイフィールドの大きさ（値が大きいほど拡大）</value>
+  </data>
+  <data name="Show Cursor Trail">
+    <value>カーソルの軌跡を表示</value>
+  </data>
+  <data name="Touch Input Type">
+    <value>タッチ入力方式</value>
+  </data>
+  <data name="Only for touch devices. Relative: Touch input moves the cursor relative to its current position. Absolute: Touch input sets the cursor position directly to the touched position.">
+    <value>タッチデバイス専用。相対：現在位置からカーソルを移動します。絶対：タッチした位置にカーソルを直接移動します。</value>
+  </data>
+  <data name="Touch Sensitivity">
+    <value>タッチ感度</value>
+  </data>
+  <data name="Only for touch devices and Touch Input Type is set to Relative. Sensitivity of touch input (higher values = more sensitive).">
+    <value>相対方式のタッチデバイス専用。値が大きいほど感度が高くなります。</value>
+  </data>
+  <data name="Notes">
+    <value>ノーツ</value>
+  </data>
+  <data name="Note Color Palette">
+    <value>ノーツのカラーパレット</value>
+  </data>
+  <data name="Changes the colors of the notes. Some colors extracted from Sound Space Plus (Rhythia)">
+    <value>ノーツの色を変更します。一部の色はSound Space Plus（Rhythia）から取得しています。</value>
+  </data>
+  <data name="Note Thickness">
+    <value>ノーツの枠線の太さ</value>
+  </data>
+  <data name="Thickness of the notes' borders">
+    <value>ノーツの枠線の太さを変更します。</value>
+  </data>
+  <data name="Note Corner Radius">
+    <value>ノーツの角の丸み</value>
+  </data>
+  <data name="Roundness of the notes' corners">
+    <value>ノーツの角を丸くします。</value>
+  </data>
+  <data name="Note Opacity">
+    <value>ノーツの不透明度</value>
+  </data>
+  <data name="How opaque/transparent/visible the note appears">
+    <value>ノーツの見えやすさを変更します。</value>
+  </data>
+  <data name="Note Scale">
+    <value>ノーツの大きさ</value>
+  </data>
+  <data name="The visual size of the notes (doesn't affect hitboxes)">
+    <value>ノーツの見た目の大きさ（判定範囲には影響しません）</value>
+  </data>
+  <data name="Note Glow">
+    <value>ノーツの発光</value>
+  </data>
+  <data name="Enables a glow effect on notes. Best used with 100% background dim and light note colors.">
+    <value>ノーツの発光を有効にします。背景を100%暗くし、明るいノーツ色を使うと効果的です。</value>
+  </data>
+  <data name="Glow Strength">
+    <value>発光の強さ</value>
+  </data>
+  <data name="Strength of the glow effect on notes">
+    <value>ノーツの発光効果の強さを変更します。</value>
+  </data>
+  <data name="Gameplay">
+    <value>ゲームプレイ</value>
+  </data>
+  <data name="Approach Rate">
+    <value>接近速度</value>
+  </data>
+  <data name="The speed that note move toward the grid (m/s)">
+    <value>ノーツがグリッドに向かう速度（m/s）</value>
+  </data>
+  <data name="Spawn Distance">
+    <value>出現距離</value>
+  </data>
+  <data name="Distance from the grid that note spawn (m)">
+    <value>グリッドからノーツの出現位置までの距離（m）</value>
+  </data>
+  <data name="Fade Length">
+    <value>フェードイン距離</value>
+  </data>
+  <data name="Percentage of the spawn distance that notes take to fade from invisible to fully opaque">
+    <value>ノーツが透明から完全に表示されるまでの、出現距離に対する割合</value>
+  </data>
+  <data name="Do not push back">
+    <value>押し戻さない</value>
+  </data>
+  <data name="While enabled, notes will go past the grid when you miss, instead of always vanishing 0.2 units past the grid">
+    <value>有効にすると、ミスしたノーツはグリッドの0.2単位先で消えず、そのまま通過します。</value>
+  </data>
+  <data name="Half ghost">
+    <value>ハーフゴースト</value>
+  </data>
+  <data name="Useful for patterns that fill the whole screen">
+    <value>画面全体を覆う配置に便利です。</value>
+  </data>
+  <data name="Parallax Strength">
+    <value>視差効果の強さ</value>
+  </data>
+  <data name="Strength of the parallax effect on the playfield (higher values = stronger effect, 0 = disable)">
+    <value>プレイフィールドの視差効果の強さ（値が大きいほど強く、0で無効）</value>
+  </data>
+  <data name="Hit Window">
+    <value>判定時間</value>
+  </data>
+  <data name="The length of time notes can be hit after reaching the grid (default 25ms, rhythia def 55ms)">
+    <value>ノーツがグリッドに到達してから叩ける時間（既定値25ms、Rhythiaの既定値55ms）</value>
+  </data>
+  <data name="Checking...">
+    <value>確認中...</value>
+  </data>
+  <data name="You are running the latest version of osu!space!">
+    <value>osu!spaceは最新版です！</value>
+  </data>
+  <data name="Failed to check for updates. Please check your internet connection.">
+    <value>アップデートを確認できませんでした。インターネット接続を確認してください。</value>
+  </data>
+  <data name="Failed to check for updates.">
+    <value>アップデートを確認できませんでした。</value>
+  </data>
+  <data name="All osu!space beatmaps added to deletion queue.">
+    <value>すべてのosu!spaceビートマップを削除キューに追加しました。</value>
+  </data>
+  <data name="New version of osu!space are available!">
+    <value>osu!spaceの新しいバージョンがあります！</value>
+  </data>
+  <data name="Your current version is {0} and the latest version is {1}. Do you want to download it or visit the release page of this version?">
+    <value>現在のバージョンは{0}、最新バージョンは{1}です。ダウンロードしますか？それともリリースページを開きますか？</value>
+  </data>
+  <data name="View Release">
+    <value>リリースページを見る</value>
+  </data>
+  <data name="Download">
+    <value>ダウンロード</value>
+  </data>
+  <data name="Cancel">
+    <value>キャンセル</value>
+  </data>
+  <data name="Delete all osu!space beatmaps?">
+    <value>すべてのosu!spaceビートマップを削除しますか？</value>
+  </data>
+  <data name="Are you sure you want to delete all osu!space beatmaps? This action cannot be undone.">
+    <value>すべてのosu!spaceビートマップを削除しますか？この操作は元に戻せません。</value>
+  </data>
+  <data name="Delete All Beatmaps">
+    <value>すべてのビートマップを削除</value>
+  </data>
+  <data name="Lemme think again...">
+    <value>もう一度考える...</value>
+  </data>
+  <data name="Please select a folder containing .sspm files">
+    <value>.sspmファイルを含むフォルダーを選択してください</value>
+  </data>
+  <data name="Import">
+    <value>インポート</value>
+  </data>
+  <data name="Try to locate the Rhythia (SSP) folder">
+    <value>Rhythia（SSP）フォルダーを探す</value>
+  </data>
+  <data name="Please select a beatmap file to import:">
+    <value>インポートするビートマップファイルを選択してください：</value>
+  </data>
+  <data name="Please select where to save this beatmap:">
+    <value>ビートマップの保存先を選択してください：</value>
+  </data>
+  <data name="File name">
+    <value>ファイル名</value>
+  </data>
+  <data name="Save">
+    <value>保存</value>
+  </data>
+  <data name="Save directly (NOT RECOMMENDED)">
+    <value>直接保存（非推奨）</value>
+  </data>
+  <data name="Hold to exit">
+    <value>長押しで終了</value>
+  </data>
+  <data name="Where's the cursor?">
+    <value>カーソルはどこ？</value>
+  </data>
+  <data name="No objects selected">
+    <value>オブジェクトが選択されていません</value>
+  </data>
+  <data name="Selected object is not a Space hit object">
+    <value>選択したオブジェクトはSpaceのノーツではありません</value>
+  </data>
+  <data name="Time">
+    <value>時間</value>
+  </data>
+  <data name="Position">
+    <value>位置</value>
+  </data>
+  <data name="Index">
+    <value>インデックス</value>
+  </data>
+  <data name="Selected Objects">
+    <value>選択中のオブジェクト</value>
+  </data>
+  <data name="Start Time">
+    <value>開始時間</value>
+  </data>
+  <data name="End Time">
+    <value>終了時間</value>
+  </data>
+  <data name="No Sound Space Plus maps folder was detected, or no .sspm files were found inside that. Please select the folder manually.">
+    <value>Sound Space Plusのマップフォルダー、またはその中の.sspmファイルが見つかりませんでした。フォルダーを手動で選択してください。</value>
+  </data>
+  <data name="No .sspm files found in the selected directory. Please select a different folder.">
+    <value>選択したフォルダーに.sspmファイルがありません。別のフォルダーを選択してください。</value>
+  </data>
+  <data name="Importing Sound Space Plus map files...">
+    <value>Sound Space Plusのマップをインポート中...</value>
+  </data>
+  <data name="Import Sound Space Plus map complete!">
+    <value>Sound Space Plusのマップのインポートが完了しました！</value>
+  </data>
+  <data name="No .sspm files found to import.">
+    <value>インポートする.sspmファイルがありません。</value>
+  </data>
+  <data name="Importing Sound Space Plus map files ({0}/{1})...">
+    <value>Sound Space Plusのマップをインポート中（{0}/{1}）...</value>
+  </data>
+  <data name="An error occurred while importing .sspm files. Please try again.">
+    <value>.sspmファイルのインポート中にエラーが発生しました。もう一度お試しください。</value>
+  </data>
+  <data name="Sound Space Plus maps folder detected">
+    <value>Sound Space Plusのマップフォルダーが見つかりました</value>
+  </data>
+  <data name="We found a maps folder at:&#10;{0}&#10;Do you want to import from here?">
+    <value>マップフォルダーが見つかりました：&#10;{0}&#10;ここからインポートしますか？</value>
+  </data>
+  <data name="Yes, import these maps">
+    <value>はい、マップをインポート</value>
+  </data>
+  <data name="No, I'll select manually">
+    <value>いいえ、手動で選択します</value>
+  </data>
+  <data name="osu!space need you to restart the game">
+    <value>osu!spaceを使用するにはゲームの再起動が必要です</value>
+  </data>
+  <data name="Since you have previously installed an earlier version of osu!space (below 2025.1214.0), and this update includes breaking changes. To use this feature, a game restart is required to apply the fixes. Please restart the game to ensure everything works correctly.">
+    <value>以前のosu!space（2025.1214.0より前）をインストールしていたため、この更新の変更を適用するにはゲームの再起動が必要です。正常に動作させるために再起動してください。</value>
+  </data>
+  <data name="Restart now (quit the game)">
+    <value>今すぐ再起動（ゲームを終了）</value>
+  </data>
+  <data name="Later">
+    <value>後で</value>
+  </data>
+  <data name="Beatmap saved to {0}">
+    <value>ビートマップを{0}に保存しました</value>
+  </data>
+  <data name="Failed to save beatmap: {0}">
+    <value>ビートマップを保存できませんでした：{0}</value>
+  </data>
+  <data name="Beatmap was saved directly to local database.">
+    <value>ビートマップをローカルデータベースに直接保存しました。</value>
+  </data>
+  <data name="Direct save failed: {0}">
+    <value>直接保存できませんでした：{0}</value>
+  </data>
 </root>
