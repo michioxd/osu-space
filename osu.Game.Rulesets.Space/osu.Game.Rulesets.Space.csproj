@@ -8,8 +8,7 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\**" />
-    <EmbeddedResource Update="Localisation\SpaceStrings.vi.resx" WithCulture="false" LogicalName="osu.Game.Rulesets.Space.Localisation.SpaceStrings.vi.resources" />
-    <EmbeddedResource Update="Localisation\SpaceStrings.ja.resx" WithCulture="false" LogicalName="osu.Game.Rulesets.Space.Localisation.SpaceStrings.ja.resources" />
+    <EmbeddedResource Update="Localisation\SpaceStrings.*.resx" WithCulture="false" LogicalName="osu.Game.Rulesets.Space.Localisation.%(Filename).resources" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ppy.osu.Game" Version="2026.916.0" />

@@ -2,6 +2,7 @@
 
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Resources;
 using osu.Framework.Localisation;
 
@@ -9,8 +10,16 @@ namespace osu.Game.Rulesets.Space.Localisation
 {
     public static class SpaceStrings
     {
-        private static readonly ResourceManager vietnamese = new ResourceManager("osu.Game.Rulesets.Space.Localisation.SpaceStrings.vi", typeof(SpaceStrings).Assembly);
-        private static readonly ResourceManager japanese = new ResourceManager("osu.Game.Rulesets.Space.Localisation.SpaceStrings.ja", typeof(SpaceStrings).Assembly);
+        private static readonly System.Collections.Generic.Dictionary<string, ResourceManager> resources =
+            typeof(SpaceStrings).Assembly.GetManifestResourceNames()
+                .Where(name => name.StartsWith(typeof(SpaceStrings).FullName + ".", StringComparison.Ordinal)
+                    && name.EndsWith(".resources", StringComparison.Ordinal)
+                    && name.Length > typeof(SpaceStrings).FullName!.Length + ".resources".Length + 1)
+                .ToDictionary(
+                    name => name.Substring(typeof(SpaceStrings).FullName!.Length + 1, name.Length - typeof(SpaceStrings).FullName!.Length - ".resources".Length - 1),
+                    name => new ResourceManager(name.Substring(0, name.Length - ".resources".Length), typeof(SpaceStrings).Assembly),
+                    StringComparer.OrdinalIgnoreCase
+                );
 
         public static LocalisableString Get(string english) =>
             new LocalisableString(new SpaceString(english));
@@ -46,12 +55,10 @@ namespace osu.Game.Rulesets.Space.Localisation
             public SpaceString(string english) => this.english = english;
 
             public string GetLocalised(LocalisationParameters parameters) =>
-                (parameters.Store?.EffectiveCulture.TwoLetterISOLanguageName switch
-                {
-                    "vi" => vietnamese.GetString(english, CultureInfo.InvariantCulture),
-                    "ja" => japanese.GetString(english, CultureInfo.InvariantCulture),
-                    _ => null,
-                }) ?? english;
+                parameters.Store != null
+                && resources.TryGetValue(parameters.Store.EffectiveCulture.TwoLetterISOLanguageName, out var resource)
+                    ? resource.GetString(english, CultureInfo.InvariantCulture) ?? english
+                    : english;
 
             public bool Equals(ILocalisableStringData? other) =>
                 other is SpaceString value && english == value.english;
