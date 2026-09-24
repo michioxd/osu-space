@@ -13,285 +13,285 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
   </resheader>
   <data name="GitHub Repository">
-    <value>Kho mã nguồn GitHub</value>
+    <value>GitHub Repository</value>
   </data>
   <data name="Check for Updates">
-    <value>Kiểm tra cập nhật</value>
+    <value>Check for Updates</value>
   </data>
   <data name="Import Sound Space Plus map (.sspm) (WIP)">
-    <value>Nhập bản đồ Sound Space Plus (.sspm) (đang phát triển)</value>
+    <value>Import Sound Space Plus map (.sspm) (WIP)</value>
   </data>
   <data name="Delete all osu!space beatmaps">
-    <value>Xóa tất cả bản đồ osu!space</value>
+    <value>Delete all osu!space beatmaps</value>
   </data>
   <data name="Playfield">
-    <value>Sân chơi</value>
+    <value>Playfield</value>
   </data>
   <data name="Enable Grid">
-    <value>Bật lưới</value>
+    <value>Enable Grid</value>
   </data>
   <data name="Playfield Scale">
-    <value>Tỉ lệ sân chơi</value>
+    <value>Playfield Scale</value>
   </data>
   <data name="Scale of the playfield (higher values = larger playfield)">
-    <value>Tỉ lệ sân chơi (giá trị càng cao, sân chơi càng lớn)</value>
+    <value>Scale of the playfield (higher values = larger playfield)</value>
   </data>
   <data name="Show Cursor Trail">
-    <value>Hiện vệt con trỏ</value>
+    <value>Show Cursor Trail</value>
   </data>
   <data name="Touch Input Type">
-    <value>Kiểu điều khiển cảm ứng</value>
+    <value>Touch Input Type</value>
   </data>
   <data name="Only for touch devices. Relative: Touch input moves the cursor relative to its current position. Absolute: Touch input sets the cursor position directly to the touched position.">
-    <value>Chỉ dành cho thiết bị cảm ứng. Tương đối: di chuyển con trỏ từ vị trí hiện tại. Tuyệt đối: đặt con trỏ ngay tại vị trí chạm.</value>
+    <value>Only for touch devices. Relative: Touch input moves the cursor relative to its current position. Absolute: Touch input sets the cursor position directly to the touched position.</value>
   </data>
   <data name="Touch Sensitivity">
-    <value>Độ nhạy cảm ứng</value>
+    <value>Touch Sensitivity</value>
   </data>
   <data name="Only for touch devices and Touch Input Type is set to Relative. Sensitivity of touch input (higher values = more sensitive).">
-    <value>Chỉ dành cho thiết bị cảm ứng ở chế độ Tương đối. Giá trị càng cao thì càng nhạy.</value>
+    <value>Only for touch devices and Touch Input Type is set to Relative. Sensitivity of touch input (higher values = more sensitive).</value>
   </data>
   <data name="Notes">
-    <value>Nốt</value>
+    <value>Notes</value>
   </data>
   <data name="Note Color Palette">
-    <value>Bảng màu nốt</value>
+    <value>Note Color Palette</value>
   </data>
   <data name="Changes the colors of the notes. Some colors extracted from Sound Space Plus (Rhythia)">
-    <value>Thay đổi màu nốt. Một số màu lấy từ Sound Space Plus (Rhythia)</value>
+    <value>Changes the colors of the notes. Some colors extracted from Sound Space Plus (Rhythia)</value>
   </data>
   <data name="Note Thickness">
-    <value>Độ dày nốt</value>
+    <value>Note Thickness</value>
   </data>
   <data name="Thickness of the notes' borders">
-    <value>Độ dày viền nốt</value>
+    <value>Thickness of the notes' borders</value>
   </data>
   <data name="Note Corner Radius">
-    <value>Độ bo góc nốt</value>
+    <value>Note Corner Radius</value>
   </data>
   <data name="Roundness of the notes' corners">
-    <value>Độ tròn của góc nốt</value>
+    <value>Roundness of the notes' corners</value>
   </data>
   <data name="Note Opacity">
-    <value>Độ mờ nốt</value>
+    <value>Note Opacity</value>
   </data>
   <data name="How opaque/transparent/visible the note appears">
-    <value>Độ hiển thị của nốt</value>
+    <value>How opaque/transparent/visible the note appears</value>
   </data>
   <data name="Note Scale">
-    <value>Tỉ lệ nốt</value>
+    <value>Note Scale</value>
   </data>
   <data name="The visual size of the notes (doesn't affect hitboxes)">
-    <value>Kích thước hiển thị của nốt (không ảnh hưởng vùng bấm)</value>
+    <value>The visual size of the notes (doesn't affect hitboxes)</value>
   </data>
   <data name="Note Glow">
-    <value>Hiệu ứng phát sáng nốt</value>
+    <value>Note Glow</value>
   </data>
   <data name="Enables a glow effect on notes. Best used with 100% background dim and light note colors.">
-    <value>Bật hiệu ứng phát sáng nốt. Phù hợp với nền tối 100% và màu nốt sáng.</value>
+    <value>Enables a glow effect on notes. Best used with 100% background dim and light note colors.</value>
   </data>
   <data name="Glow Strength">
-    <value>Cường độ phát sáng</value>
+    <value>Glow Strength</value>
   </data>
   <data name="Strength of the glow effect on notes">
-    <value>Cường độ hiệu ứng phát sáng trên nốt</value>
+    <value>Strength of the glow effect on notes</value>
   </data>
   <data name="Gameplay">
-    <value>Lối chơi</value>
+    <value>Gameplay</value>
   </data>
   <data name="Approach Rate">
-    <value>Tốc độ tiếp cận</value>
+    <value>Approach Rate</value>
   </data>
   <data name="The speed that note move toward the grid (m/s)">
-    <value>Tốc độ nốt di chuyển về lưới (m/s)</value>
+    <value>The speed that note move toward the grid (m/s)</value>
   </data>
   <data name="Spawn Distance">
-    <value>Khoảng cách xuất hiện</value>
+    <value>Spawn Distance</value>
   </data>
   <data name="Distance from the grid that note spawn (m)">
-    <value>Khoảng cách từ lưới đến nơi nốt xuất hiện (m)</value>
+    <value>Distance from the grid that note spawn (m)</value>
   </data>
   <data name="Fade Length">
-    <value>Độ dài hiệu ứng xuất hiện</value>
+    <value>Fade Length</value>
   </data>
   <data name="Percentage of the spawn distance that notes take to fade from invisible to fully opaque">
-    <value>Tỉ lệ khoảng cách xuất hiện để nốt chuyển từ vô hình đến rõ hoàn toàn</value>
+    <value>Percentage of the spawn distance that notes take to fade from invisible to fully opaque</value>
   </data>
   <data name="Do not push back">
-    <value>Không đẩy lùi</value>
+    <value>Do not push back</value>
   </data>
   <data name="While enabled, notes will go past the grid when you miss, instead of always vanishing 0.2 units past the grid">
-    <value>Khi bật, nốt sẽ đi qua lưới nếu bấm trượt thay vì biến mất sau 0,2 đơn vị</value>
+    <value>While enabled, notes will go past the grid when you miss, instead of always vanishing 0.2 units past the grid</value>
   </data>
   <data name="Half ghost">
-    <value>Nửa bóng ma</value>
+    <value>Half ghost</value>
   </data>
   <data name="Useful for patterns that fill the whole screen">
-    <value>Hữu ích cho các mẫu nốt phủ kín màn hình</value>
+    <value>Useful for patterns that fill the whole screen</value>
   </data>
   <data name="Parallax Strength">
-    <value>Cường độ thị sai</value>
+    <value>Parallax Strength</value>
   </data>
   <data name="Strength of the parallax effect on the playfield (higher values = stronger effect, 0 = disable)">
-    <value>Cường độ hiệu ứng thị sai (giá trị càng cao càng mạnh, 0 = tắt)</value>
+    <value>Strength of the parallax effect on the playfield (higher values = stronger effect, 0 = disable)</value>
   </data>
   <data name="Hit Window">
-    <value>Khoảng thời gian bấm</value>
+    <value>Hit Window</value>
   </data>
   <data name="The length of time notes can be hit after reaching the grid (default 25ms, rhythia def 55ms)">
-    <value>Thời gian có thể bấm nốt sau khi chạm lưới (mặc định 25 ms, Rhythia 55 ms)</value>
+    <value>The length of time notes can be hit after reaching the grid (default 25ms, rhythia def 55ms)</value>
   </data>
   <data name="Checking...">
-    <value>Đang kiểm tra...</value>
+    <value>Checking...</value>
   </data>
   <data name="You are running the latest version of osu!space!">
-    <value>Bạn đang dùng phiên bản osu!space mới nhất!</value>
+    <value>You are running the latest version of osu!space!</value>
   </data>
   <data name="Failed to check for updates. Please check your internet connection.">
-    <value>Không thể kiểm tra cập nhật. Vui lòng kiểm tra kết nối mạng.</value>
+    <value>Failed to check for updates. Please check your internet connection.</value>
   </data>
   <data name="Failed to check for updates.">
-    <value>Không thể kiểm tra cập nhật.</value>
+    <value>Failed to check for updates.</value>
   </data>
   <data name="All osu!space beatmaps added to deletion queue.">
-    <value>Đã thêm tất cả bản đồ osu!space vào hàng đợi xóa.</value>
+    <value>All osu!space beatmaps added to deletion queue.</value>
   </data>
   <data name="New version of osu!space are available!">
-    <value>Đã có phiên bản osu!space mới!</value>
+    <value>New version of osu!space are available!</value>
   </data>
   <data name="Your current version is {0} and the latest version is {1}. Do you want to download it or visit the release page of this version?">
-    <value>Phiên bản hiện tại: {0}; phiên bản mới nhất: {1}. Bạn muốn tải xuống hay xem trang phát hành?</value>
+    <value>Your current version is {0} and the latest version is {1}. Do you want to download it or visit the release page of this version?</value>
   </data>
   <data name="View Release">
-    <value>Xem bản phát hành</value>
+    <value>View Release</value>
   </data>
   <data name="Download">
-    <value>Tải xuống</value>
+    <value>Download</value>
   </data>
   <data name="Cancel">
-    <value>Hủy</value>
+    <value>Cancel</value>
   </data>
   <data name="Delete all osu!space beatmaps?">
-    <value>Xóa tất cả bản đồ osu!space?</value>
+    <value>Delete all osu!space beatmaps?</value>
   </data>
   <data name="Are you sure you want to delete all osu!space beatmaps? This action cannot be undone.">
-    <value>Bạn có chắc muốn xóa tất cả bản đồ osu!space? Không thể hoàn tác thao tác này.</value>
+    <value>Are you sure you want to delete all osu!space beatmaps? This action cannot be undone.</value>
   </data>
   <data name="Delete All Beatmaps">
-    <value>Xóa tất cả bản đồ</value>
+    <value>Delete All Beatmaps</value>
   </data>
   <data name="Lemme think again...">
-    <value>Để tôi nghĩ lại...</value>
+    <value>Lemme think again...</value>
   </data>
   <data name="Please select a folder containing .sspm files">
-    <value>Chọn thư mục chứa các tệp .sspm</value>
+    <value>Please select a folder containing .sspm files</value>
   </data>
   <data name="Import">
-    <value>Nhập</value>
+    <value>Import</value>
   </data>
   <data name="Try to locate the Rhythia (SSP) folder">
-    <value>Tìm thư mục Rhythia (SSP)</value>
+    <value>Try to locate the Rhythia (SSP) folder</value>
   </data>
   <data name="Please select a beatmap file to import:">
-    <value>Chọn tệp bản đồ để nhập:</value>
+    <value>Please select a beatmap file to import:</value>
   </data>
   <data name="Please select where to save this beatmap:">
-    <value>Chọn vị trí lưu bản đồ:</value>
+    <value>Please select where to save this beatmap:</value>
   </data>
   <data name="File name">
-    <value>Tên tệp</value>
+    <value>File name</value>
   </data>
   <data name="Save">
-    <value>Lưu</value>
+    <value>Save</value>
   </data>
   <data name="Save directly (NOT RECOMMENDED)">
-    <value>Lưu trực tiếp (KHÔNG KHUYẾN KHÍCH)</value>
+    <value>Save directly (NOT RECOMMENDED)</value>
   </data>
   <data name="Hold to exit">
-    <value>Giữ để thoát</value>
+    <value>Hold to exit</value>
   </data>
   <data name="Where's the cursor?">
-    <value>Con trỏ đâu rồi?</value>
+    <value>Where's the cursor?</value>
   </data>
   <data name="No objects selected">
-    <value>Chưa chọn đối tượng nào</value>
+    <value>No objects selected</value>
   </data>
   <data name="Selected object is not a Space hit object">
-    <value>Đối tượng đã chọn không phải nốt Space</value>
+    <value>Selected object is not a Space hit object</value>
   </data>
   <data name="Time">
-    <value>Thời gian</value>
+    <value>Time</value>
   </data>
   <data name="Position">
-    <value>Vị trí</value>
+    <value>Position</value>
   </data>
   <data name="Index">
-    <value>Chỉ số</value>
+    <value>Index</value>
   </data>
   <data name="Selected Objects">
-    <value>Các đối tượng đã chọn</value>
+    <value>Selected Objects</value>
   </data>
   <data name="Start Time">
-    <value>Thời gian bắt đầu</value>
+    <value>Start Time</value>
   </data>
   <data name="End Time">
-    <value>Thời gian kết thúc</value>
+    <value>End Time</value>
   </data>
   <data name="No Sound Space Plus maps folder was detected, or no .sspm files were found inside that. Please select the folder manually.">
-    <value>Không tìm thấy thư mục bản đồ Sound Space Plus hoặc tệp .sspm. Vui lòng chọn thư mục thủ công.</value>
+    <value>No Sound Space Plus maps folder was detected, or no .sspm files were found inside that. Please select the folder manually.</value>
   </data>
   <data name="No .sspm files found in the selected directory. Please select a different folder.">
-    <value>Không có tệp .sspm trong thư mục đã chọn. Vui lòng chọn thư mục khác.</value>
+    <value>No .sspm files found in the selected directory. Please select a different folder.</value>
   </data>
   <data name="Importing Sound Space Plus map files...">
-    <value>Đang nhập bản đồ Sound Space Plus...</value>
+    <value>Importing Sound Space Plus map files...</value>
   </data>
   <data name="Import Sound Space Plus map complete!">
-    <value>Đã nhập xong bản đồ Sound Space Plus!</value>
+    <value>Import Sound Space Plus map complete!</value>
   </data>
   <data name="No .sspm files found to import.">
-    <value>Không có tệp .sspm để nhập.</value>
+    <value>No .sspm files found to import.</value>
   </data>
   <data name="Importing Sound Space Plus map files ({0}/{1})...">
-    <value>Đang nhập bản đồ Sound Space Plus ({0}/{1})...</value>
+    <value>Importing Sound Space Plus map files ({0}/{1})...</value>
   </data>
   <data name="An error occurred while importing .sspm files. Please try again.">
-    <value>Đã xảy ra lỗi khi nhập tệp .sspm. Vui lòng thử lại.</value>
+    <value>An error occurred while importing .sspm files. Please try again.</value>
   </data>
   <data name="Sound Space Plus maps folder detected">
-    <value>Đã tìm thấy thư mục bản đồ Sound Space Plus</value>
+    <value>Sound Space Plus maps folder detected</value>
   </data>
   <data name="We found a maps folder at:&#10;{0}&#10;Do you want to import from here?">
-    <value>Đã tìm thấy thư mục bản đồ tại:&#10;{0}&#10;Bạn muốn nhập từ đây?</value>
+    <value>We found a maps folder at:&#10;{0}&#10;Do you want to import from here?</value>
   </data>
   <data name="Yes, import these maps">
-    <value>Có, nhập các bản đồ này</value>
+    <value>Yes, import these maps</value>
   </data>
   <data name="No, I'll select manually">
-    <value>Không, tôi sẽ chọn thủ công</value>
+    <value>No, I'll select manually</value>
   </data>
   <data name="osu!space need you to restart the game">
-    <value>osu!space cần khởi động lại trò chơi</value>
+    <value>osu!space need you to restart the game</value>
   </data>
   <data name="Since you have previously installed an earlier version of osu!space (below 2025.1214.0), and this update includes breaking changes. To use this feature, a game restart is required to apply the fixes. Please restart the game to ensure everything works correctly.">
-    <value>Bạn đã cài phiên bản osu!space cũ (trước 2025.1214.0). Bản cập nhật này có thay đổi không tương thích. Vui lòng khởi động lại trò chơi để áp dụng bản sửa lỗi.</value>
+    <value>Since you have previously installed an earlier version of osu!space (below 2025.1214.0), and this update includes breaking changes. To use this feature, a game restart is required to apply the fixes. Please restart the game to ensure everything works correctly.</value>
   </data>
   <data name="Restart now (quit the game)">
-    <value>Khởi động lại ngay (thoát trò chơi)</value>
+    <value>Restart now (quit the game)</value>
   </data>
   <data name="Later">
-    <value>Để sau</value>
+    <value>Later</value>
   </data>
   <data name="Beatmap saved to {0}">
-    <value>Đã lưu bản đồ vào {0}</value>
+    <value>Beatmap saved to {0}</value>
   </data>
   <data name="Failed to save beatmap: {0}">
-    <value>Không thể lưu bản đồ: {0}</value>
+    <value>Failed to save beatmap: {0}</value>
   </data>
   <data name="Beatmap was saved directly to local database.">
-    <value>Đã lưu bản đồ trực tiếp vào cơ sở dữ liệu cục bộ.</value>
+    <value>Beatmap was saved directly to local database.</value>
   </data>
   <data name="Direct save failed: {0}">
-    <value>Không thể lưu trực tiếp: {0}</value>
+    <value>Direct save failed: {0}</value>
   </data>
 </root>
