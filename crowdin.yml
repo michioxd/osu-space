@@ -1,0 +1,3 @@
+files:
+  - source: /osu.Game.Rulesets.Space/Localisation/SpaceStrings.resx
+    translation: /osu.Game.Rulesets.Space/Localisation/SpaceStrings.%two_letters_code%.resx
