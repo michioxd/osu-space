@@ -1,7 +1,7 @@
 # osu!space (osu! ruleset)
 
 [![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/michioxd/osu-space/total?sort=date&logo=github)](https://github.com/michioxd/osu-space/releases/latest)
-[![GitHub release](https://img.shields.io/github/release/michioxd/osu-space.svg)](https://github.com/michioxd/osu-space/releases/latest) [![Build Status](https://github.com/michioxd/osu-space/actions/workflows/build.yml/badge.svg)](https://github.com/michioxd/osu-space/actions/workflows/build.yml)
+[![GitHub release](https://img.shields.io/github/release/michioxd/osu-space.svg)](https://github.com/michioxd/osu-space/releases/latest) [![Build Status](https://github.com/michioxd/osu-space/actions/workflows/build.yml/badge.svg)](https://github.com/michioxd/osu-space/actions/workflows/build.yml) [![Crowdin](https://badges.crowdin.net/osu-space/localized.svg)](https://crowdin.com/project/osu-space)
 
 A custom game mode for [osu!(lazer)](https://github.com/ppy/osu) based on [Sound Space (Roblox)](https://www.roblox.com/games/2677609345/Sound-Space-Rhythm-Game) and [Rhythia (formerly *Sound Space Plus*)](https://github.com/Rhythia/sound-space-plus).
 
