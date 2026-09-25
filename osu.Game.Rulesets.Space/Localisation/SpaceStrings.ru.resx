@@ -13,31 +13,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
   </resheader>
   <data name="GitHub Repository">
-    <value>GitHub Repository</value>
+    <value>Репозиторий GitHub</value>
   </data>
   <data name="Check for Updates">
-    <value>Check for Updates</value>
+    <value>Проверить обновления</value>
   </data>
   <data name="Import Sound Space Plus map (.sspm) (WIP)">
-    <value>Import Sound Space Plus map (.sspm) (WIP)</value>
+    <value>Импортировать карту Sound Space Plus (.sspm) (в разработке)</value>
   </data>
   <data name="Delete all osu!space beatmaps">
-    <value>Delete all osu!space beatmaps</value>
+    <value>Удалить все карты osu!space</value>
   </data>
   <data name="Playfield">
-    <value>Playfield</value>
+    <value>Игровое поле</value>
   </data>
   <data name="Enable Grid">
-    <value>Enable Grid</value>
+    <value>Включить сетку</value>
   </data>
   <data name="Playfield Scale">
-    <value>Playfield Scale</value>
+    <value>Масштаб игрового поля</value>
   </data>
   <data name="Scale of the playfield (higher values = larger playfield)">
-    <value>Scale of the playfield (higher values = larger playfield)</value>
+    <value>Масштаб игрового поля (более высокие значения = крупнее игровое поле)</value>
   </data>
   <data name="Show Cursor Trail">
-    <value>Show Cursor Trail</value>
+    <value>Показывать след от курсора</value>
   </data>
   <data name="Touch Input Type">
     <value>Touch Input Type</value>
@@ -52,40 +52,40 @@
     <value>Only for touch devices and Touch Input Type is set to Relative. Sensitivity of touch input (higher values = more sensitive).</value>
   </data>
   <data name="Notes">
-    <value>Notes</value>
+    <value>Ноты</value>
   </data>
   <data name="Note Color Palette">
-    <value>Note Color Palette</value>
+    <value>Цветовая палитра нот</value>
   </data>
   <data name="Changes the colors of the notes. Some colors extracted from Sound Space Plus (Rhythia)">
-    <value>Changes the colors of the notes. Some colors extracted from Sound Space Plus (Rhythia)</value>
+    <value>Меняет цвет нот. Некоторые цвета взяты из игры Sound Space Plus (Rhythia)</value>
   </data>
   <data name="Note Thickness">
-    <value>Note Thickness</value>
+    <value>Толщина нот</value>
   </data>
   <data name="Thickness of the notes' borders">
-    <value>Thickness of the notes' borders</value>
+    <value>Толщина сторон нот</value>
   </data>
   <data name="Note Corner Radius">
-    <value>Note Corner Radius</value>
+    <value>Радиус скругления углов</value>
   </data>
   <data name="Roundness of the notes' corners">
-    <value>Roundness of the notes' corners</value>
+    <value>Насколько сильно скруглить углы нот</value>
   </data>
   <data name="Note Opacity">
-    <value>Note Opacity</value>
+    <value>Непрозрачность нот</value>
   </data>
   <data name="How opaque/transparent/visible the note appears">
-    <value>How opaque/transparent/visible the note appears</value>
+    <value>Насколько ноты яркие/прозрачные/видимые на экране</value>
   </data>
   <data name="Note Scale">
-    <value>Note Scale</value>
+    <value>Масштаб нот</value>
   </data>
   <data name="The visual size of the notes (doesn't affect hitboxes)">
-    <value>The visual size of the notes (doesn't affect hitboxes)</value>
+    <value>Меняет размер нот (не влияет на хитбоксы)</value>
   </data>
   <data name="Note Glow">
-    <value>Note Glow</value>
+    <value>Свечение нот</value>
   </data>
   <data name="Enables a glow effect on notes. Best used with 100% background dim and light note colors.">
     <value>Enables a glow effect on notes. Best used with 100% background dim and light note colors.</value>
