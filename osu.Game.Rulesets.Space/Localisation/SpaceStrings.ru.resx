@@ -88,28 +88,28 @@
     <value>Свечение нот</value>
   </data>
   <data name="Enables a glow effect on notes. Best used with 100% background dim and light note colors.">
-    <value>Enables a glow effect on notes. Best used with 100% background dim and light note colors.</value>
+    <value>Добавляет нотам эффект свечения. Лучше всего работает со 100% затемнением фона и светлыми оттенками цветов.</value>
   </data>
   <data name="Glow Strength">
-    <value>Glow Strength</value>
+    <value>Сила свечения</value>
   </data>
   <data name="Strength of the glow effect on notes">
-    <value>Strength of the glow effect on notes</value>
+    <value>Сила эффекта свечения у нот</value>
   </data>
   <data name="Gameplay">
-    <value>Gameplay</value>
+    <value>Геймплей</value>
   </data>
   <data name="Approach Rate">
-    <value>Approach Rate</value>
+    <value>Скорость появления нот</value>
   </data>
   <data name="The speed that note move toward the grid (m/s)">
-    <value>The speed that note move toward the grid (m/s)</value>
+    <value>Скорость, с которой ноты движутся к сетке (м/с)</value>
   </data>
   <data name="Spawn Distance">
-    <value>Spawn Distance</value>
+    <value>Расстояние до появления</value>
   </data>
   <data name="Distance from the grid that note spawn (m)">
-    <value>Distance from the grid that note spawn (m)</value>
+    <value>Расстояние от сетки, где появляются ноты (м)</value>
   </data>
   <data name="Fade Length">
     <value>Fade Length</value>
@@ -145,7 +145,7 @@
     <value>Checking...</value>
   </data>
   <data name="You are running the latest version of osu!space!">
-    <value>You are running the latest version of osu!space!</value>
+    <value>Вы играете в последнюю версию osu!space!</value>
   </data>
   <data name="Failed to check for updates. Please check your internet connection.">
     <value>Failed to check for updates. Please check your internet connection.</value>
@@ -157,7 +157,7 @@
     <value>All osu!space beatmaps added to deletion queue.</value>
   </data>
   <data name="New version of osu!space are available!">
-    <value>New version of osu!space are available!</value>
+    <value>Доступна новая версия osu!space!</value>
   </data>
   <data name="Your current version is {0} and the latest version is {1}. Do you want to download it or visit the release page of this version?">
     <value>Your current version is {0} and the latest version is {1}. Do you want to download it or visit the release page of this version?</value>
@@ -166,19 +166,19 @@
     <value>View Release</value>
   </data>
   <data name="Download">
-    <value>Download</value>
+    <value>Скачать</value>
   </data>
   <data name="Cancel">
-    <value>Cancel</value>
+    <value>Отмена</value>
   </data>
   <data name="Delete all osu!space beatmaps?">
-    <value>Delete all osu!space beatmaps?</value>
+    <value>Удалить все карты osu!space?</value>
   </data>
   <data name="Are you sure you want to delete all osu!space beatmaps? This action cannot be undone.">
-    <value>Are you sure you want to delete all osu!space beatmaps? This action cannot be undone.</value>
+    <value>Вы действительно хотите удалить все карты osu!space? Это действие необратимо.</value>
   </data>
   <data name="Delete All Beatmaps">
-    <value>Delete All Beatmaps</value>
+    <value>Удалить все карты</value>
   </data>
   <data name="Lemme think again...">
     <value>Lemme think again...</value>
