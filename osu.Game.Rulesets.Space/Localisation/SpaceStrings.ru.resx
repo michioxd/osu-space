@@ -13,31 +13,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
   </resheader>
   <data name="GitHub Repository">
-    <value>GitHub Repository</value>
+    <value>Репозиторий GitHub</value>
   </data>
   <data name="Check for Updates">
-    <value>Check for Updates</value>
+    <value>Проверить обновления</value>
   </data>
   <data name="Import Sound Space Plus map (.sspm) (WIP)">
-    <value>Import Sound Space Plus map (.sspm) (WIP)</value>
+    <value>Импортировать карту Sound Space Plus (.sspm) (в разработке)</value>
   </data>
   <data name="Delete all osu!space beatmaps">
-    <value>Delete all osu!space beatmaps</value>
+    <value>Удалить все карты osu!space</value>
   </data>
   <data name="Playfield">
-    <value>Playfield</value>
+    <value>Игровое поле</value>
   </data>
   <data name="Enable Grid">
-    <value>Enable Grid</value>
+    <value>Включить сетку</value>
   </data>
   <data name="Playfield Scale">
-    <value>Playfield Scale</value>
+    <value>Масштаб игрового поля</value>
   </data>
   <data name="Scale of the playfield (higher values = larger playfield)">
-    <value>Scale of the playfield (higher values = larger playfield)</value>
+    <value>Масштаб игрового поля (более высокие значения = крупнее игровое поле)</value>
   </data>
   <data name="Show Cursor Trail">
-    <value>Show Cursor Trail</value>
+    <value>Показывать след от курсора</value>
   </data>
   <data name="Touch Input Type">
     <value>Touch Input Type</value>
@@ -52,64 +52,64 @@
     <value>Only for touch devices and Touch Input Type is set to Relative. Sensitivity of touch input (higher values = more sensitive).</value>
   </data>
   <data name="Notes">
-    <value>Notes</value>
+    <value>Ноты</value>
   </data>
   <data name="Note Color Palette">
-    <value>Note Color Palette</value>
+    <value>Цветовая палитра нот</value>
   </data>
   <data name="Changes the colors of the notes. Some colors extracted from Sound Space Plus (Rhythia)">
-    <value>Changes the colors of the notes. Some colors extracted from Sound Space Plus (Rhythia)</value>
+    <value>Меняет цвет нот. Некоторые цвета взяты из игры Sound Space Plus (Rhythia)</value>
   </data>
   <data name="Note Thickness">
-    <value>Note Thickness</value>
+    <value>Толщина нот</value>
   </data>
   <data name="Thickness of the notes' borders">
-    <value>Thickness of the notes' borders</value>
+    <value>Толщина сторон нот</value>
   </data>
   <data name="Note Corner Radius">
-    <value>Note Corner Radius</value>
+    <value>Радиус скругления углов</value>
   </data>
   <data name="Roundness of the notes' corners">
-    <value>Roundness of the notes' corners</value>
+    <value>Насколько сильно скруглить углы нот</value>
   </data>
   <data name="Note Opacity">
-    <value>Note Opacity</value>
+    <value>Непрозрачность нот</value>
   </data>
   <data name="How opaque/transparent/visible the note appears">
-    <value>How opaque/transparent/visible the note appears</value>
+    <value>Насколько ноты яркие/прозрачные/видимые на экране</value>
   </data>
   <data name="Note Scale">
-    <value>Note Scale</value>
+    <value>Масштаб нот</value>
   </data>
   <data name="The visual size of the notes (doesn't affect hitboxes)">
-    <value>The visual size of the notes (doesn't affect hitboxes)</value>
+    <value>Меняет размер нот (не влияет на хитбоксы)</value>
   </data>
   <data name="Note Glow">
-    <value>Note Glow</value>
+    <value>Свечение нот</value>
   </data>
   <data name="Enables a glow effect on notes. Best used with 100% background dim and light note colors.">
-    <value>Enables a glow effect on notes. Best used with 100% background dim and light note colors.</value>
+    <value>Добавляет нотам эффект свечения. Лучше всего работает со 100% затемнением фона и светлыми оттенками цветов.</value>
   </data>
   <data name="Glow Strength">
-    <value>Glow Strength</value>
+    <value>Сила свечения</value>
   </data>
   <data name="Strength of the glow effect on notes">
-    <value>Strength of the glow effect on notes</value>
+    <value>Сила эффекта свечения у нот</value>
   </data>
   <data name="Gameplay">
-    <value>Gameplay</value>
+    <value>Геймплей</value>
   </data>
   <data name="Approach Rate">
-    <value>Approach Rate</value>
+    <value>Скорость появления нот</value>
   </data>
   <data name="The speed that note move toward the grid (m/s)">
-    <value>The speed that note move toward the grid (m/s)</value>
+    <value>Скорость, с которой ноты движутся к сетке (м/с)</value>
   </data>
   <data name="Spawn Distance">
-    <value>Spawn Distance</value>
+    <value>Расстояние до появления</value>
   </data>
   <data name="Distance from the grid that note spawn (m)">
-    <value>Distance from the grid that note spawn (m)</value>
+    <value>Расстояние от сетки, где появляются ноты (м)</value>
   </data>
   <data name="Fade Length">
     <value>Fade Length</value>
@@ -145,7 +145,7 @@
     <value>Checking...</value>
   </data>
   <data name="You are running the latest version of osu!space!">
-    <value>You are running the latest version of osu!space!</value>
+    <value>Вы играете в последнюю версию osu!space!</value>
   </data>
   <data name="Failed to check for updates. Please check your internet connection.">
     <value>Failed to check for updates. Please check your internet connection.</value>
@@ -157,7 +157,7 @@
     <value>All osu!space beatmaps added to deletion queue.</value>
   </data>
   <data name="New version of osu!space are available!">
-    <value>New version of osu!space are available!</value>
+    <value>Доступна новая версия osu!space!</value>
   </data>
   <data name="Your current version is {0} and the latest version is {1}. Do you want to download it or visit the release page of this version?">
     <value>Your current version is {0} and the latest version is {1}. Do you want to download it or visit the release page of this version?</value>
@@ -166,19 +166,19 @@
     <value>View Release</value>
   </data>
   <data name="Download">
-    <value>Download</value>
+    <value>Скачать</value>
   </data>
   <data name="Cancel">
-    <value>Cancel</value>
+    <value>Отмена</value>
   </data>
   <data name="Delete all osu!space beatmaps?">
-    <value>Delete all osu!space beatmaps?</value>
+    <value>Удалить все карты osu!space?</value>
   </data>
   <data name="Are you sure you want to delete all osu!space beatmaps? This action cannot be undone.">
-    <value>Are you sure you want to delete all osu!space beatmaps? This action cannot be undone.</value>
+    <value>Вы действительно хотите удалить все карты osu!space? Это действие необратимо.</value>
   </data>
   <data name="Delete All Beatmaps">
-    <value>Delete All Beatmaps</value>
+    <value>Удалить все карты</value>
   </data>
   <data name="Lemme think again...">
     <value>Lemme think again...</value>
