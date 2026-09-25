@@ -13,13 +13,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
   </resheader>
   <data name="GitHub Repository">
-    <value>Kho mã nguồn GitHub</value>
+    <value>Mã nguồn trên GitHub</value>
   </data>
   <data name="Check for Updates">
     <value>Kiểm tra cập nhật</value>
   </data>
   <data name="Import Sound Space Plus map (.sspm) (WIP)">
-    <value>Nhập bản đồ Sound Space Plus (.sspm) (đang phát triển)</value>
+    <value>Nhập map từ Sound Space Plus (.sspm) (đang phát triển)</value>
   </data>
   <data name="Delete all osu!space beatmaps">
     <value>Xóa tất cả bản đồ osu!space</value>
@@ -250,7 +250,7 @@
     <value>Đã nhập xong bản đồ Sound Space Plus!</value>
   </data>
   <data name="No .sspm files found to import.">
-    <value>Không có tệp .sspm để nhập.</value>
+    <value>Không có tệp .sspm nào để nhập.</value>
   </data>
   <data name="Importing Sound Space Plus map files ({0}/{1})...">
     <value>Đang nhập bản đồ Sound Space Plus ({0}/{1})...</value>
