@@ -34,7 +34,7 @@
     <value>Масштаб игрового поля</value>
   </data>
   <data name="Scale of the playfield (higher values = larger playfield)">
-    <value>Масштаб игрового поля (более высокие значения = крупнее игровое поле)</value>
+    <value>Относительный размер игрового поля (более высокие значения = крупнее игровое поле)</value>
   </data>
   <data name="Show Cursor Trail">
     <value>Показывать след от курсора</value>
@@ -70,13 +70,13 @@
     <value>Радиус скругления углов</value>
   </data>
   <data name="Roundness of the notes' corners">
-    <value>Насколько сильно скруглить углы нот</value>
+    <value>Насколько сильно скрулены углы нот</value>
   </data>
   <data name="Note Opacity">
     <value>Непрозрачность нот</value>
   </data>
   <data name="How opaque/transparent/visible the note appears">
-    <value>Насколько ноты яркие/прозрачные/видимые на экране</value>
+    <value>Насколько яркие/прозрачные/видимые ноты на экране</value>
   </data>
   <data name="Note Scale">
     <value>Масштаб нот</value>
@@ -88,7 +88,7 @@
     <value>Свечение нот</value>
   </data>
   <data name="Enables a glow effect on notes. Best used with 100% background dim and light note colors.">
-    <value>Добавляет нотам эффект свечения. Лучше всего работает со 100% затемнением фона и светлыми оттенками цветов.</value>
+    <value>Добавляет нотам эффект свечения. Лучше всего работает со 100% затемнением фона и светлыми оттенками цвета нот.</value>
   </data>
   <data name="Glow Strength">
     <value>Сила свечения</value>
