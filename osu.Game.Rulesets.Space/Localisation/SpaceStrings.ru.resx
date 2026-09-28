@@ -205,7 +205,7 @@
     <value>Сохранить</value>
   </data>
   <data name="Save directly (NOT RECOMMENDED)">
-    <value>Save directly (NOT RECOMMENDED)</value>
+    <value>Сохранить напрямую (НЕ РЕКОМЕНДУЕТСЯ)</value>
   </data>
   <data name="Hold to exit">
     <value>Удерживайте для выхода</value>
@@ -283,15 +283,15 @@
     <value>Позже</value>
   </data>
   <data name="Beatmap saved to {0}">
-    <value>Beatmap saved to {0}</value>
+    <value>Карта сохранена как {0}</value>
   </data>
   <data name="Failed to save beatmap: {0}">
     <value>Не удалось сохранить карту: {0}</value>
   </data>
   <data name="Beatmap was saved directly to local database.">
-    <value>Beatmap was saved directly to local database.</value>
+    <value>Карта сохранена напрямую в локальное хранилище.</value>
   </data>
   <data name="Direct save failed: {0}">
-    <value>Direct save failed: {0}</value>
+    <value>Не удалось сохранить кврту напрямую: {0}</value>
   </data>
 </root>
