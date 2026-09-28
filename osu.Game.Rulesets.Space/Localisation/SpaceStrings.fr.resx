@@ -13,214 +13,214 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
   </resheader>
   <data name="GitHub Repository">
-    <value>GitHub Repository</value>
+    <value>Répertoire GitHub</value>
   </data>
   <data name="Check for Updates">
-    <value>Check for Updates</value>
+    <value>Rechercher des mises à jour</value>
   </data>
   <data name="Import Sound Space Plus map (.sspm) (WIP)">
-    <value>Import Sound Space Plus map (.sspm) (WIP)</value>
+    <value>Importer des maps Sound Space Plus (.sspm) (WIP)</value>
   </data>
   <data name="Delete all osu!space beatmaps">
-    <value>Delete all osu!space beatmaps</value>
+    <value>Supprimer toutes les beatmaps osu!space</value>
   </data>
   <data name="Playfield">
-    <value>Playfield</value>
+    <value>Zone de jeu</value>
   </data>
   <data name="Enable Grid">
-    <value>Enable Grid</value>
+    <value>Activer la grille</value>
   </data>
   <data name="Playfield Scale">
-    <value>Playfield Scale</value>
+    <value>Taille de la zone de jeu</value>
   </data>
   <data name="Scale of the playfield (higher values = larger playfield)">
-    <value>Scale of the playfield (higher values = larger playfield)</value>
+    <value>Taille de la zone de jeu (valeur élevée = zone de jeu plus grande)</value>
   </data>
   <data name="Show Cursor Trail">
-    <value>Show Cursor Trail</value>
+    <value>Montrer la traînée du curseur</value>
   </data>
   <data name="Touch Input Type">
-    <value>Touch Input Type</value>
+    <value>Type d'entrée tactile</value>
   </data>
   <data name="Only for touch devices. Relative: Touch input moves the cursor relative to its current position. Absolute: Touch input sets the cursor position directly to the touched position.">
-    <value>Only for touch devices. Relative: Touch input moves the cursor relative to its current position. Absolute: Touch input sets the cursor position directly to the touched position.</value>
+    <value>Uniquement pour les appareils tactiles. Relatif : la touche d'entrée déplace le curseur par rapport à sa position actuelle. Absolu: L'entrée tactile définit la position du curseur directement à la position touchée.</value>
   </data>
   <data name="Touch Sensitivity">
-    <value>Touch Sensitivity</value>
+    <value>Sensibilité tactile</value>
   </data>
   <data name="Only for touch devices and Touch Input Type is set to Relative. Sensitivity of touch input (higher values = more sensitive).">
-    <value>Only for touch devices and Touch Input Type is set to Relative. Sensitivity of touch input (higher values = more sensitive).</value>
+    <value>Seulement pour les appareils tactiles et le Type d'Entrée tactile est défini sur Relative. Sensibilité de l'entrée tactile (valeurs plus élevées = plus sensibles).</value>
   </data>
   <data name="Notes">
     <value>Notes</value>
   </data>
   <data name="Note Color Palette">
-    <value>Note Color Palette</value>
+    <value>Palette couleur des notes</value>
   </data>
   <data name="Changes the colors of the notes. Some colors extracted from Sound Space Plus (Rhythia)">
-    <value>Changes the colors of the notes. Some colors extracted from Sound Space Plus (Rhythia)</value>
+    <value>Change la couleur des notes. Certaines couleurs sont extraites de Sound Space Plus (Rhythia)</value>
   </data>
   <data name="Note Thickness">
-    <value>Note Thickness</value>
+    <value>Épaisseur des notes</value>
   </data>
   <data name="Thickness of the notes' borders">
-    <value>Thickness of the notes' borders</value>
+    <value>Épaisseur des bordures des notes</value>
   </data>
   <data name="Note Corner Radius">
-    <value>Note Corner Radius</value>
+    <value>Rayon des coins des notes</value>
   </data>
   <data name="Roundness of the notes' corners">
-    <value>Roundness of the notes' corners</value>
+    <value>Arrondi des coins des notes</value>
   </data>
   <data name="Note Opacity">
-    <value>Note Opacity</value>
+    <value>Opacité des notes</value>
   </data>
   <data name="How opaque/transparent/visible the note appears">
-    <value>How opaque/transparent/visible the note appears</value>
+    <value>À quel point opaque/transparente/visible les note apparaît</value>
   </data>
   <data name="Note Scale">
-    <value>Note Scale</value>
+    <value>Taille des notes</value>
   </data>
   <data name="The visual size of the notes (doesn't affect hitboxes)">
-    <value>The visual size of the notes (doesn't affect hitboxes)</value>
+    <value>La taille visuelle des notes (N'affecte pas les hitbox)</value>
   </data>
   <data name="Note Glow">
-    <value>Note Glow</value>
+    <value>Lueur des notes</value>
   </data>
   <data name="Enables a glow effect on notes. Best used with 100% background dim and light note colors.">
-    <value>Enables a glow effect on notes. Best used with 100% background dim and light note colors.</value>
+    <value>Active un effet de lueur sur les notes. Rends mieux sur un fond 100% sombre et des couleurs de notes claires.</value>
   </data>
   <data name="Glow Strength">
-    <value>Glow Strength</value>
+    <value>Force de la lueur</value>
   </data>
   <data name="Strength of the glow effect on notes">
-    <value>Strength of the glow effect on notes</value>
+    <value>Force de la lueur sur les notes</value>
   </data>
   <data name="Gameplay">
     <value>Gameplay</value>
   </data>
   <data name="Approach Rate">
-    <value>Approach Rate</value>
+    <value>Vitesse d'approche</value>
   </data>
   <data name="The speed that note move toward the grid (m/s)">
-    <value>The speed that note move toward the grid (m/s)</value>
+    <value>La vitesse à laquelle les notes se déplace sur la grille (m/s)</value>
   </data>
   <data name="Spawn Distance">
-    <value>Spawn Distance</value>
+    <value>Distance d'apparition</value>
   </data>
   <data name="Distance from the grid that note spawn (m)">
-    <value>Distance from the grid that note spawn (m)</value>
+    <value>Distance d'apparition par rapport à la grille (m)</value>
   </data>
   <data name="Fade Length">
-    <value>Fade Length</value>
+    <value>Durée du fondu</value>
   </data>
   <data name="Percentage of the spawn distance that notes take to fade from invisible to fully opaque">
-    <value>Percentage of the spawn distance that notes take to fade from invisible to fully opaque</value>
+    <value>Pourcentage de la distance d'apparition que prennent les notes pour s'estomper d'invisible à totalement opaque</value>
   </data>
   <data name="Do not push back">
-    <value>Do not push back</value>
+    <value>Ne pas repousser</value>
   </data>
   <data name="While enabled, notes will go past the grid when you miss, instead of always vanishing 0.2 units past the grid">
-    <value>While enabled, notes will go past the grid when you miss, instead of always vanishing 0.2 units past the grid</value>
+    <value>Lorsque cette option est activée, les notes dépasseront de la grille si vous ratez une note, au lieu de toujours disparaître de 0.2 unité au-delà de la grille</value>
   </data>
   <data name="Half ghost">
-    <value>Half ghost</value>
+    <value>Semi-fantôme</value>
   </data>
   <data name="Useful for patterns that fill the whole screen">
-    <value>Useful for patterns that fill the whole screen</value>
+    <value>Utile pour les paternes remplissant tout l'écran</value>
   </data>
   <data name="Parallax Strength">
-    <value>Parallax Strength</value>
+    <value>Force de la parallaxe</value>
   </data>
   <data name="Strength of the parallax effect on the playfield (higher values = stronger effect, 0 = disable)">
-    <value>Strength of the parallax effect on the playfield (higher values = stronger effect, 0 = disable)</value>
+    <value>Force de l'effet de parallaxe sur la zone de jeu (valeurs plus élevées = effet plus fort, 0 = désactivation)</value>
   </data>
   <data name="Hit Window">
-    <value>Hit Window</value>
+    <value>Fenêtre de tir</value>
   </data>
   <data name="The length of time notes can be hit after reaching the grid (default 25ms, rhythia def 55ms)">
-    <value>The length of time notes can be hit after reaching the grid (default 25ms, rhythia def 55ms)</value>
+    <value>Durée pendant laquelle les notes peuvent être touchées après avoir atteint la grille (par défaut : 25 ms, dans Rhythia : 55 ms)</value>
   </data>
   <data name="Checking...">
-    <value>Checking...</value>
+    <value>Vérification...</value>
   </data>
   <data name="You are running the latest version of osu!space!">
-    <value>You are running the latest version of osu!space!</value>
+    <value>Vous utilisez la dernière version de osu!space!</value>
   </data>
   <data name="Failed to check for updates. Please check your internet connection.">
-    <value>Failed to check for updates. Please check your internet connection.</value>
+    <value>Impossible de vérifier les mises à jour. Veuillez vérifier votre connexion Internet.</value>
   </data>
   <data name="Failed to check for updates.">
-    <value>Failed to check for updates.</value>
+    <value>Échec de la vérification des mises à jour.</value>
   </data>
   <data name="All osu!space beatmaps added to deletion queue.">
-    <value>All osu!space beatmaps added to deletion queue.</value>
+    <value>Toutes les beatmaps osu!space ont été ajoutées à la file d'attente de suppression.</value>
   </data>
   <data name="New version of osu!space are available!">
-    <value>New version of osu!space are available!</value>
+    <value>Une nouvelle version de osu!space est disponible!</value>
   </data>
   <data name="Your current version is {0} and the latest version is {1}. Do you want to download it or visit the release page of this version?">
-    <value>Your current version is {0} and the latest version is {1}. Do you want to download it or visit the release page of this version?</value>
+    <value>Votre version actuelle est {0} et la dernière version est {1}. Voulez-vous le télécharger ou visiter la page de publication de cette version?</value>
   </data>
   <data name="View Release">
-    <value>View Release</value>
+    <value>Voir la version</value>
   </data>
   <data name="Download">
-    <value>Download</value>
+    <value>Télécharger</value>
   </data>
   <data name="Cancel">
-    <value>Cancel</value>
+    <value>Annuler</value>
   </data>
   <data name="Delete all osu!space beatmaps?">
-    <value>Delete all osu!space beatmaps?</value>
+    <value>Supprimer toutes les beatmaps osu!space?</value>
   </data>
   <data name="Are you sure you want to delete all osu!space beatmaps? This action cannot be undone.">
-    <value>Are you sure you want to delete all osu!space beatmaps? This action cannot be undone.</value>
+    <value>Êtes-vous sûr de vouloir supprimer toutes les beatmaps de osu!space? Cette action ne peut pas être annulée.</value>
   </data>
   <data name="Delete All Beatmaps">
-    <value>Delete All Beatmaps</value>
+    <value>Supprimer toutes les beatmaps</value>
   </data>
   <data name="Lemme think again...">
-    <value>Lemme think again...</value>
+    <value>Laisse-moi réfléchir...</value>
   </data>
   <data name="Please select a folder containing .sspm files">
-    <value>Please select a folder containing .sspm files</value>
+    <value>Veuillez sélectionner un dossier contenant des fichiers .sspm</value>
   </data>
   <data name="Import">
-    <value>Import</value>
+    <value>Importer</value>
   </data>
   <data name="Try to locate the Rhythia (SSP) folder">
-    <value>Try to locate the Rhythia (SSP) folder</value>
+    <value>Essayez de localiser le dossier de Rhythia (SSP)</value>
   </data>
   <data name="Please select a beatmap file to import:">
-    <value>Please select a beatmap file to import:</value>
+    <value>Veuillez sélectionner un fichier de beatmap à importer :</value>
   </data>
   <data name="Please select where to save this beatmap:">
-    <value>Please select where to save this beatmap:</value>
+    <value>Veuillez sélectionner où sauvegarder cette beatmap:</value>
   </data>
   <data name="File name">
-    <value>File name</value>
+    <value>Nom du fichier</value>
   </data>
   <data name="Save">
-    <value>Save</value>
+    <value>Sauvegarder</value>
   </data>
   <data name="Save directly (NOT RECOMMENDED)">
-    <value>Save directly (NOT RECOMMENDED)</value>
+    <value>Sauvegarder directement (PAS RECOMMANDE)</value>
   </data>
   <data name="Hold to exit">
-    <value>Hold to exit</value>
+    <value>Maintenez pour quitter</value>
   </data>
   <data name="Where's the cursor?">
-    <value>Where's the cursor?</value>
+    <value>Où est le curseur?</value>
   </data>
   <data name="No objects selected">
-    <value>No objects selected</value>
+    <value>Aucun objet sélectionné.</value>
   </data>
   <data name="Selected object is not a Space hit object">
-    <value>Selected object is not a Space hit object</value>
+    <value>L'objet sélectionné n'est pas un objet cible Space</value>
   </data>
   <data name="Time">
-    <value>Time</value>
+    <value>Temps</value>
   </data>
   <data name="Position">
     <value>Position</value>
@@ -229,69 +229,69 @@
     <value>Index</value>
   </data>
   <data name="Selected Objects">
-    <value>Selected Objects</value>
+    <value>Objets Sélectionnés</value>
   </data>
   <data name="Start Time">
-    <value>Start Time</value>
+    <value>Temps de Début</value>
   </data>
   <data name="End Time">
-    <value>End Time</value>
+    <value>Temps de Fin</value>
   </data>
   <data name="No Sound Space Plus maps folder was detected, or no .sspm files were found inside that. Please select the folder manually.">
-    <value>No Sound Space Plus maps folder was detected, or no .sspm files were found inside that. Please select the folder manually.</value>
+    <value>Aucun dossier de maps Sound Space Plus n'a été détecté, ou aucun fichier .sspm n'a été trouvé à l'intérieur. Veuillez sélectionner le dossier manuellement.</value>
   </data>
   <data name="No .sspm files found in the selected directory. Please select a different folder.">
-    <value>No .sspm files found in the selected directory. Please select a different folder.</value>
+    <value>Aucun fichier .sspm trouvé dans le répertoire sélectionné. Veuillez sélectionner un dossier différent.</value>
   </data>
   <data name="Importing Sound Space Plus map files...">
-    <value>Importing Sound Space Plus map files...</value>
+    <value>Importation des fichiers de map Sound Space Plus...</value>
   </data>
   <data name="Import Sound Space Plus map complete!">
-    <value>Import Sound Space Plus map complete!</value>
+    <value>Importation de map Sound Space Plus terminée!</value>
   </data>
   <data name="No .sspm files found to import.">
-    <value>No .sspm files found to import.</value>
+    <value>Aucun fichier .sspm à importer trouvé.</value>
   </data>
   <data name="Importing Sound Space Plus map files ({0}/{1})...">
-    <value>Importing Sound Space Plus map files ({0}/{1})...</value>
+    <value>Importation des fichiers de map Sound Space Plus ({0}/{1})...</value>
   </data>
   <data name="An error occurred while importing .sspm files. Please try again.">
-    <value>An error occurred while importing .sspm files. Please try again.</value>
+    <value>Une erreur s'est produite lors de l'importation des fichiers .sspm. Veuillez réessayer.</value>
   </data>
   <data name="Sound Space Plus maps folder detected">
-    <value>Sound Space Plus maps folder detected</value>
+    <value>Dossier de maps Sound Space Plus détecté</value>
   </data>
   <data name="We found a maps folder at:&#10;{0}&#10;Do you want to import from here?">
-    <value>We found a maps folder at:&#10;{0}&#10;Do you want to import from here?</value>
+    <value>Nous avons trouvé un dossier de maps à:&#10;{0}&#10;Voulez-vous importer d'ici ?</value>
   </data>
   <data name="Yes, import these maps">
-    <value>Yes, import these maps</value>
+    <value>Oui, importer ces maps</value>
   </data>
   <data name="No, I'll select manually">
-    <value>No, I'll select manually</value>
+    <value>Non, je vais sélectionner manuellement</value>
   </data>
   <data name="osu!space need you to restart the game">
-    <value>osu!space need you to restart the game</value>
+    <value>osu!space a besoin que vous redémarriez le jeu</value>
   </data>
   <data name="Since you have previously installed an earlier version of osu!space (below 2025.1214.0), and this update includes breaking changes. To use this feature, a game restart is required to apply the fixes. Please restart the game to ensure everything works correctly.">
-    <value>Since you have previously installed an earlier version of osu!space (below 2025.1214.0), and this update includes breaking changes. To use this feature, a game restart is required to apply the fixes. Please restart the game to ensure everything works correctly.</value>
+    <value>Puisque vous avez précédemment installé une version antérieure de osu!space (inférieure à 2025.1214.0), et que cette mise à jour inclut des changements cassés. Pour utiliser cette fonctionnalité, un redémarrage du jeu est nécessaire pour appliquer les correctifs. Veuillez redémarrer le jeu pour vous assurer que tout fonctionne correctement.</value>
   </data>
   <data name="Restart now (quit the game)">
-    <value>Restart now (quit the game)</value>
+    <value>Redémarrer maintenant (quitter le jeu)</value>
   </data>
   <data name="Later">
-    <value>Later</value>
+    <value>Plus tard</value>
   </data>
   <data name="Beatmap saved to {0}">
-    <value>Beatmap saved to {0}</value>
+    <value>Beatmap sauvegardée dans {0}</value>
   </data>
   <data name="Failed to save beatmap: {0}">
-    <value>Failed to save beatmap: {0}</value>
+    <value>Échec de la sauvegarde de la beatmap : {0}</value>
   </data>
   <data name="Beatmap was saved directly to local database.">
-    <value>Beatmap was saved directly to local database.</value>
+    <value>La beatmap a été enregistrée directement dans la base de données locale.</value>
   </data>
   <data name="Direct save failed: {0}">
-    <value>Direct save failed: {0}</value>
+    <value>Échec de la sauvegarde directe : {0}</value>
   </data>
 </root>
