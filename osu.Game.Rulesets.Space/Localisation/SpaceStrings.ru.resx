@@ -19,7 +19,7 @@
     <value>Проверить обновления</value>
   </data>
   <data name="Import Sound Space Plus map (.sspm) (WIP)">
-    <value>Импортировать карту Sound Space Plus (.sspm) (в разработке)</value>
+    <value>Импортировать карты Sound Space Plus (.sspm) (в разработке)</value>
   </data>
   <data name="Delete all osu!space beatmaps">
     <value>Удалить все карты osu!space</value>
@@ -43,7 +43,7 @@
     <value>Режим сенсорного ввода</value>
   </data>
   <data name="Only for touch devices. Relative: Touch input moves the cursor relative to its current position. Absolute: Touch input sets the cursor position directly to the touched position.">
-    <value>Затрагивает только сенсорные устройства. Относительный: Сенсорный ввод двигает курсор относитльно его текущего положения. Абсолютный: Сенсорный ввод устанавливает курсор непосредственно в место нажатия.</value>
+    <value>Затрагивает только сенсорные устройства. Относительный: Сенсорный ввод двигает курсор относительно его текущего положения. Абсолютный: Сенсорный ввод устанавливает курсор непосредственно в место нажатия.</value>
   </data>
   <data name="Touch Sensitivity">
     <value>Чувствительность сенсора</value>
@@ -70,13 +70,13 @@
     <value>Радиус скругления углов</value>
   </data>
   <data name="Roundness of the notes' corners">
-    <value>Насколько сильно скрулены углы нот</value>
+    <value>Насколько сильно скруглены углы нот</value>
   </data>
   <data name="Note Opacity">
     <value>Непрозрачность нот</value>
   </data>
   <data name="How opaque/transparent/visible the note appears">
-    <value>Насколько яркие/прозрачные/видимые ноты на экране</value>
+    <value>Насколько ноты яркие/прозрачны/видимы на экране</value>
   </data>
   <data name="Note Scale">
     <value>Масштаб нот</value>
@@ -139,7 +139,7 @@
     <value>Окно попадания</value>
   </data>
   <data name="The length of time notes can be hit after reaching the grid (default 25ms, rhythia def 55ms)">
-    <value>The length of time notes can be hit after reaching the grid (default 25ms, rhythia def 55ms)</value>
+    <value>Время, в течение которого нужно попасть в ноту после сближения с сеткой (по умолчанию 25мс, в rhythia 55мс)</value>
   </data>
   <data name="Checking...">
     <value>Проверка...</value>
@@ -151,7 +151,7 @@
     <value>Не удалось проверить наличие обновлений. Пожалуйста, проверьте подключение к интернету.</value>
   </data>
   <data name="Failed to check for updates.">
-    <value>Не удалость проверить наличие обновлений.</value>
+    <value>Не удалось проверить наличие обновлений.</value>
   </data>
   <data name="All osu!space beatmaps added to deletion queue.">
     <value>Все карты osu!space были поставлены в очередь на удаление.</value>
@@ -160,10 +160,10 @@
     <value>Доступна новая версия osu!space!</value>
   </data>
   <data name="Your current version is {0} and the latest version is {1}. Do you want to download it or visit the release page of this version?">
-    <value>Ваша текущая версия {0}, последняя новейшая версия {1}. Хотите скачать её сейчас или открыть страницу этой версии?</value>
+    <value>Ваша текущая версия {0}, последняя новейшая версия {1}. Хотите скачать её сейчас или открыть страницу с изменениями в этой версии?</value>
   </data>
   <data name="View Release">
-    <value>Открыть</value>
+    <value>Открыть страницу</value>
   </data>
   <data name="Download">
     <value>Скачать</value>
@@ -193,10 +193,10 @@
     <value>Попытаться обнаружить папку Rhythia (SSP)</value>
   </data>
   <data name="Please select a beatmap file to import:">
-    <value>Please select a beatmap file to import:</value>
+    <value>Пожалуйста, выберите файл карты для импорта:</value>
   </data>
   <data name="Please select where to save this beatmap:">
-    <value>Please select where to save this beatmap:</value>
+    <value>Пожалуйста, выберите место, куда сохранить эту карту:</value>
   </data>
   <data name="File name">
     <value>Имя файла</value>
@@ -238,43 +238,43 @@
     <value>Конечный тайм-код</value>
   </data>
   <data name="No Sound Space Plus maps folder was detected, or no .sspm files were found inside that. Please select the folder manually.">
-    <value>No Sound Space Plus maps folder was detected, or no .sspm files were found inside that. Please select the folder manually.</value>
+    <value>Папка с картами Sound Space Plus не обнаружена, или в таковой не нашлось файлов .sspm. Пожалуйста, выберите папку вручную.</value>
   </data>
   <data name="No .sspm files found in the selected directory. Please select a different folder.">
-    <value>No .sspm files found in the selected directory. Please select a different folder.</value>
+    <value>Файлы .sspm в выбранной папке не найдены. Пожалуйста, выберите другую папку.</value>
   </data>
   <data name="Importing Sound Space Plus map files...">
-    <value>Importing Sound Space Plus map files...</value>
+    <value>Импорт файлов карт Sound Space Plus...</value>
   </data>
   <data name="Import Sound Space Plus map complete!">
-    <value>Import Sound Space Plus map complete!</value>
+    <value>Файлы карт Sound Space Plus успешно импортированы!</value>
   </data>
   <data name="No .sspm files found to import.">
-    <value>No .sspm files found to import.</value>
+    <value>Файлы .sspm для импорта не найдены.</value>
   </data>
   <data name="Importing Sound Space Plus map files ({0}/{1})...">
-    <value>Importing Sound Space Plus map files ({0}/{1})...</value>
+    <value>Импорт файлов карт Sound Space Plus ({0}/{1})...</value>
   </data>
   <data name="An error occurred while importing .sspm files. Please try again.">
-    <value>An error occurred while importing .sspm files. Please try again.</value>
+    <value>Произошла ошибка при импорте файлов .sspm. Пожалуйста, попробуйте ещё раз.</value>
   </data>
   <data name="Sound Space Plus maps folder detected">
-    <value>Sound Space Plus maps folder detected</value>
+    <value>Обнаружена папка с картами Sound Space Plus</value>
   </data>
   <data name="We found a maps folder at:&#10;{0}&#10;Do you want to import from here?">
-    <value>We found a maps folder at:&#10;{0}&#10;Do you want to import from here?</value>
+    <value>Мы нашли папку с картами:&#10;{0}&#10;Вы хотите импортировать их отсюда?</value>
   </data>
   <data name="Yes, import these maps">
-    <value>Yes, import these maps</value>
+    <value>Да, импортировать эти карты</value>
   </data>
   <data name="No, I'll select manually">
-    <value>No, I'll select manually</value>
+    <value>Нет, я выберу другую папку</value>
   </data>
   <data name="osu!space need you to restart the game">
-    <value>osu!space need you to restart the game</value>
+    <value>osu!space требует перезапустить игру</value>
   </data>
   <data name="Since you have previously installed an earlier version of osu!space (below 2025.1214.0), and this update includes breaking changes. To use this feature, a game restart is required to apply the fixes. Please restart the game to ensure everything works correctly.">
-    <value>Since you have previously installed an earlier version of osu!space (below 2025.1214.0), and this update includes breaking changes. To use this feature, a game restart is required to apply the fixes. Please restart the game to ensure everything works correctly.</value>
+    <value>Это обновление содержит несовместимые изменения с установленной вами в прошлом более ранней версии osu!space (старше 2025.1214.0). Для использования этой функции необходимо перезапустить игру, чтобы применить исправления. Пожалуйста, перезапустите игру, чтобы всё работало правильно.</value>
   </data>
   <data name="Restart now (quit the game)">
     <value>Перезапустить сейчас (выйти из игры)</value>
@@ -283,7 +283,7 @@
     <value>Позже</value>
   </data>
   <data name="Beatmap saved to {0}">
-    <value>Карта сохранена как {0}</value>
+    <value>Карта сохранена в файл {0}</value>
   </data>
   <data name="Failed to save beatmap: {0}">
     <value>Не удалось сохранить карту: {0}</value>
@@ -292,6 +292,6 @@
     <value>Карта сохранена напрямую в локальное хранилище.</value>
   </data>
   <data name="Direct save failed: {0}">
-    <value>Не удалось сохранить кврту напрямую: {0}</value>
+    <value>Не удалось сохранить карту напрямую: {0}</value>
   </data>
 </root>
