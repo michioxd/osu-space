@@ -4,6 +4,7 @@
 #nullable disable
 
 using System;
+using System.Linq;
 using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
@@ -27,6 +28,11 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
 
         [Resolved]
         private SpacePlayfield playfield { get; set; }
+
+        [Resolved]
+        private DrawableSpaceRuleset ruleset { get; set; }
+
+        private Vector2? lastMousePosition;
 
         protected override Drawable CreateCursor() => new SpaceCursor();
 
@@ -109,10 +115,29 @@ namespace osu.Game.Rulesets.Space.UI.Cursor
 
         protected override bool OnMouseMove(MouseMoveEvent e)
         {
+            Vector2 position = ActiveCursor.Position;
             base.OnMouseMove(e);
             if (ActiveCursor != null)
             {
+                bool absoluteInput =
+                    ruleset.HasReplayLoaded.Value || e.CurrentState.Touch.ActiveSources.Any();
+
+                if (absoluteInput)
+                {
+                    lastMousePosition = null;
+                }
+                else if (lastMousePosition.HasValue)
+                {
+                    float scale =
+                        playfield.contentContainer.DrawSize.X
+                        / Math.Min(playfield.DrawSize.X, playfield.DrawSize.Y);
+                    ActiveCursor.Position =
+                        position + (e.MousePosition - lastMousePosition.Value) * scale;
+                }
+
                 clampCursorToPlayfield();
+                if (!absoluteInput)
+                    lastMousePosition = e.MousePosition;
 
                 if (cursorTrail.Drawable is CursorTrail trail)
                     trail.HandlePosition(ActiveCursor.ScreenSpaceDrawQuad.Centre);
