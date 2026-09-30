@@ -2,6 +2,7 @@
 using osu.Game.Beatmaps.ControlPoints;
 using osu.Game.Rulesets.Judgements;
 using osu.Game.Rulesets.Objects;
+using osu.Game.Rulesets.Scoring;
 using osuTK;
 
 namespace osu.Game.Rulesets.Space.Objects
@@ -27,6 +28,8 @@ namespace osu.Game.Rulesets.Space.Objects
         }
 
         public override Judgement CreateJudgement() => new Judgement();
+
+        protected override HitWindows CreateHitWindows() => HitWindows.Empty;
 
         public Vector2 Position
         {
