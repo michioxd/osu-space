@@ -180,9 +180,8 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             if (lastBaseSize <= 0)
                 return;
 
-            float unit = lastBaseSize * inv3;
-            content.BorderThickness = unit / (10f - noteThickness.Value);
-            content.CornerRadius = unit / (10f - noteCornerRadius.Value);
+            content.BorderThickness = lastBaseSize * noteThickness.Value / 2f;
+            content.CornerRadius = lastBaseSize * noteCornerRadius.Value / 2f;
             updateGlowCornerRadius();
         }
 

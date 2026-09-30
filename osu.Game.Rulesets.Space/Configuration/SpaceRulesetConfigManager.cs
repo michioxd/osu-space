@@ -30,8 +30,8 @@ namespace osu.Game.Rulesets.Space.Configuration
             SetDefault(SpaceRulesetSetting.fadeLength, 0.5f, 0f, 1f, 0.01f);
             SetDefault(SpaceRulesetSetting.doNotPushBack, true);
             SetDefault(SpaceRulesetSetting.halfGhost, false);
-            SetDefault(SpaceRulesetSetting.NoteThickness, 8f, 0.5f, 10f, 0.1f);
-            SetDefault(SpaceRulesetSetting.NoteCornerRadius, 8f, 0.5f, 9f, 0.1f);
+            SetDefault(SpaceRulesetSetting.NoteThickness, 0.33f, 0.1f, 1f, 0.01f);
+            SetDefault(SpaceRulesetSetting.NoteCornerRadius, 0.33f, 0f, 1f, 0.01f);
             SetDefault(SpaceRulesetSetting.Palette, SpacePalette.White);
             SetDefault(SpaceRulesetSetting.Parallax, 2f, 0.0f, 20f, 0.1f);
             SetDefault(SpaceRulesetSetting.ScalePlayfield, 0.6f, 0.2f, 0.95f, 0.05f);

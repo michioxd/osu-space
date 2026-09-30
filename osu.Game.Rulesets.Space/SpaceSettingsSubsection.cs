@@ -217,7 +217,8 @@ namespace osu.Game.Rulesets.Space
                         Caption = SpaceStrings.Get("Note Thickness"),
                         HintText = SpaceStrings.Get("Thickness of the notes' borders"),
                         Current = config.GetBindable<float>(SpaceRulesetSetting.NoteThickness),
-                        KeyboardStep = 0.5f,
+                        KeyboardStep = 0.01f,
+                        DisplayAsPercentage = true,
                     }
                 ),
                 new SettingsItemV2(
@@ -226,7 +227,8 @@ namespace osu.Game.Rulesets.Space
                         Caption = SpaceStrings.Get("Note Corner Radius"),
                         HintText = SpaceStrings.Get("Roundness of the notes' corners"),
                         Current = config.GetBindable<float>(SpaceRulesetSetting.NoteCornerRadius),
-                        KeyboardStep = 0.5f,
+                        KeyboardStep = 0.01f,
+                        DisplayAsPercentage = true,
                     }
                 ),
                 new SettingsItemV2(
