@@ -46,7 +46,7 @@
   <data name="Parallax Strength"><value>Parallax Strength</value></data>
   <data name="Strength of the parallax effect on the playfield (higher values = stronger effect, 0 = disable)"><value>Strength of the parallax effect on the playfield (higher values = stronger effect, 0 = disable)</value></data>
   <data name="Hit Window"><value>Hit Window</value></data>
-  <data name="The length of time notes can be hit after reaching the grid (default 25ms, rhythia def 55ms)"><value>The length of time notes can be hit after reaching the grid (default 25ms, rhythia def 55ms)</value></data>
+  <data name="The length of time notes can be hit after reaching the grid (Rhythia default: 55ms)"><value>The length of time notes can be hit after reaching the grid (Rhythia default: 55ms)</value></data>
   <data name="Checking..."><value>Checking...</value></data>
   <data name="You are running the latest version of osu!space!"><value>You are running the latest version of osu!space!</value></data>
   <data name="Failed to check for updates. Please check your internet connection."><value>Failed to check for updates. Please check your internet connection.</value></data>

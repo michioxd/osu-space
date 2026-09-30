@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Extensions.Color4Extensions;
-using osu.Framework.Extensions.PolygonExtensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
-using osu.Framework.Graphics.Primitives;
 using osu.Framework.Graphics.Shapes;
 using osu.Game.Audio;
 using osu.Game.Rulesets.Objects.Drawables;
@@ -44,10 +42,6 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
         private float cachedTargetRelY;
         private float cachedOffsetX;
         private float cachedOffsetY;
-        private float cachedCellLeft;
-        private float cachedCellTop;
-        private float cachedCellRight;
-        private float cachedCellBottom;
         private float cachedNoteOpacity;
         private float cachedNoteScale;
         private float cachedAr;
@@ -83,6 +77,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             base.OnApply();
 
             cacheHitObjectGeometry(HitObject);
+            HitObject.IsHitOk = false;
             lastBaseSize = 0;
             cachedPlayfield = null;
 
@@ -99,11 +94,6 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             cachedTargetRelY = (ho.oY + 0.5f) * inv3;
             cachedOffsetX = cachedTargetRelX - 0.5f;
             cachedOffsetY = cachedTargetRelY - 0.5f;
-
-            cachedCellLeft = ho.X - cell_size * 0.5f;
-            cachedCellTop = ho.Y - cell_size * 0.5f;
-            cachedCellRight = cachedCellLeft + cell_size;
-            cachedCellBottom = cachedCellTop + cell_size;
         }
 
         [Resolved]
@@ -270,7 +260,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             }
 
             double timeRemaining = HitObject.StartTime - Time.Current;
-            float currentDist = cachedAr * (float)((timeRemaining + cachedHitWindow) / 1000.0);
+            float currentDist = cachedAr * (float)(timeRemaining / 1000.0);
 
             if (!Judged && currentDist > cachedSpawnDist)
             {
@@ -278,7 +268,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
                 return;
             }
 
-            if (!cachedDoNotPushBack && currentDist < -0.2f)
+            if (cachedDoNotPushBack && timeRemaining <= 0)
             {
                 Alpha = 0;
                 return;
@@ -304,13 +294,13 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             RelativePositionAxes = Axes.Both;
 
             float alpha = 1f;
-            float fadeInEnd = cachedSpawnDist - cachedFadeLen * cachedAr;
+            float fadeInEnd = cachedSpawnDist * (1 - cachedFadeLen);
 
             if (currentDist > fadeInEnd)
             {
                 float range = cachedSpawnDist - fadeInEnd;
                 float fadeProgress = (cachedSpawnDist - currentDist) / range;
-                alpha = MathF.Pow(Math.Clamp(fadeProgress, 0f, 1f), 1.3f);
+                alpha = Math.Clamp(fadeProgress, 0f, 1f);
             }
 
             if (cachedHalfGhost)
@@ -349,14 +339,14 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             if (Judged)
                 return;
 
-            if (!HitObject.HitWindows.CanBeHit(timeOffset) || timeOffset > cachedHitWindow)
+            if (timeOffset > cachedHitWindow)
             {
                 HitObject.IsHitOk = false;
                 ApplyMinResult();
                 return;
             }
 
-            if (timeOffset < -cachedHitWindow || timeOffset > cachedHitWindow)
+            if (timeOffset < 0)
                 return;
 
             HitObject.IsHitOk = false;
@@ -366,20 +356,15 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             if (cursor == null)
                 return;
 
-            Vector2 tl = cachedPlayfield.GamefieldToScreenSpace(
-                new Vector2(cachedCellLeft, cachedCellTop)
+            Vector2 cursorPosition = cachedPlayfield.ScreenSpaceToGamefield(
+                cursor.ScreenSpaceDrawQuad.Centre
             );
-            Vector2 tr = cachedPlayfield.GamefieldToScreenSpace(
-                new Vector2(cachedCellRight, cachedCellTop)
-            );
-            Vector2 bl = cachedPlayfield.GamefieldToScreenSpace(
-                new Vector2(cachedCellLeft, cachedCellBottom)
-            );
-            Vector2 br = cachedPlayfield.GamefieldToScreenSpace(
-                new Vector2(cachedCellRight, cachedCellBottom)
-            );
+            const float hit_box_size = 0.07f;
 
-            if (new Quad(tl, tr, bl, br).Intersects(cursor.ScreenSpaceDrawQuad))
+            if (
+                Math.Abs(cursorPosition.X - HitObject.X) <= cell_size * (0.5f + hit_box_size)
+                && Math.Abs(cursorPosition.Y - HitObject.Y) <= cell_size * (0.5f + hit_box_size)
+            )
             {
                 ApplyMaxResult();
                 HitObject.IsHitOk = true;

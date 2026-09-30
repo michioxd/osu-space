@@ -9,6 +9,8 @@ namespace osu.Game.Rulesets.Space.Objects
     public class SpaceHitObject : HitObject
     {
         public bool IsHitOk { get; set; } = false;
+
+        public override double MaximumJudgementOffset => 120;
         public float X { get; set; }
         public float Y { get; set; }
 

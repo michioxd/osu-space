@@ -39,7 +39,7 @@ namespace osu.Game.Rulesets.Space.Configuration
             SetDefault(SpaceRulesetSetting.ShowCursorTrail, true);
             SetDefault(SpaceRulesetSetting.Glow, false);
             SetDefault(SpaceRulesetSetting.GlowStrength, 1.0f, 0.1f, 10f, 0.01f);
-            SetDefault(SpaceRulesetSetting.HitWindow, 25f, 0f, 120f, 1f);
+            SetDefault(SpaceRulesetSetting.HitWindow, 55f, 0f, 120f, 1f);
             SetDefault(SpaceRulesetSetting.TouchInputType, UI.SpaceTouchInputType.Relative);
             SetDefault(SpaceRulesetSetting.TouchSensitivity, 1f, 0.1f, 5f, 0.1f);
         }

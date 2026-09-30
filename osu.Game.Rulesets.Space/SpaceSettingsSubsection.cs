@@ -340,7 +340,7 @@ namespace osu.Game.Rulesets.Space
                     {
                         Caption = SpaceStrings.Get("Hit Window"),
                         HintText = SpaceStrings.Get(
-                            "The length of time notes can be hit after reaching the grid (default 25ms, rhythia def 55ms)"
+                            "The length of time notes can be hit after reaching the grid (Rhythia default: 55ms)"
                         ),
                         Current = config.GetBindable<float>(SpaceRulesetSetting.HitWindow),
                         KeyboardStep = 1f,
