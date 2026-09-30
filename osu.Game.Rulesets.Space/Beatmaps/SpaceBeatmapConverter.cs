@@ -176,7 +176,7 @@ namespace osu.Game.Rulesets.Space.Beatmaps
             {
                 Vector2 pathEnd = sliderPath.Path.PositionAt(1);
 
-                if (original is IHasRepeats repeatsObj && spanDuration.HasValue && repeatCount > 0)
+                if (original is IHasRepeats repeatsObj && spanDuration >= 75 && repeatCount > 0)
                 {
                     for (int i = 1; i <= repeatCount; i++)
                     {
