@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Extensions.Color4Extensions;
+using osu.Framework.Extensions.PolygonExtensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
+using osu.Framework.Graphics.Primitives;
 using osu.Framework.Graphics.Shapes;
 using osu.Game.Audio;
 using osu.Game.Rulesets.Objects.Drawables;
@@ -346,7 +348,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
                 return;
             }
 
-            if (timeOffset < 0)
+            if (timeOffset < -cachedHitWindow)
                 return;
 
             HitObject.IsHitOk = false;
@@ -356,15 +358,19 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             if (cursor == null)
                 return;
 
-            Vector2 cursorPosition = cachedPlayfield.ScreenSpaceToGamefield(
-                cursor.ScreenSpaceDrawQuad.Centre
-            );
-            const float hit_box_size = 0.07f;
+            float left = HitObject.X - cell_size / 2;
+            float top = HitObject.Y - cell_size / 2;
+            float right = left + cell_size;
+            float bottom = top + cell_size;
 
-            if (
-                Math.Abs(cursorPosition.X - HitObject.X) <= cell_size * (0.5f + hit_box_size)
-                && Math.Abs(cursorPosition.Y - HitObject.Y) <= cell_size * (0.5f + hit_box_size)
-            )
+            var noteQuad = new Quad(
+                cachedPlayfield.GamefieldToScreenSpace(new Vector2(left, top)),
+                cachedPlayfield.GamefieldToScreenSpace(new Vector2(right, top)),
+                cachedPlayfield.GamefieldToScreenSpace(new Vector2(left, bottom)),
+                cachedPlayfield.GamefieldToScreenSpace(new Vector2(right, bottom))
+            );
+
+            if (noteQuad.Intersects(cursor.ScreenSpaceDrawQuad))
             {
                 ApplyMaxResult();
                 HitObject.IsHitOk = true;
