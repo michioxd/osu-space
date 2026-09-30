@@ -69,6 +69,13 @@ namespace osu.Game.Rulesets.Space.UI
         {
             base.Update();
 
+            float borderScale = contentContainer.DrawSize.X / BASE_SIZE;
+            if (borderScale > 0)
+            {
+                playfieldBorder.Scale = new Vector2(borderScale);
+                playfieldBorder.Size = new Vector2(1 / borderScale);
+            }
+
             if (Cursor?.ActiveCursor != null)
             {
                 Cursor.ActiveCursor.Position = ClampCursorPosition(Cursor.ActiveCursor.Position);

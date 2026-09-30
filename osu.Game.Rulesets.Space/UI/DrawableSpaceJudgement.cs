@@ -1,5 +1,6 @@
 #nullable enable
 
+using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Game.Rulesets.Judgements;
 using osu.Game.Rulesets.Objects.Drawables;
@@ -11,15 +12,18 @@ namespace osu.Game.Rulesets.Space.UI
 {
     public partial class DrawableSpaceJudgement : DrawableJudgement
     {
+        [Resolved]
+        private SpacePlayfield playfield { get; set; } = null!;
+
         private Vector2? screenSpacePosition;
 
         public override void Apply(JudgementResult result, DrawableHitObject? judgedObject)
         {
             base.Apply(result, judgedObject);
 
-            if (judgedObject?.HitObject is SpaceHitObject)
+            if (judgedObject?.HitObject is SpaceHitObject hitObject)
             {
-                screenSpacePosition = judgedObject.ToScreenSpace(judgedObject.OriginPosition);
+                screenSpacePosition = playfield.GamefieldToScreenSpace(hitObject.Position);
             }
             else
             {
