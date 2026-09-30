@@ -50,15 +50,6 @@ Visit the [Releases](https://github.com/michioxd/osu-space/releases) page to dow
     - macOS: `~/Library/Application Support/osu/rulesets`.
 3. Restart osu!(lazer) if it was running.
 
-## Todos
-
-- [x] Basic converter from osu!standard
-- [x] Basic gameplay
-- [x] SSPM v1/v2 converter/importer
-- [ ] Note speed change event
-- [x] Quantum note
-- [x] Editor
-
 ## A Note About the Editor
 
 Everything fine now but the editor is currently unable to save maps using the official method (you can export to `.osu` file or use my 'hack' to save your difficulty directly (NOT RECOMMENDED but functional) by press `Ctrl+S`). Since osu! did not implemented the API for custom rulesets to save maps, I had to find a workaround to save maps in the editor.
