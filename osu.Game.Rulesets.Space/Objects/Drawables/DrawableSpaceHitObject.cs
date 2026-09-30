@@ -8,6 +8,7 @@ using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Primitives;
 using osu.Framework.Graphics.Shapes;
+using osu.Framework.Graphics.Sprites;
 using osu.Game.Audio;
 using osu.Game.Rulesets.Objects.Drawables;
 using osu.Game.Rulesets.Space.Configuration;
@@ -21,6 +22,8 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
     public partial class DrawableSpaceHitObject : DrawableHitObject<SpaceHitObject>
     {
         private Container content;
+        private SkinnableDrawable skinnedHitCircle;
+        private SkinnableSpriteText skinnedHitCircleText;
         private NoteGlowPiece glowPiece;
         private PausableSkinnableSound hitSound;
 
@@ -34,6 +37,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
         private readonly Bindable<float> noteThickness = new();
         private readonly Bindable<float> noteCornerRadius = new();
         private readonly Bindable<SpacePalette> palette = new();
+        private readonly Bindable<bool> useSkinHitCircle = new();
         private readonly Bindable<float> scalePlayfield = new();
         private readonly Bindable<bool> glow = new();
         private readonly Bindable<float> glowStrength = new();
@@ -87,6 +91,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             {
                 updateColor();
                 updateGlow();
+                skinnedHitCircleText.Text = "1"; //tmp workaround lol
             }
         }
 
@@ -114,6 +119,7 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             config?.BindWith(SpaceRulesetSetting.NoteThickness, noteThickness);
             config?.BindWith(SpaceRulesetSetting.NoteCornerRadius, noteCornerRadius);
             config?.BindWith(SpaceRulesetSetting.Palette, palette);
+            config?.BindWith(SpaceRulesetSetting.UseSkinHitCircle, useSkinHitCircle);
             config?.BindWith(SpaceRulesetSetting.ScalePlayfield, scalePlayfield);
             config?.BindWith(SpaceRulesetSetting.Glow, glow);
             config?.BindWith(SpaceRulesetSetting.GlowStrength, glowStrength);
@@ -149,6 +155,26 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
                     },
                 }
             );
+
+            AddInternal(
+                skinnedHitCircle = new SkinnableDrawable(
+                    new SpaceSkinComponentLookup(SpaceSkinComponents.HitCircle),
+                    _ => new Container(),
+                    confineMode: ConfineMode.ScaleToFit
+                )
+                {
+                    Alpha = 0,
+                }
+            );
+
+            AddInternal(
+                skinnedHitCircleText = new SkinnableSpriteText(
+                    new SpaceSkinComponentLookup(SpaceSkinComponents.HitCircleText),
+                    _ => new SpriteText { Alpha = 0 }
+                )
+            );
+            // if (HitObject != null)
+            skinnedHitCircleText.Text = "1"; //HitObject.Index.ToString();
 
             palette.BindValueChanged(
                 _ =>
@@ -252,6 +278,11 @@ namespace osu.Game.Rulesets.Space.Objects.Drawables
             }
 
             float baseSize = cachedPlayfield.contentContainer.DrawSize.X * inv3;
+
+            bool showSkinned = useSkinHitCircle.Value && skinnedHitCircle.Drawable is Sprite;
+            content.Alpha = showSkinned ? 0 : 1;
+            skinnedHitCircle.Alpha = showSkinned ? 1 : 0;
+            skinnedHitCircleText.Alpha = showSkinned ? 1 : 0;
 
             if (Math.Abs(baseSize - lastBaseSize) > 0.01f)
             {

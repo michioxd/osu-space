@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
+using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
 using osu.Game.Rulesets.Osu.Skinning;
 using osu.Game.Rulesets.Scoring;
@@ -155,6 +156,22 @@ namespace osu.Game.Rulesets.Space.Skinning.Legacy
                 case SpaceSkinComponentLookup osuComponent:
                     switch (osuComponent.Component)
                     {
+                        case SpaceSkinComponents.HitCircle:
+                            if (GetTexture("hitcircle") != null)
+                                return new Sprite { Texture = GetTexture("hitcircle") };
+
+                            return null;
+
+                        case SpaceSkinComponents.HitCircleText:
+                            if (this.HasFont(LegacyFont.HitCircle))
+                                return new LegacySpriteText(LegacyFont.HitCircle)
+                                {
+                                    Scale = new Vector2(0.8f),
+                                    MaxSizePerGlyph = new Vector2(320),
+                                };
+
+                            return null;
+
                         case SpaceSkinComponents.Cursor:
                             if (GetTexture("cursor") != null)
                                 return new LegacyCursor(this);

@@ -33,6 +33,7 @@ namespace osu.Game.Rulesets.Space.Configuration
             SetDefault(SpaceRulesetSetting.NoteThickness, 0.33f, 0.1f, 1f, 0.01f);
             SetDefault(SpaceRulesetSetting.NoteCornerRadius, 0.33f, 0f, 1f, 0.01f);
             SetDefault(SpaceRulesetSetting.Palette, SpacePalette.White);
+            SetDefault(SpaceRulesetSetting.UseSkinHitCircle, false);
             SetDefault(SpaceRulesetSetting.Parallax, 2f, 0.0f, 20f, 0.1f);
             SetDefault(SpaceRulesetSetting.ScalePlayfield, 0.6f, 0.2f, 0.95f, 0.05f);
             SetDefault(SpaceRulesetSetting.GameplayCursorSize, 1.0f, 0.1f, 4f, 0.01f);
@@ -68,5 +69,6 @@ namespace osu.Game.Rulesets.Space.Configuration
         HitWindow,
         TouchInputType,
         TouchSensitivity,
+        UseSkinHitCircle,
     }
 }

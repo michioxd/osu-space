@@ -17,6 +17,8 @@
   <data name="Only for touch devices. Relative: Touch input moves the cursor relative to its current position. Absolute: Touch input sets the cursor position directly to the touched position."><value>Only for touch devices. Relative: Touch input moves the cursor relative to its current position. Absolute: Touch input sets the cursor position directly to the touched position.</value></data>
   <data name="Touch Sensitivity"><value>Touch Sensitivity</value></data>
   <data name="Only for touch devices and Touch Input Type is set to Relative. Sensitivity of touch input (higher values = more sensitive)."><value>Only for touch devices and Touch Input Type is set to Relative. Sensitivity of touch input (higher values = more sensitive).</value></data>
+  <data name="Use hit circle from selected skin as note"><value>Use hit circle from selected skin as note</value></data>
+  <data name="(Experimental) If enabled, the note will be replaced with the hit circle image from the selected skin. Otherwise, the original Rhythia note style will be used."><value>(Experimental) If enabled, the note will be replaced with the hit circle image from the selected skin. Otherwise, the original Rhythia note style will be used.</value></data>
   <data name="Notes"><value>Notes</value></data>
   <data name="Note Color Palette"><value>Note Color Palette</value></data>
   <data name="Changes the colors of the notes. Some colors extracted from Sound Space Plus (Rhythia)"><value>Changes the colors of the notes. Some colors extracted from Sound Space Plus (Rhythia)</value></data>

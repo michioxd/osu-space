@@ -79,6 +79,42 @@ namespace osu.Game.Rulesets.Space
         private void load()
         {
             var config = (SpaceRulesetConfigManager)Config;
+            var useSkinHitCircle = config.GetBindable<bool>(SpaceRulesetSetting.UseSkinHitCircle);
+            var touchInputType = config.GetBindable<SpaceTouchInputType>(
+                SpaceRulesetSetting.TouchInputType
+            );
+
+            var touchSensitivitySlider = new FormSliderBar<float>
+            {
+                Caption = SpaceStrings.Get("Touch Sensitivity"),
+                HintText = SpaceStrings.Get(
+                    "Only for touch devices and Touch Input Type is set to Relative. Sensitivity of touch input (higher values = more sensitive)."
+                ),
+                Current = config.GetBindable<float>(SpaceRulesetSetting.TouchSensitivity),
+                TransferValueOnCommit = true,
+                LabelFormat = v => $@"{v:0.##}x",
+                KeyboardStep = 0.1f,
+                TooltipFormat = v => $@"{v:0.##}x",
+            };
+            touchInputType.BindValueChanged(
+                e =>
+                    touchSensitivitySlider.Current.Disabled =
+                        e.NewValue != SpaceTouchInputType.Relative,
+                true
+            );
+
+            var paletteDropdown = new FormEnumDropdown<SpacePalette>
+            {
+                Caption = SpaceStrings.Get("Note Color Palette"),
+                HintText = SpaceStrings.Get(
+                    "Changes the colors of the notes. Some colors extracted from Sound Space Plus (Rhythia)"
+                ),
+                Current = config.GetBindable<SpacePalette>(SpaceRulesetSetting.Palette),
+            };
+            useSkinHitCircle.BindValueChanged(
+                e => paletteDropdown.Current.Disabled = e.NewValue,
+                true
+            );
 
             var header = new LinkFlowContainer(t => t.Font = OsuFont.GetFont(size: 14))
             {
@@ -180,36 +216,22 @@ namespace osu.Game.Rulesets.Space
                         HintText = SpaceStrings.Get(
                             "Only for touch devices. Relative: Touch input moves the cursor relative to its current position. Absolute: Touch input sets the cursor position directly to the touched position."
                         ),
-                        Current = config.GetBindable<SpaceTouchInputType>(
-                            SpaceRulesetSetting.TouchInputType
-                        ),
+                        Current = touchInputType,
                     }
                 ),
-                new SettingsItemV2(
-                    new FormSliderBar<float>
-                    {
-                        Caption = SpaceStrings.Get("Touch Sensitivity"),
-                        HintText = SpaceStrings.Get(
-                            "Only for touch devices and Touch Input Type is set to Relative. Sensitivity of touch input (higher values = more sensitive)."
-                        ),
-                        Current = config.GetBindable<float>(SpaceRulesetSetting.TouchSensitivity),
-                        TransferValueOnCommit = true,
-                        LabelFormat = v => $@"{v:0.##}x",
-                        KeyboardStep = 0.1f,
-                        TooltipFormat = v => $@"{v:0.##}x",
-                    }
-                ),
+                new SettingsItemV2(touchSensitivitySlider),
                 new CreateHeader(SpaceStrings.Get("Notes")),
                 new SettingsItemV2(
-                    new FormEnumDropdown<SpacePalette>
+                    new FormCheckBox
                     {
-                        Caption = SpaceStrings.Get("Note Color Palette"),
+                        Caption = SpaceStrings.Get("Use hit circle from selected skin as note"),
                         HintText = SpaceStrings.Get(
-                            "Changes the colors of the notes. Some colors extracted from Sound Space Plus (Rhythia)"
+                            "(Experimental) If enabled, the note will be replaced with the hit circle image from the selected skin. Otherwise, the original Rhythia note style will be used."
                         ),
-                        Current = config.GetBindable<SpacePalette>(SpaceRulesetSetting.Palette),
+                        Current = useSkinHitCircle,
                     }
                 ),
+                new SettingsItemV2(paletteDropdown),
                 new PalettePreview(config),
                 new SettingsItemV2(
                     new FormSliderBar<float>
