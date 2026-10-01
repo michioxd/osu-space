@@ -51,6 +51,12 @@
   <data name="Only for touch devices and Touch Input Type is set to Relative. Sensitivity of touch input (higher values = more sensitive).">
     <value>Seulement pour les appareils tactiles et le Type d'Entrée tactile est défini sur Relative. Sensibilité de l'entrée tactile (valeurs plus élevées = plus sensibles).</value>
   </data>
+  <data name="Use hit circle from selected skin as note">
+    <value>Use hit circle from selected skin as note</value>
+  </data>
+  <data name="(Experimental) If enabled, the note will be replaced with the hit circle image from the selected skin. Otherwise, the original Rhythia note style will be used.">
+    <value>(Experimental) If enabled, the note will be replaced with the hit circle image from the selected skin. Otherwise, the original Rhythia note style will be used.</value>
+  </data>
   <data name="Notes">
     <value>Notes</value>
   </data>
@@ -138,8 +144,8 @@
   <data name="Hit Window">
     <value>Fenêtre de tir</value>
   </data>
-  <data name="The length of time notes can be hit after reaching the grid (default 25ms, rhythia def 55ms)">
-    <value>Durée pendant laquelle les notes peuvent être touchées après avoir atteint la grille (par défaut : 25 ms, dans Rhythia : 55 ms)</value>
+  <data name="The length of time notes can be hit after reaching the grid (Rhythia default: 55ms)">
+    <value>The length of time notes can be hit after reaching the grid (Rhythia default: 55ms)</value>
   </data>
   <data name="Checking...">
     <value>Vérification...</value>
