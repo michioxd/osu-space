@@ -196,7 +196,7 @@
     <value>Importer</value>
   </data>
   <data name="Try to locate the Rhythia (SSP) folder">
-    <value>Essayez de localiser le dossier de Rhythia (SSP)</value>
+    <value>Essayer de localiser le dossier de Rhythia (SSP)</value>
   </data>
   <data name="Please select a beatmap file to import:">
     <value>Veuillez sélectionner un fichier de beatmap à importer :</value>
@@ -268,7 +268,7 @@
     <value>Dossier de maps Sound Space Plus détecté</value>
   </data>
   <data name="We found a maps folder at:&#10;{0}&#10;Do you want to import from here?">
-    <value>Nous avons trouvé un dossier de maps à:&#10;{0}&#10;Voulez-vous importer d'ici ?</value>
+    <value>Nous avons trouvé un dossier de maps dans:&#10;{0}&#10;Voulez-vous importer d'ici ?</value>
   </data>
   <data name="Yes, import these maps">
     <value>Oui, importer ces maps</value>
