@@ -19,7 +19,7 @@
     <value>Проверить обновления</value>
   </data>
   <data name="Import Sound Space Plus map (.sspm) (WIP)">
-    <value>Импортировать карты Sound Space Plus (.sspm) (в разработке)</value>
+    <value>Импортировать карты Sound Space Plus (.sspm) (WIP)</value>
   </data>
   <data name="Delete all osu!space beatmaps">
     <value>Удалить все карты osu!space</value>
@@ -52,7 +52,7 @@
     <value>Затрагивает только сенсорные устройства вместе с режимом сенсорного ввода в положении Относительный. Чувствительность сенсорного ввода (более высокие значения = выше чувствительность).</value>
   </data>
   <data name="Use hit circle from selected skin as note">
-    <value>Use hit circle from selected skin as note</value>
+    <value>Использовать ноты из текущего скина вместо стандартных</value>
   </data>
   <data name="(Experimental) If enabled, the note will be replaced with the hit circle image from the selected skin. Otherwise, the original Rhythia note style will be used.">
     <value>(Experimental) If enabled, the note will be replaced with the hit circle image from the selected skin. Otherwise, the original Rhythia note style will be used.</value>
@@ -145,7 +145,7 @@
     <value>Окно попадания</value>
   </data>
   <data name="The length of time notes can be hit after reaching the grid (Rhythia default: 55ms)">
-    <value>The length of time notes can be hit after reaching the grid (Rhythia default: 55ms)</value>
+    <value>Время, в течение которого нужно попасть в ноту после сближения с сеткой (по умолчанию в Rhythia: 55мс)</value>
   </data>
   <data name="Checking...">
     <value>Проверка...</value>
