@@ -52,10 +52,10 @@
     <value>Затрагивает только сенсорные устройства вместе с режимом сенсорного ввода в положении Относительный. Чувствительность сенсорного ввода (более высокие значения = выше чувствительность).</value>
   </data>
   <data name="Use hit circle from selected skin as note">
-    <value>Использовать ноты из текущего скина вместо стандартных</value>
+    <value>Использовать ноты из текущего скина</value>
   </data>
   <data name="(Experimental) If enabled, the note will be replaced with the hit circle image from the selected skin. Otherwise, the original Rhythia note style will be used.">
-    <value>(Experimental) If enabled, the note will be replaced with the hit circle image from the selected skin. Otherwise, the original Rhythia note style will be used.</value>
+    <value>(Эксперимент) Если включено, стандартные ноты будут заменены изображением элемента ноты из текущего скина. Иначе будет использоваться оригинальный вид нот Rhythia.</value>
   </data>
   <data name="Notes">
     <value>Ноты</value>
